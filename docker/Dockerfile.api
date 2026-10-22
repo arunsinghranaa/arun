@@ -1,0 +1,63 @@
+# ==============================================================================
+# Multi-Stage Dockerfile for Watchbloom Stateless Flask API Tier
+# ==============================================================================
+
+# ── STAGE 1: Build & Dependency Compilation ──
+FROM python:3.11-slim AS builder
+
+WORKDIR /build
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+
+# ── STAGE 2: Hardened Runtime ──
+FROM python:3.11-slim AS runner
+
+# Create non-root system user and group
+RUN groupadd -g 10001 watchbloom && \
+    useradd -u 10001 -g watchbloom -s /bin/bash -m watchbloom
+
+WORKDIR /app
+
+# Install minimal runtime libraries only (no compiler tools in production image)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy installed python packages from builder
+COPY --from=builder --chown=watchbloom:watchbloom /root/.local /home/watchbloom/.local
+
+# Ensure path includes user local bin
+ENV PATH=/home/watchbloom/.local/bin:$PATH
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Copy application source code
+COPY --chown=watchbloom:watchbloom . /app
+
+# Ensure media storage directories exist and are writable
+RUN mkdir -p /app/static/videos/hls /app/static/subtitles && \
+    chown -R watchbloom:watchbloom /app
+
+# Copy and configure entrypoint
+COPY --chown=watchbloom:watchbloom scripts/entrypoint-api.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+USER watchbloom
+
+EXPOSE 5000
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=15s --retries=3 \
+    CMD curl -f http://localhost:5000/healthz || exit 1
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["gunicorn", "-c", "gunicorn_conf.py", "app:app"]
+

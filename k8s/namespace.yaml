@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: watchbloom
+  labels:
+    app.kubernetes.io/name: watchbloom
+    app.kubernetes.io/part-of: watchbloom-platform
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+

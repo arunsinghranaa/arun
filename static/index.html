@@ -1,0 +1,1661 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111214">
+<meta name="description" content="Explore original videos and playlists with Watchbloom.">
+<link rel="icon" type="image/svg+xml" href="/watchbloom-mark.svg">
+<title>Watchbloom — find something worth watching</title>
+<style>
+:root{color-scheme:dark;--bg:#111214;--panel:#191a1d;--panel2:#222428;--panel3:#2b2d31;--ink:#f2f3f4;--muted:#a4a7ad;--line:#373a40;--accent:#c3a8ff;--accentInk:#251a3b;--lime:#e7c98f;--heroA:#252629;--heroB:#2b2c31;--shadow:0 20px 55px #0005}
+:root[data-theme=light]{color-scheme:light;--bg:#f6f4ee;--panel:#fffefa;--panel2:#f1f1e9;--panel3:#e6ebe2;--ink:#202a25;--muted:#626f67;--line:#d9e0d7;--accent:#7053bd;--accentInk:#fff;--lime:#e5c48a;--heroA:#dcebe2;--heroB:#e4e7ed;--shadow:0 18px 45px #23352b18}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}button{color:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.topbar{height:74px;position:sticky;top:0;z-index:20;display:grid;grid-template-columns:230px minmax(260px,680px) 1fr;align-items:center;gap:24px;padding:0 30px;background:color-mix(in srgb,var(--bg) 92%,transparent);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:9px;width:max-content;font-weight:820;letter-spacing:-.035em;font-size:18px;text-decoration:none;color:var(--ink);outline:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.brand:hover,.brand:active,.brand:focus{outline:none!important;box-shadow:none!important}.brand-mark{width:42px;height:42px;display:grid;place-items:center;background:transparent;color:var(--accentInk)}.brand-mark img{display:block;width:42px;height:42px;object-fit:contain}.brand-text{display:inline-flex;align-items:baseline;font-family:inherit;font-size:20px;font-weight:850;letter-spacing:-.04em;line-height:1;text-shadow:none!important;filter:none!important}.brand-watch{color:#ffffff!important;font-weight:850;text-shadow:none!important;filter:none!important}.brand-bloom{color:#fbbf24!important;font-weight:850;text-shadow:none!important;filter:none!important}:root[data-theme=light] .brand-watch{color:#24153f!important;text-shadow:none!important}:root[data-theme=light] .brand-bloom{color:#d97706!important;text-shadow:none!important}
+.search-wrap{position:relative}.search-form{height:46px;display:flex;align-items:center;gap:10px;padding:0 7px 0 15px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.search-form:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px #f28d6b24}.search-icon{width:19px;flex:none;color:var(--muted)}.search-form input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--ink)}.search-form input::placeholder{color:var(--muted)}.search-submit,.clear-search,.icon-button{display:grid;place-items:center;border:0;cursor:pointer}.search-submit{width:34px;height:34px;flex:none;border-radius:11px;background:var(--accent);color:var(--accentInk)}.search-submit svg{width:17px}.clear-search{width:30px;height:30px;border-radius:9px;background:transparent;color:var(--muted)}.clear-search[hidden]{display:none}.header-actions{display:flex;justify-content:flex-end;gap:12px;align-items:center}.icon-button{width:39px;height:39px;border-radius:12px;background:transparent;color:var(--muted)}.icon-button:hover,.clear-search:hover{background:var(--panel3);color:var(--ink)}.icon-button svg{width:19px}.avatar{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--lime);color:var(--bg);font-size:12px;font-weight:850}.menu-toggle{display:none}
+.suggestions{position:absolute;top:53px;left:0;right:0;z-index:30;margin:0;padding:6px;list-style:none;border:1px solid var(--line);border-radius:15px;background:var(--panel);box-shadow:var(--shadow)}.suggestions[hidden]{display:none}.suggestions li{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer}.suggestions li:hover,.suggestions li[aria-selected=true]{background:var(--panel3)}.suggestions small{color:var(--muted)}.app-shell{display:grid;grid-template-columns:230px minmax(0,1fr);max-width:1680px;margin:auto}.sidebar{position:sticky;top:74px;height:calc(100vh - 74px);overflow:auto;padding:23px 14px 24px 22px;border-right:1px solid var(--line)}.side-label{margin:19px 0 8px;padding:0 12px;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.nav-list,.topic-nav{display:grid;gap:4px}.nav-link{width:100%;display:flex;align-items:center;gap:12px;padding:11px 12px;text-align:left;border:0;border-radius:12px;background:transparent;color:var(--muted);cursor:pointer}.nav-link svg{width:19px;flex:none}.nav-link:hover,.topic-link:hover{background:var(--panel);color:var(--ink)}.nav-link.active{background:var(--panel3);color:var(--ink);font-weight:700}.nav-link.active .nav-icon{color:var(--accent)}.nav-count{margin-left:auto;color:var(--muted);font-size:12px}.topic-link{padding:8px 12px;border:0;border-radius:10px;text-align:left;background:transparent;color:var(--muted);cursor:pointer}.sidebar-note{margin:32px 8px 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--muted);font-size:12px}.sidebar-note strong{display:block;margin-bottom:4px;color:var(--ink);font-size:13px}
+.main{min-width:0;padding:28px clamp(20px,3.5vw,56px) 70px}.hero{position:relative;isolation:isolate;min-height:255px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(230px,.85fr);align-items:center;gap:18px;overflow:hidden;padding:32px 38px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(115deg,var(--heroA),var(--heroB));box-shadow:var(--shadow)}.hero:before,.hero:after{content:"";position:absolute;z-index:-1;border:1px solid #ffffff16;border-radius:50%}.hero:before{right:17%;top:-160px;width:410px;height:410px}.hero:after{right:-70px;bottom:-210px;width:430px;height:430px}.eyebrow{margin:0 0 10px;color:var(--accent);font-size:10px;font-weight:850;letter-spacing:.17em;text-transform:uppercase}.hero h1{max-width:560px;margin:0;font-size:clamp(36px,4.4vw,58px);line-height:1.02;letter-spacing:-.055em}.hero p:not(.eyebrow){max-width:510px;margin:14px 0 20px;color:color-mix(in srgb,var(--ink) 77%,transparent);font-size:14px}.hero-cta{display:inline-flex;align-items:center;gap:9px;padding:11px 15px;border:0;border-radius:11px;background:var(--accent);color:var(--accentInk);font-weight:800;cursor:pointer}.hero-cta svg{width:16px}.hero-art{position:relative;height:185px}.hero-orbit{position:absolute;right:44px;top:-9px;width:205px;height:205px;border:1px solid #ffffff40;border-radius:50%;transform:rotate(-25deg)}.hero-orbit:before,.hero-orbit:after{content:"";position:absolute;inset:20px;border:1px solid #ffffff2c;border-radius:50%;transform:rotate(55deg) scaleX(.6)}.hero-orbit:after{inset:45px;transform:rotate(-45deg) scaleX(1.2)}.sticker{position:absolute;display:grid;place-items:center;box-shadow:0 16px 36px #0003}.sticker-main{right:83px;top:24px;width:110px;height:110px;border-radius:30px;background:linear-gradient(145deg,#f28d6b,#dfbc85);color:#291713;font-size:34px;font-weight:900;transform:rotate(9deg)}.sticker-small{right:15px;bottom:10px;width:67px;height:67px;border-radius:22px;background:#9dc4bb;color:#172523;font-size:10px;font-weight:900;letter-spacing:.08em;text-align:center;transform:rotate(-11deg)}.sticker-dot{right:184px;bottom:4px;width:34px;height:34px;border-radius:50%;background:#d5e6a3}.topic-strip{display:flex;gap:8px;overflow:auto;padding:19px 1px 5px;scrollbar-width:thin}.topic-chip{flex:none;padding:8px 13px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--muted);font-size:12px;cursor:pointer;transition:.16s}.topic-chip:hover{border-color:var(--accent);color:var(--ink);transform:translateY(-1px)}.recent{display:none;align-items:center;gap:8px;flex-wrap:wrap;margin:5px 0 22px}.recent.visible{display:flex}.recent-label{color:var(--muted);font-size:12px}.recent-chip{padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);font-size:12px;cursor:pointer}.recent-clear{border:0;background:transparent;color:var(--muted);font-size:12px;text-decoration:underline;cursor:pointer}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin:26px 0 17px}.section-head h2{margin:0;font-size:clamp(23px,3vw,31px);line-height:1.15;letter-spacing:-.035em}.section-subtitle{margin:7px 0 0;color:var(--muted);font-size:13px}.catalog-size{color:var(--muted);font-size:12px;white-space:nowrap}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:15px}.view-tabs{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}.view-tab{padding:7px 12px;border:0;border-radius:8px;background:transparent;color:var(--muted);font-size:12px;cursor:pointer}.view-tab.active{background:var(--panel3);color:var(--ink);font-weight:750}.filters{display:flex;gap:8px;flex-wrap:wrap}.filters select{max-width:175px;padding:8px 29px 8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font-size:11px}.results-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 16px}
+.media-card{min-width:0}.cover-button{display:block;width:100%;padding:0;border:0;border-radius:15px;background:transparent;text-align:left;cursor:pointer}.cover{position:relative;isolation:isolate;aspect-ratio:16/9;display:flex;align-items:flex-end;overflow:hidden;padding:14px;border-radius:15px;box-shadow:inset 0 0 0 1px #ffffff18;transition:transform .2s,box-shadow .2s}.cover:before{content:"";position:absolute;z-index:-1;width:57%;aspect-ratio:1;right:-4%;top:-25%;border:1px solid #ffffff70;border-radius:46% 54% 48% 52%;transform:rotate(28deg);box-shadow:0 0 0 18px #ffffff0b,0 0 0 38px #ffffff08}.cover:after{content:"";position:absolute;z-index:-1;width:36%;aspect-ratio:1;right:18%;top:18%;border-radius:50%;background:#ffffff26}.cover-button:hover .cover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px #ffffff30,0 14px 28px #0003}.cover-word{max-width:75%;color:#fffffff2;font-size:clamp(22px,2.3vw,32px);font-weight:900;line-height:.95;letter-spacing:-.06em;text-shadow:0 2px 14px #0003}.cover-type{position:absolute;top:12px;left:13px;padding:5px 8px;border:1px solid #ffffff55;border-radius:8px;background:#11151930;color:white;font-size:9px;font-weight:850;letter-spacing:.12em;text-transform:uppercase;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}.cover-duration{position:absolute;right:10px;bottom:10px;padding:4px 7px;border-radius:7px;background:#0c1012b8;color:white;font-size:10px;font-weight:750}.art-saffron{background:linear-gradient(140deg,#bd773e,#efb667 52%,#573c32)}.art-aqua{background:linear-gradient(140deg,#276e74,#69b4a4 48%,#c3d5ad)}.art-violet{background:linear-gradient(140deg,#554484,#a48acb 50%,#edbd9b)}.art-coral{background:linear-gradient(140deg,#9c5147,#e18a70 50%,#eec887)}.art-mint{background:linear-gradient(140deg,#3d6e59,#8fba8d 50%,#dae0a4)}.art-plum{background:linear-gradient(140deg,#563458,#b46a8e 50%,#e8b38c)}.art-blue{background:linear-gradient(140deg,#284f77,#5d98be 50%,#cad8c7)}.art-night{background:linear-gradient(140deg,#1d3653,#536c84 53%,#d08573)}.card-copy{display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:9px;padding:11px 2px 0}.card-title{display:block;width:100%;padding:0;border:0;background:none;text-align:left;color:var(--ink);font-size:14px;font-weight:750;line-height:1.35;cursor:pointer}.card-title:hover{color:var(--accent)}.card-meta,.card-author{color:var(--muted);font-size:11px}.card-meta{margin:7px 0 0}.card-author{display:flex;align-items:center;gap:7px;margin-top:9px}.creator-dot{width:23px;height:23px;display:grid;place-items:center;border-radius:8px;background:var(--panel3);color:var(--accent);font-size:9px;font-weight:850}.save-button{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--muted);cursor:pointer}.save-button:hover,.save-button[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}.save-button svg{width:16px}.empty-state{grid-column:1/-1;display:grid;place-items:center;min-height:220px;padding:32px;border:1px dashed var(--line);border-radius:18px;text-align:center;color:var(--muted)}.empty-state strong{display:block;color:var(--ink);font-size:17px}.empty-state p{max-width:350px;margin:5px 0 0;font-size:13px}.empty-icon{display:grid;place-items:center;width:48px;height:48px;margin-bottom:10px;border-radius:15px;background:var(--panel2);color:var(--accent);font-size:22px}.load-more{display:block;margin:24px auto 0;padding:10px 17px;border:1px solid var(--line);border-radius:11px;background:var(--panel);font-size:12px;font-weight:750;cursor:pointer}.load-more:hover{border-color:var(--accent)}.load-more[hidden]{display:none}
+.footer{display:flex;justify-content:space-between;gap:12px;margin-top:52px;padding-top:17px;border-top:1px solid var(--line);color:var(--muted);font-size:11px}.footer strong{color:var(--ink)}.about{max-width:700px;margin-top:12px;color:var(--muted);font-size:11px}.about summary{width:max-content;cursor:pointer}.about p{line-height:1.7}
+.creator-actions{display:flex;align-items:center;gap:5px;margin-left:auto}.creator-action{min-height:27px;padding:4px 8px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--muted);font-size:10px;font-weight:750;white-space:nowrap;cursor:pointer}.creator-action:hover,.creator-action[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}.creator-action.bell-action{width:29px;display:grid;place-items:center;padding:4px}.creator-action svg{width:14px;height:14px}.card-author{min-width:0}.creator-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.following-badge{padding:3px 7px;border-radius:999px;background:var(--panel2);color:var(--accent);font-size:9px;font-weight:750}.playlist-items{display:grid;gap:7px;margin-top:16px}.playlist-item{display:grid;grid-template-columns:54px minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;padding:7px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--ink);text-align:left;cursor:pointer}.playlist-item:hover{border-color:var(--accent)}.playlist-mini-cover{display:grid;place-items:center;aspect-ratio:16/9;border-radius:7px;color:white;font-size:14px}.playlist-item-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:700}.playlist-item-meta{color:var(--muted);font-size:10px}.follow-toast{position:fixed;z-index:60;left:50%;bottom:22px;max-width:min(420px,calc(100vw - 30px));transform:translateX(-50%);padding:10px 15px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);color:var(--ink);font-size:12px}.follow-toast[hidden]{display:none}
+.detail-dialog{width:min(690px,calc(100vw - 26px));max-height:86vh;padding:0;overflow:auto;border:1px solid var(--line);border-radius:19px;background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}.detail-dialog::backdrop{background:#04080ab8;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}.dialog-inner{padding:17px}.dialog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;color:var(--muted);font-size:10px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}.dialog-close{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-size:19px;cursor:pointer}.dialog-cover{aspect-ratio:16/7}.dialog-content h2{margin:17px 0 5px;font-size:clamp(23px,4vw,34px);line-height:1.08;letter-spacing:-.04em}.dialog-content p{color:var(--muted);font-size:13px}.dialog-tags{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0}.dialog-tags span{padding:5px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:10px}.dialog-note{margin-top:17px;padding:12px;border-radius:10px;background:var(--panel2);color:var(--muted);font-size:11px}.creator-tool .nav-icon{color:var(--accent)}.live-tool{border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line))}.setup-badge{margin-left:auto;padding:3px 7px;border-radius:999px;background:var(--panel2);color:var(--muted);font-size:9px;font-weight:700}.creator-dialog{width:min(500px,calc(100vw - 26px))}.creator-dialog h2{margin:14px 0 6px;font-size:25px}.creator-dialog p{color:var(--muted);font-size:13px}.creator-status{display:inline-flex;align-items:center;gap:7px;padding:5px 9px;border-radius:999px;background:var(--panel2);color:var(--muted);font-size:10px;font-weight:800}.creator-status::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lime)}.creator-choices{display:grid;gap:9px;margin:17px 0}.creator-choice{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--ink);text-align:left}.creator-choice small{display:block;margin-top:3px;color:var(--muted);font-size:11px}.creator-actions-row{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.creator-dismiss{padding:9px 13px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);cursor:pointer}.account-control{position:relative;display:inline-flex}.avatar-button{padding:0;border:2px solid transparent;cursor:pointer;transition:transform .16s,border-color .16s}.avatar-button:hover,.avatar-button[aria-expanded=true]{border-color:var(--accent);transform:scale(1.04)}.account-menu{position:absolute;z-index:80;top:calc(100% + 12px);right:0;width:min(330px,calc(100vw - 20px));max-height:calc(100vh - 96px);overflow:auto;padding:8px;border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--shadow);animation:account-menu-in .15s ease-out}.account-menu[hidden]{display:none}.account-summary{display:flex;align-items:center;gap:11px;padding:12px 10px 14px}.account-mark{width:42px;height:42px;display:grid;place-items:center;flex:none;border-radius:13px;background:var(--panel2)}.account-mark img{width:33px;height:33px}.account-summary strong,.account-summary small,.account-menu-row strong,.account-menu-row small{display:block}.account-summary small,.account-menu-row small{margin-top:2px;color:var(--muted);font-size:10px}.account-menu-divider{height:1px;margin:5px 0;background:var(--line)}.account-menu-row{width:100%;min-height:43px;display:flex;align-items:center;gap:12px;padding:8px 10px;border:0;border-radius:10px;background:transparent;color:var(--ink);text-align:left;font:inherit;font-size:12px;cursor:pointer}.account-menu-row:hover,.account-menu-row:focus-visible{background:var(--panel2);outline:none}.account-row-icon{width:22px;flex:none;color:var(--muted);font-size:17px;text-align:center}.account-value{max-width:90px;overflow:hidden;margin-left:auto;color:var(--muted);font-size:10px;text-overflow:ellipsis;white-space:nowrap}.account-chevron{color:var(--muted);font-size:18px;line-height:1}.download-action{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);font-size:12px;font-weight:750;text-decoration:none;transition:border-color .15s,transform .15s}.download-action:hover{border-color:var(--accent);transform:translateY(-1px)}.download-action svg{width:16px;height:16px;color:var(--accent)}@keyframes account-menu-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){.account-menu{animation:none}}.nav-overlay{display:none}
+@media(min-width:1500px){.results-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:1120px){.topbar{grid-template-columns:198px minmax(220px,600px) 1fr;padding:0 20px;gap:15px}.app-shell{grid-template-columns:198px minmax(0,1fr)}.sidebar{padding-left:14px}.results-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:760px){.topbar{height:66px;grid-template-columns:35px 106px minmax(0,1fr) 39px;padding:0 10px;gap:7px}.menu-toggle{display:grid}.brand{gap:5px;font-size:13px}.brand-mark,.brand-mark img{width:30px;height:30px}.header-actions .avatar{display:none}.header-actions{width:39px}.icon-button{width:35px;height:35px}.search-form{height:41px;padding-left:10px;gap:6px}.search-form input{font-size:12px}.search-submit{width:30px;height:30px}.app-shell{display:block}.sidebar{position:fixed;z-index:40;top:66px;left:0;bottom:0;width:min(295px,84vw);height:auto;padding:18px 14px;background:var(--bg);box-shadow:var(--shadow);transform:translateX(-105%);transition:transform .2s}.sidebar.open{transform:translateX(0)}.nav-overlay.visible{display:block;position:fixed;inset:66px 0 0;z-index:35;border:0;background:#0007}.main{padding:17px 16px 48px}.hero{min-height:250px;grid-template-columns:1fr;padding:24px}.hero h1{font-size:clamp(35px,9vw,49px)}.hero-art{position:absolute;right:-42px;bottom:-39px;width:210px;height:170px;opacity:.48;pointer-events:none}.hero-copy{position:relative;z-index:2}.hero p:not(.eyebrow){max-width:400px}.section-head{align-items:start}.catalog-size{display:none}}
+@media(max-width:500px){.topbar{grid-template-columns:31px 87px minmax(0,1fr) 34px;padding:0 8px;gap:5px}.brand{font-size:12px;gap:4px}.brand-mark,.brand-mark img{width:28px;height:28px}.header-actions,.header-actions .icon-button{width:34px}.search-form{height:39px}.clear-search{width:25px}.hero{min-height:265px;padding:21px 19px;border-radius:19px}.hero-art{right:-67px;opacity:.35}.topic-strip{margin-right:-16px;padding-right:16px;scrollbar-width:none}.topic-strip::-webkit-scrollbar{display:none}.toolbar{align-items:flex-start}.view-tabs{width:100%;overflow:auto}.view-tab{flex:1;padding:7px 8px;font-size:11px;white-space:nowrap}.filters{width:100%}.filters label{flex:1;min-width:0}.filters select{width:100%;max-width:none;padding:8px 5px;font-size:10px}.results-grid{grid-template-columns:1fr;gap:21px}.footer{flex-direction:column}.dialog-inner{padding:13px}}
+.language-picker{display:inline-flex;min-width:0}.language-select{width:136px;max-width:100%;height:36px;padding:0 8px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--ink);font-size:11px;font-weight:750;cursor:pointer}.language-select:hover,.language-select:focus-visible{border-color:var(--accent);outline:none}.category-chip.active{border-color:var(--accent);background:var(--accent);color:var(--accentInk);font-weight:800}.search-form:focus-within{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}.video-player{display:block;width:100%;max-height:58vh;aspect-ratio:16/9;margin:0 auto;border-radius:14px;background:#090d0b;object-fit:contain}.player-message{margin:10px 0 0;padding:13px 15px;border:1px dashed var(--line);border-radius:12px;background:var(--panel2);color:var(--muted);font-size:13px}.player-message[hidden]{display:none}.dialog-cover[hidden]{display:none}.media-available .dialog-cover{display:none}.category-hint{margin:0 0 15px;color:var(--muted);font-size:12px}.category-hint[hidden]{display:none}.cover-play{position:absolute;left:50%;top:50%;width:48px;height:48px;display:grid;place-items:center;transform:translate(-50%,-50%);border:1px solid #ffffff95;border-radius:50%;background:#101916a6;color:#fff;font-size:18px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media(max-width:760px){.topbar{grid-template-columns:35px 118px minmax(0,1fr) 145px}.header-actions{width:auto;gap:3px}.language-select{width:65px;padding:0 3px;font-size:10px}.header-actions .icon-button{width:35px}.header-actions .avatar{display:grid}}
+@media(max-width:500px){.topbar{grid-template-columns:31px 100px minmax(0,1fr) 125px}.brand{font-size:9.5px;letter-spacing:.02em}.hero h1{font-size:clamp(28px,8vw,34px);max-width:100%}.header-actions,.header-actions .icon-button{width:auto}.header-actions{gap:2px}.header-actions .icon-button{width:32px}.header-actions .avatar{display:grid;width:32px;height:32px}.language-select{width:54px;height:33px;padding:0 2px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+.bell-control{position:relative;display:inline-flex;flex:none}.creator-action.bell-action[aria-expanded=true]{border-color:var(--accent);color:var(--accent)}.bell-menu{position:absolute;z-index:70;top:calc(100% + 8px);right:0;width:min(220px,calc(100vw - 32px));padding:6px;border:1px solid var(--line);border-radius:13px;background:var(--panel);box-shadow:var(--shadow);animation:bell-menu-in .16s ease-out}.bell-menu[hidden]{display:none}.bell-menu-option{width:100%;display:flex;align-items:center;gap:8px;padding:9px 10px;border:0;border-radius:9px;background:transparent;color:var(--ink);text-align:left;font-size:12px;cursor:pointer}.bell-menu-option:hover,.bell-menu-option:focus-visible{background:var(--panel2)}.bell-menu-option[aria-checked=true]{color:var(--accent);font-weight:750}.bell-menu-check{width:14px;flex:none;color:transparent;font-size:12px}.bell-menu-option[aria-checked=true] .bell-menu-check{color:var(--accent)}.bell-pop svg{transform-origin:50% 18%;animation:bell-nudge .34s ease-out}@keyframes bell-menu-in{from{opacity:0;transform:translateY(-4px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes bell-nudge{0%,100%{transform:rotate(0)}25%{transform:rotate(11deg)}55%{transform:rotate(-8deg)}78%{transform:rotate(4deg)}}@media(prefers-reduced-motion:reduce){.bell-menu:not([hidden]),.bell-pop svg{animation:none!important}}
+</style>
+<style>
+.category-nav{padding-bottom:10px;border-bottom:1px solid var(--line)}
+.category-nav .nav-link{min-height:42px}
+.load-more:disabled{opacity:.65;cursor:wait}
+</style>
+<style>
+.bell-action .bell-slash{display:none}
+.bell-action[data-mode=none] .bell-slash{display:block}
+.creator-action.bell-action svg{width:16px;height:16px}
+.bell-action[data-mode=relevant]{position:relative}
+.bell-action[data-mode=relevant]::after{content:"✦";position:absolute;top:-5px;right:-5px;width:12px;height:12px;display:grid;place-items:center;border:1px solid var(--panel);border-radius:50%;background:var(--accent);color:var(--accentInk);font-size:8px;line-height:1;box-shadow:0 1px 4px #0003}
+.bell-action[data-mode=relevant],.bell-action[data-mode=all]{border-color:var(--accent);color:var(--accent)}
+</style>
+<style>
+#detail-dialog{width:min(1180px,calc(100vw - 28px));max-width:1180px;max-height:92vh}
+#detail-dialog.cinema-mode{width:calc(100vw - 20px);max-width:1600px;max-height:95vh}
+.player-layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;align-items:start;gap:22px}
+.player-main{min-width:0}.video-player{max-height:66vh;margin:0;border-radius:13px}
+.player-action-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.player-action{min-height:38px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 12px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--ink);font-size:12px;font-weight:750;text-decoration:none;cursor:pointer;transition:background .16s,border-color .16s,transform .16s}
+.player-action:hover{border-color:var(--accent);background:var(--panel3);transform:translateY(-1px)}
+.player-action:disabled{opacity:.65;cursor:wait;transform:none}.reaction-action{min-width:82px}.reaction-count{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:650}.player-action[aria-pressed=true] .reaction-count{color:var(--accent)}.comment-action svg{width:17px;height:17px;flex:none}.reaction-status:empty{display:none}.reaction-status{margin:6px 0;color:var(--muted);font-size:11px}.comments-title-icon{width:18px;height:18px;margin-right:6px;vertical-align:-3px}
+.player-action[aria-pressed=true]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--panel2));color:var(--accent)}
+.download-action{margin:0}.player-more-menu,.playlist-save-panel{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin-top:10px;padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--panel2)}
+.player-more-menu[hidden],.playlist-save-panel[hidden]{display:none}
+.player-more-menu label,.playlist-save-panel label{display:grid;gap:5px;color:var(--muted);font-size:10px;font-weight:750}
+.player-more-menu select,.playlist-save-panel select,.playlist-save-panel input{min-width:140px;max-width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-size:12px}
+.player-more-menu small{max-width:230px;color:var(--muted);font-size:10px;font-weight:450}
+.local-only-note,.playlist-save-status{flex-basis:100%;margin:0;color:var(--muted);font-size:10px}.playlist-save-status{color:var(--accent)}
+.dialog-content{padding:0}.dialog-content h2{margin-top:16px}.detail-author{margin:12px 0}
+.recommendation-rail{position:sticky;top:0;max-height:calc(92vh - 80px);overflow:auto;padding-left:14px;border-left:1px solid var(--line)}
+.recommendation-rail h3,.comments-heading h3{margin:2px 0 12px;font-size:15px;letter-spacing:-.02em}
+.related-list{display:grid;gap:12px}.related-card{display:grid;grid-template-columns:128px minmax(0,1fr);align-items:center;gap:10px;width:100%;padding:0;border:0;background:transparent;color:var(--ink);text-align:left;cursor:pointer}
+.related-cover{position:relative;aspect-ratio:16/9;display:flex;align-items:end;overflow:hidden;padding:7px;border-radius:9px;color:#fff;font-size:8px;font-weight:800}.related-cover b{position:absolute;right:7px;bottom:6px;display:grid;place-items:center;width:21px;height:21px;border-radius:50%;background:#101916b8;color:#fff;font-size:10px}
+.related-copy{min-width:0;display:grid;gap:4px}.related-copy strong{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;font-size:11px;line-height:1.35}.related-copy small{overflow:hidden;color:var(--muted);font-size:9px;text-overflow:ellipsis;white-space:nowrap}.related-card:hover .related-copy strong{color:var(--accent)}
+.comments-section{margin-top:25px;padding-top:18px;border-top:1px solid var(--line)}.comments-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.comment-sort{display:flex;gap:4px;padding:3px;border:1px solid var(--line);border-radius:9px;background:var(--panel2)}
+.comment-sort button{padding:5px 8px;border:0;border-radius:7px;background:transparent;color:var(--muted);font-size:10px;cursor:pointer}.comment-sort button[aria-pressed=true]{background:var(--panel3);color:var(--ink);font-weight:750}
+.comment-form{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px;margin:10px 0 14px}.comment-form textarea{width:100%;min-height:54px;resize:vertical;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--ink);font:inherit;font-size:12px}.comment-form textarea::placeholder{color:var(--muted)}
+.comment-list{display:grid;gap:14px}.comment-entry{display:grid;grid-template-columns:31px minmax(0,1fr);gap:9px}.comment-avatar{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:var(--panel3);color:var(--accent);font-size:10px;font-weight:850}.comment-byline{display:flex;align-items:center;gap:9px;font-size:11px}.comment-byline time{color:var(--muted);font-size:9px}.comment-body p{margin:4px 0 3px;color:var(--ink);font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.comment-actions{display:flex;align-items:center;gap:12px;margin-top:3px}.comment-like-button,.comment-delete-button{display:inline-flex;align-items:center;gap:5px;padding:4px 6px;border:0;border-radius:8px;background:transparent;color:var(--muted);font:inherit;font-size:10px;cursor:pointer;transition:color .16s,background .16s,transform .16s}.comment-like-button svg,.comment-delete-button svg{width:14px;height:14px;flex:none}.comment-like-button:hover{color:#df6671;background:color-mix(in srgb,#df6671 10%,transparent)}.comment-like-button[aria-pressed=true]{color:#df6671}.comment-like-button[aria-pressed=true] svg{fill:currentColor}.comment-like-button:active,.comment-delete-button:active{transform:scale(.96)}.comment-delete-button:hover{color:var(--danger,#d56760);background:color-mix(in srgb,#d56760 10%,transparent)}.comment-like-button:focus-visible,.comment-delete-button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.comments-empty{margin:8px 0;color:var(--muted);font-size:11px}
+#detail-dialog.cinema-mode .player-layout{grid-template-columns:minmax(0,1fr) 310px;gap:25px}#detail-dialog.cinema-mode .video-player{max-height:72vh}
+@media(max-width:850px){.player-layout,#detail-dialog.cinema-mode .player-layout{grid-template-columns:minmax(0,1fr)}.recommendation-rail{position:static;max-height:none;padding:17px 0 0;border-top:1px solid var(--line);border-left:0}.related-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.related-card{grid-template-columns:110px minmax(0,1fr)}}
+@media(max-width:520px){#detail-dialog,#detail-dialog.cinema-mode{width:calc(100vw - 14px);max-height:94vh;border-radius:15px}.player-action-row{gap:6px}.player-action{min-height:35px;padding:7px 9px;font-size:10px}.related-list{grid-template-columns:1fr}.related-card{grid-template-columns:130px minmax(0,1fr)}.comment-form{grid-template-columns:1fr}.comment-form .player-action{justify-self:end}.comments-heading{align-items:flex-start;flex-direction:column}.player-more-menu,.playlist-save-panel{align-items:stretch;flex-direction:column}.player-more-menu label,.playlist-save-panel label,.player-more-menu select,.playlist-save-panel select,.playlist-save-panel input{width:100%}}
+</style>
+<style>
+.reaction-action,.comment-action{width:138px;min-width:138px;flex:0 0 138px;display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:6px;text-align:left;font-variant-numeric:tabular-nums}.reaction-action:hover,.comment-action:hover{transform:none}.reaction-count{min-width:3ch;text-align:right;white-space:nowrap}.reaction-action:disabled{cursor:progress}
+#detail-dialog,#creator-dialog,#detail-dialog.cinema-mode{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;overflow:hidden;border:0;border-radius:0;box-shadow:none}
+#detail-dialog::backdrop,#creator-dialog::backdrop{background:rgba(4,8,9,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+#detail-dialog .dialog-inner,#creator-dialog .dialog-inner{box-sizing:border-box;width:100%;height:100%;overflow:auto;padding:clamp(14px,2vw,30px);scrollbar-gutter:stable}
+#detail-dialog .dialog-top,#creator-dialog .dialog-top{position:relative;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 18px;padding:4px 0 10px;background:color-mix(in srgb,var(--panel) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#detail-dialog .dialog-top-leading,#creator-dialog .dialog-top-leading{display:flex;align-items:center;gap:12px;flex:0 0 auto;min-width:0}
+.dialog-top-actions{display:flex;align-items:center;gap:8px;flex:0 0 auto}
+.dialog-action-btn{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel2) 85%,transparent);color:var(--ink);cursor:pointer;transition:background .16s,border-color .16s,transform .16s,color .16s}
+.dialog-action-btn:hover{background:var(--panel3);border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.dialog-action-btn svg{width:20px;height:20px}
+.dialog-action-btn[aria-expanded=true]{border-color:var(--accent);background:var(--panel3);color:var(--accent)}
+.dialog-back-btn{display:grid;place-items:center;width:40px;height:40px;flex:none;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel2) 85%,transparent);color:var(--ink);cursor:pointer;transition:background .16s,border-color .16s,transform .16s,color .16s}
+.dialog-back-btn:hover{background:var(--panel3);border-color:var(--accent);color:var(--accent);transform:translateX(-2px)}
+.dialog-back-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dialog-back-btn svg{width:20px;height:20px}
+.dialog-avatar-btn{width:40px;height:40px;padding:0;border:2px solid transparent;border-radius:50%;cursor:pointer;display:grid;place-items:center;font-size:12px;font-weight:800;transition:transform .16s,border-color .16s}
+.dialog-avatar-btn:hover,.dialog-avatar-btn[aria-expanded=true]{border-color:var(--accent);transform:scale(1.05)}
+.dialog-avatar-btn img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.header-create-btn{display:grid;place-items:center;width:39px;height:39px;border:0;border-radius:12px;background:transparent;color:var(--muted);cursor:pointer;transition:background .16s,color .16s,border-color .16s}
+.header-create-btn:hover{background:var(--panel2);color:var(--ink)}
+.header-create-btn svg{width:21px;height:21px}
+.dialog-search-wrap{position:relative;display:flex;align-items:center;gap:10px;flex:1 1 540px;max-width:580px;margin:0 auto;min-width:0}
+.dialog-search-form{position:relative;height:44px;flex:1 1 auto;display:flex;align-items:center;gap:10px;padding:0 6px 0 14px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--panel2) 88%,transparent);box-shadow:inset 0 1px 2px #0002;transition:border-color .18s,background .18s,box-shadow .18s}
+.dialog-search-form:focus-within{border-color:var(--accent);background:var(--panel);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.dialog-search-form .search-icon{width:18px;height:18px;flex:none;color:var(--muted)}
+.dialog-search-input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:14px}
+.dialog-search-input::placeholder{color:var(--muted)}
+.dialog-clear-search{display:grid;place-items:center;width:28px;height:28px;flex:none;border:0;border-radius:8px;background:transparent;color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+.dialog-clear-search:hover{background:var(--panel3);color:var(--ink)}
+.dialog-clear-search[hidden]{display:none}
+.dialog-search-submit{display:grid;place-items:center;width:32px;height:32px;flex:none;border:0;border-radius:10px;background:var(--accent);color:var(--accentInk);cursor:pointer;transition:opacity .15s,transform .15s}
+.dialog-search-submit:hover{opacity:.92;transform:scale(1.03)}
+.dialog-search-submit svg{width:16px;height:16px}
+.dialog-voice-search{display:grid;place-items:center;width:44px;height:44px;flex:none;padding:0;border:1px solid var(--line);border-radius:50%;background:color-mix(in srgb,var(--panel2) 88%,transparent);color:var(--ink);cursor:pointer;transition:background .18s,border-color .18s,color .18s,box-shadow .18s,transform .18s}
+.dialog-voice-search svg{width:20px;height:20px}
+.dialog-voice-search:hover{border-color:var(--accent);background:var(--panel3);transform:translateY(-1px)}
+.dialog-voice-search[aria-pressed=true]{border-color:var(--accent);background:var(--accent);color:var(--accentInk);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+.dialog-voice-search:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.dialog-suggestions{position:absolute;top:50px;left:0;right:54px;z-index:60;margin:0;padding:6px;list-style:none;border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:0 12px 32px #0006}
+.dialog-suggestions[hidden]{display:none}
+.dialog-suggestions li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:var(--ink);font-size:13px;cursor:pointer;transition:background .12s}
+.dialog-suggestions li:hover,.dialog-suggestions li[aria-selected=true]{background:var(--panel3)}
+.dialog-suggestions small{color:var(--muted);font-size:11px}
+@media(max-width:920px){#detail-dialog .dialog-kind,#creator-dialog .dialog-kind{display:none}.dialog-search-wrap{max-width:none}}
+@media(max-width:700px){#detail-dialog .dialog-top,#creator-dialog .dialog-top{flex-wrap:wrap;gap:10px;padding:4px 0 8px;margin-bottom:14px}#detail-dialog .dialog-top-leading,#creator-dialog .dialog-top-leading{flex:1 1 auto;min-width:0}.dialog-top-actions{gap:6px}.dialog-action-btn,#detail-dialog .dialog-close,#creator-dialog .dialog-close,.dialog-back-btn{width:34px;height:34px;border-radius:10px}.dialog-action-btn svg,.dialog-back-btn svg{width:18px;height:18px}.dialog-avatar-btn{width:34px;height:34px;font-size:11px}.dialog-search-wrap{order:3;width:100%;flex:1 0 100%;margin:0}.dialog-search-form{height:40px}.dialog-voice-search{width:40px;height:40px}.dialog-voice-search svg{width:18px;height:18px}.dialog-suggestions{top:46px;right:48px}}
+#detail-dialog .dialog-brand,#creator-dialog .dialog-brand{display:inline-flex;align-items:center;gap:9px;padding:5px 10px 5px 6px;border:1px solid var(--line);border-radius:13px;background:color-mix(in srgb,var(--panel2) 82%,transparent);color:var(--ink);font-family:inherit;font-size:14px;font-weight:700;line-height:1;letter-spacing:-.02em;text-transform:none;cursor:pointer;transition:border-color .16s,background .16s,transform .16s}
+#detail-dialog .dialog-brand:hover,#creator-dialog .dialog-brand:hover{border-color:var(--accent);background:var(--panel2);transform:translateY(-1px)}
+#detail-dialog .dialog-brand:focus-visible,#creator-dialog .dialog-brand:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+#detail-dialog .dialog-brand img,#creator-dialog .dialog-brand img{display:block;width:32px;height:32px;object-fit:contain}
+#detail-dialog .dialog-brand span,#creator-dialog .dialog-brand span{white-space:nowrap}
+#detail-dialog .dialog-kind,#creator-dialog .dialog-kind{overflow:hidden;color:var(--muted);font-size:10px;font-weight:850;letter-spacing:.12em;text-overflow:ellipsis;white-space:nowrap}
+#detail-dialog .dialog-close,#creator-dialog .dialog-close{position:static;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel2) 85%,transparent);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;transition:background .16s,border-color .16s,transform .16s,color .16s;box-shadow:none}
+#detail-dialog .dialog-close:hover,#creator-dialog .dialog-close:hover{background:var(--panel3);border-color:var(--accent);color:var(--accent);transform:scale(1.05)}
+#detail-dialog .player-layout,#detail-dialog.cinema-mode .player-layout{grid-template-columns:minmax(0,1fr) minmax(280px,350px);gap:clamp(18px,2vw,32px)}
+#detail-dialog .video-shell{position:relative;isolation:isolate;overflow:hidden;border-radius:16px;background:#000;display:flex;align-items:center;justify-content:center;width:100%}
+#detail-dialog .video-player{display:block;width:100%;height:auto;max-height:calc(100dvh - 225px);aspect-ratio:16/9;object-fit:contain;background:#000;border-radius:16px;margin:0 auto}
+#detail-dialog.reel-mode .player-layout{grid-template-columns:minmax(0,430px) minmax(260px,350px);justify-content:center;gap:clamp(18px,2vw,32px)}
+#detail-dialog.reel-mode .player-main{width:100%;max-width:430px;margin-inline:auto}
+#detail-dialog.reel-mode .video-shell{width:min(100%,360px);aspect-ratio:9/16;margin-inline:auto}
+#detail-dialog.reel-mode .video-player{width:100%;height:100%;max-height:none;aspect-ratio:9/16;object-fit:contain}
+@media(max-width:850px){#detail-dialog.reel-mode .player-layout{grid-template-columns:minmax(0,1fr)}#detail-dialog.reel-mode .player-main{max-width:430px}}
+
+#detail-dialog .recommendation-rail{top:18px;max-height:calc(100dvh - 105px)}
+#detail-dialog .reaction-action{border-radius:14px;background:color-mix(in srgb,var(--panel2) 90%,#138b75 10%);transition:background .18s,border-color .18s,color .18s,box-shadow .18s}
+#detail-dialog .reaction-action[data-reaction=dislike]{background:color-mix(in srgb,var(--panel2) 92%,#bf5b54 8%)}
+#detail-dialog .reaction-icon{width:19px;height:19px;color:#169d84;transition:color .18s,transform .18s}
+#detail-dialog .reaction-icon-down{transform:rotate(180deg);color:#df746b}
+#detail-dialog .reaction-count{padding:3px 6px;border-radius:7px;background:color-mix(in srgb,var(--panel3) 70%,transparent)}
+#detail-dialog .reaction-action[data-reaction=like]:hover:not([aria-pressed=true]){border-color:#28b79c;background:color-mix(in srgb,var(--panel2) 78%,#168d78 22%)}
+#detail-dialog .reaction-action[data-reaction=dislike]:hover:not([aria-pressed=true]){border-color:#e7837b;background:color-mix(in srgb,var(--panel2) 78%,#bf5b54 22%)}
+#detail-dialog .reaction-action[data-reaction=like][aria-pressed=true]{border-color:#35c6a8;background:linear-gradient(135deg,#117763,#1d9c83);color:#fff;box-shadow:0 5px 18px #138b7540}
+#detail-dialog .reaction-action[data-reaction=dislike][aria-pressed=true]{border-color:#f09289;background:linear-gradient(135deg,#a94b47,#d86d65);color:#fff;box-shadow:0 5px 18px #bb575040}
+#detail-dialog .reaction-action[aria-pressed=true] .reaction-icon,#detail-dialog .reaction-action[aria-pressed=true] .reaction-count{color:#fff}
+#detail-dialog .reaction-action:hover{transform:none}
+@media(max-width:850px){#detail-dialog .player-layout,#detail-dialog.cinema-mode .player-layout{grid-template-columns:minmax(0,1fr)}#detail-dialog .recommendation-rail{position:static;max-height:none;padding:18px 0 0;border-top:1px solid var(--line);border-left:0}}
+@media(max-width:520px){#detail-dialog .dialog-inner,#creator-dialog .dialog-inner{padding:12px}#detail-dialog .dialog-top-leading,#creator-dialog .dialog-top-leading{gap:9px}#detail-dialog .dialog-brand,#creator-dialog .dialog-brand{gap:6px;padding:4px 7px 4px 4px;font-size:12px}#detail-dialog .dialog-brand img,#creator-dialog .dialog-brand img{width:28px;height:28px}#detail-dialog .dialog-kind,#creator-dialog .dialog-kind{font-size:8px;letter-spacing:.08em}#detail-dialog .dialog-close,#creator-dialog .dialog-close{position:static;width:34px;height:34px}#detail-dialog .video-player{max-height:calc(100dvh - 210px);border-radius:10px}.reaction-action,.comment-action{width:128px;min-width:128px;flex-basis:128px}}
+@media(prefers-reduced-motion:reduce){#detail-dialog .reaction-action,#detail-dialog .reaction-icon{transition:none}}
+.video-shell{position:relative;isolation:isolate;overflow:hidden;border-radius:16px;background:#050707}
+#detail-dialog .video-shell .video-player{border-radius:16px}
+.video-control-bar{position:absolute;right:0;bottom:0;left:0;z-index:4;padding:30px 14px 10px;background:linear-gradient(0deg,#050707ed,#05070700);color:#fff}
+.video-control-row{display:flex;align-items:center;gap:10px;min-height:34px}
+.video-control-button{width:34px;height:34px;flex:none;display:grid;place-items:center;padding:0;border:0;border-radius:9px;background:transparent;color:#fff;font:inherit;font-size:18px;line-height:1;cursor:pointer;transition:background .15s,transform .15s}
+.video-control-button:hover{background:#ffffff20;transform:scale(1.05)}.video-control-button:focus-visible{outline:2px solid #88dfc8;outline-offset:2px}
+.video-time{flex:none;color:#fff;font-size:12px;font-variant-numeric:tabular-nums;text-shadow:0 1px 3px #000;white-space:nowrap}.video-control-spacer{flex:1}
+.video-volume{width:76px;accent-color:#fff;cursor:pointer}.video-seek{display:block;width:100%;height:4px;margin:7px 0 0;-webkit-appearance:none;appearance:none;border:0;border-radius:99px;background:linear-gradient(to right,var(--accent) 0 var(--progress,0%),#ffffff70 var(--progress,0%) 100%);cursor:pointer}
+.video-seek::-webkit-slider-thumb{width:11px;height:11px;-webkit-appearance:none;appearance:none;border:0;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px #ffffff90}.video-seek::-moz-range-thumb{width:11px;height:11px;border:0;border-radius:50%;background:var(--accent);box-shadow:0 0 0 2px #ffffff90}
+.video-settings-menu{position:absolute;right:12px;bottom:68px;z-index:6;width:min(280px,calc(100% - 24px));max-height:calc(100% - 82px);display:grid;align-items:stretch;gap:5px;overflow:auto;margin:0;padding:10px;border:1px solid #ffffff28;border-radius:13px;background:color-mix(in srgb,var(--panel) 96%,#050707);box-shadow:0 12px 38px #0008;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.video-settings-menu[hidden]{display:none}.video-settings-menu label{display:grid;gap:5px;padding:7px 9px;border-radius:9px;color:var(--ink);font-size:11px;font-weight:750}.video-settings-menu select{width:100%;min-width:0;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--ink);font-size:12px}.video-settings-menu small{color:var(--muted);font-size:10px;font-weight:450;line-height:1.4}
+.video-menu-item,.video-menu-download{width:100%;min-height:36px;display:flex;align-items:center;gap:9px;padding:8px 10px;border:0;border-radius:9px;background:transparent;color:var(--ink);font:inherit;font-size:12px;font-weight:700;text-align:left;text-decoration:none;cursor:pointer}.video-menu-item:hover,.video-menu-download:hover{background:var(--panel3);color:var(--accent)}.video-menu-item:focus-visible,.video-menu-download:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.subtitle-menu-icon{display:grid;place-items:center;min-width:27px;height:20px;padding:0 4px;border:1px solid var(--line);border-radius:5px;font-size:10px;line-height:1;letter-spacing:-.04em}.video-shell:fullscreen,#detail-dialog .video-shell:fullscreen,.video-shell:-webkit-full-screen,#detail-dialog .video-shell:-webkit-full-screen,.video-shell.is-fullscreen,#detail-dialog .video-shell.is-fullscreen{position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100vw!important;height:100vh!important;max-width:100vw!important;max-height:100vh!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#000!important;border-radius:0!important;margin:0!important;padding:0!important;z-index:999999!important;overflow:hidden!important}
+.video-shell:fullscreen .video-player,#detail-dialog .video-shell:fullscreen .video-player,.video-shell:-webkit-full-screen .video-player,#detail-dialog .video-shell:-webkit-full-screen .video-player,.video-shell.is-fullscreen .video-player,#detail-dialog .video-shell.is-fullscreen .video-player{width:100%!important;height:100%!important;max-width:100vw!important;max-height:100vh!important;object-fit:contain!important;margin:auto!important;aspect-ratio:auto!important;border-radius:0!important;background:#000!important;display:block!important;flex:0 0 100%!important}
+@media(max-width:520px){.video-shell,#detail-dialog .video-shell .video-player{border-radius:10px}.video-control-bar{padding:28px 9px 8px}.video-control-row{gap:5px}.video-volume{width:48px}.video-settings-menu{right:8px;bottom:60px;width:min(270px,calc(100% - 16px));max-height:calc(100% - 70px)}}
+</style>
+<style>.shorts-feature{display:flex;align-items:center;gap:14px;margin:18px 0 8px;padding:15px 17px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(105deg,color-mix(in srgb,var(--accent) 10%,var(--panel)),var(--panel));box-shadow:var(--shadow)}.shorts-feature-mark{width:42px;height:42px;display:grid;place-items:center;flex:none;border-radius:13px;background:color-mix(in srgb,var(--accent) 18%,var(--panel));color:var(--accent);font-size:19px}.shorts-feature-copy{min-width:0;flex:1}.shorts-feature-copy strong{color:var(--ink);font-size:14px}.shorts-feature-copy p{margin:3px 0 0;color:var(--muted);font-size:11px}.shorts-feature button{display:flex;align-items:center;gap:13px;padding:9px 13px;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--ink);font:inherit;font-size:11px;font-weight:750;cursor:pointer}.shorts-feature button:hover{border-color:var(--accent);color:var(--accent)}.results-grid.shorts-feed{grid-template-columns:repeat(auto-fill,minmax(160px,220px));justify-content:start}.shorts-feed .cover{aspect-ratio:9/16}.empty-short-action{grid-column:1/-1;justify-self:center;margin:-36px 0 20px;padding:9px 13px;border:1px solid var(--accent);border-radius:10px;background:var(--panel2);color:var(--accent);font:inherit;font-size:12px;font-weight:750;cursor:pointer}.empty-short-action:hover{background:var(--accent);color:var(--accentInk)}@media(max-width:560px){.shorts-feature{gap:10px;padding:12px}.shorts-feature-mark{width:36px;height:36px}.shorts-feature button{gap:7px;padding:8px 9px;font-size:10px}.shorts-feature-copy p{font-size:10px}.results-grid.shorts-feed{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px 10px}}</style><style>
+.home-shorts{margin:34px 0 40px}
+.home-shorts-head{margin:0 0 14px;align-items:end}
+.shelf-see-all{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);font:inherit;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}
+.shelf-see-all:hover{border-color:var(--accent);color:var(--accent)}
+.shorts-shelf-track{display:flex;align-items:flex-start;gap:16px;overflow-x:auto;padding:4px 2px 14px;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scrollbar-width:thin}
+.shorts-shelf-card{flex:0 0 clamp(150px,18vw,218px);min-width:0;scroll-snap-align:start}
+.shorts-shelf-card .cover-button{display:block;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}
+.shorts-shelf-card .cover{aspect-ratio:9/16;border-radius:15px}
+.shorts-shelf-copy{padding:8px 1px 0}
+.shorts-shelf-title{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;text-align:left;color:var(--ink);font-size:13px;font-weight:750;line-height:1.4}
+.shorts-shelf-meta{margin:5px 0 0;color:var(--muted);font-size:11px;line-height:1.45}
+.shorts-shelf-empty{display:flex;align-items:center;gap:14px;width:100%;padding:17px;border:1px dashed var(--line);border-radius:15px;background:var(--panel);color:var(--muted)}
+.shorts-shelf-empty-copy{flex:1}
+.shorts-shelf-empty strong{display:block;color:var(--ink);font-size:13px}
+.shorts-shelf-empty p{margin:4px 0 0;font-size:12px;line-height:1.5}
+.shorts-shelf-empty button{padding:8px 11px;border:1px solid var(--accent);border-radius:9px;background:transparent;color:var(--accent);font:inherit;font-size:11px;font-weight:750;cursor:pointer;white-space:nowrap}
+.shorts-shelf-empty button:hover{background:var(--accent);color:var(--accentInk)}
+@media(max-width:760px){.home-shorts{margin:27px 0 34px}.shorts-shelf-track{gap:12px;margin-right:-16px;padding-right:16px;scrollbar-width:none}.shorts-shelf-track::-webkit-scrollbar{display:none}.shorts-shelf-card{flex-basis:clamp(145px,43vw,190px)}}
+@media(max-width:430px){.shorts-shelf-empty{align-items:flex-start;flex-wrap:wrap}.shorts-shelf-empty button{margin-left:42px}}
+.reel-action[data-reel-mute][aria-pressed=true] .reel-action-icon{border-color:color-mix(in srgb,var(--accent) 60%,var(--line));background:color-mix(in srgb,var(--accent) 17%,var(--panel2));color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 9%,transparent),0 8px 22px #0003}
+.reel-sound-svg{display:block;width:25px;height:25px}
+.video-control-button .reel-sound-svg{width:20px;height:20px}
+.reel-muted-badge{display:inline-flex;align-items:center;gap:7px;max-width:calc(100% - 28px);cursor:pointer;font:inherit}
+.reel-muted-badge:hover,.reel-muted-badge:focus-visible{border-color:var(--accent);background:#101413e8;color:#fff}
+.reel-sound-badge-icon{display:grid;place-items:center;flex:none}
+</style>
+<style>
+/* Full-height, one-Reel-at-a-time browsing mode. */
+body.reels-view{height:100dvh;overflow:hidden}
+body.reels-view .app-shell{grid-template-columns:76px minmax(0,1fr);max-width:none;height:calc(100dvh - 74px);margin:0;overflow:hidden}
+body.reels-view .sidebar{position:relative;top:auto;height:100%;padding:18px 8px;overflow-y:auto;border-right:1px solid var(--line)}
+body.reels-view .sidebar .side-label,body.reels-view .sidebar .creator-tools,body.reels-view .sidebar .topic-nav,body.reels-view .sidebar .sidebar-note{display:none}
+body.reels-view .sidebar .nav-list{gap:8px}
+body.reels-view .sidebar .nav-link{min-height:48px;justify-content:center;padding:10px 8px}
+body.reels-view .sidebar .nav-link>span{display:none}
+body.reels-view .main{height:100%;min-width:0;padding:0;overflow:hidden}
+body.reels-view .main>:not(#catalog-section){display:none!important}
+body.reels-view #catalog-section{display:flex;height:100%;min-height:0;flex-direction:column;margin:0}
+body.reels-view #catalog-section>.section-head,body.reels-view #catalog-section>.toolbar,body.reels-view #catalog-section>#count,body.reels-view #catalog-section>#more{display:none!important}
+body.reels-view #res.results-grid{display:block;flex:1;min-height:0;margin:0;overflow:hidden}
+body.reels-view .reel-feed{width:100%;height:100%;overflow-y:auto;overscroll-behavior-y:contain;scroll-snap-type:y mandatory;scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--muted) 40%,transparent) transparent}
+body.reels-view .reel-slide{box-sizing:border-box;display:grid;grid-template-columns:minmax(250px,420px) 72px minmax(260px,440px);justify-content:center;align-items:center;gap:clamp(18px,3vw,42px);width:100%;height:calc(100dvh - 74px);min-height:520px;padding:22px clamp(18px,4vw,58px);scroll-snap-align:start;scroll-snap-stop:always;border-bottom:1px solid var(--line)}
+.reel-frame{position:relative;display:grid;place-items:center;width:min(100%,420px,46vh);height:auto;max-height:calc(100dvh - 110px);aspect-ratio:9/16;justify-self:center;overflow:hidden;border:1px solid color-mix(in srgb,var(--line) 65%,transparent);border-radius:22px;background:#090b0a;box-shadow:0 24px 70px #0005}
+.reel-video,.reel-missing{display:block;width:100%;height:100%;aspect-ratio:9/16;object-fit:cover;background:#090b0a}
+.reel-missing{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;color:#fff;text-align:center;background:linear-gradient(145deg,#203b37,#101817)}
+.reel-missing span{display:grid;place-items:center;width:66px;height:66px;border-radius:50%;background:#fff2;font-size:27px}
+.reel-missing strong{max-width:27ch;font-size:13px;line-height:1.6}
+.reel-play-toggle{position:absolute;left:16px;bottom:18px;display:grid;place-items:center;width:54px;height:54px;border:1px solid #ffffffa8;border-radius:50%;background:linear-gradient(145deg,#343944c9,#12151bd9);color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 8px 24px #0008, inset 0 1px 0 #ffffff40;opacity:.82;transform:scale(1);transition:opacity .2s ease,transform .2s ease,background .2s ease,border-color .2s ease}
+.reel-slide.is-playing .reel-play-toggle{opacity:0;transform:scale(.9);pointer-events:none}
+.reel-frame:hover .reel-play-toggle,.reel-play-toggle:hover,.reel-play-toggle:focus-visible{opacity:1;transform:scale(1.06);border-color:#fff;background:linear-gradient(145deg,#4a5060e8,#181b23ed);pointer-events:auto}
+.reel-play-toggle:active{transform:scale(.96)}
+.reel-play-toggle:focus-visible{outline:3px solid #ffffffc9;outline-offset:3px}
+.reel-play-toggle svg{display:block;width:21px;height:21px;fill:currentColor}
+.reel-muted-badge{position:absolute;top:14px;left:14px;padding:6px 9px;border:1px solid #ffffff38;border-radius:999px;background:#101413a8;color:#fff;font-size:10px;font-weight:750;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.reel-muted-badge[hidden]{display:none}
+.reel-details{max-height:min(78%,720px);overflow-y:auto;padding:clamp(18px,2vw,28px);border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,color-mix(in srgb,var(--panel2) 94%,var(--accent) 6%),var(--panel));box-shadow:var(--shadow)}
+.reel-eyebrow{margin:0 0 10px;color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.reel-details h2{margin:0 0 15px;color:var(--ink);font-size:clamp(22px,2.4vw,32px);line-height:1.16;letter-spacing:-.035em}
+.reel-title-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:15px}
+.reel-title-row h2{flex:1;min-width:0;margin:0}
+.reel-menu-wrap{flex:none}
+.reel-menu-toggle{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);font:inherit;font-size:23px;line-height:1;cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+.reel-menu-toggle:hover,.reel-menu-toggle[aria-expanded=true]{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--accent)}
+.reel-menu-popover{position:fixed;z-index:1000;display:grid;gap:2px;width:min(270px,calc(100vw - 24px));max-height:min(72vh,560px);overflow:auto;padding:8px;border:1px solid var(--line);border-radius:15px;background:var(--panel);box-shadow:0 20px 55px #0008;color:var(--ink);scrollbar-width:thin}
+.reel-menu-popover[hidden]{display:none}
+.reel-menu-popover>button,.reel-speed-row{display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;min-height:39px;padding:8px 10px;border:0;border-radius:9px;background:transparent;color:var(--ink);font:inherit;font-size:12px;text-align:left;cursor:pointer}
+.reel-menu-popover>button:hover,.reel-speed-row:hover{background:var(--panel2)}
+.reel-menu-popover>button>span:nth-child(2),.reel-speed-row>span:nth-child(2){min-width:0}
+.reel-menu-state{color:var(--muted);font-size:11px}
+.reel-speed-row{cursor:default}
+.reel-speed-row select{max-width:84px;padding:5px 7px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--ink);font:inherit;font-size:11px;cursor:pointer}
+.reel-menu-divider{height:1px;margin:5px 8px;background:var(--line)}
+.reel-slide.ambient-mode .reel-frame{box-shadow:0 0 0 1px color-mix(in srgb,var(--accent) 55%,transparent),0 0 45px color-mix(in srgb,var(--accent) 32%,transparent),0 24px 70px #0005}
+.reel-creator{display:flex;align-items:center;gap:9px;min-height:38px;margin:0 0 18px;color:var(--muted);font-size:13px;font-weight:700}
+.reel-creator .creator-controls{margin-left:auto}
+.reel-description{color:var(--muted);font-size:14px;line-height:1.75;overflow-wrap:anywhere}
+.reel-description>p:first-child{margin-top:0}
+.reel-description>p:last-child{margin-bottom:0}
+.reel-extra-paragraph{margin:12px 0 0}
+.reel-extra-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.reel-extra-link{display:inline-flex;align-items:center;max-width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--accent);font-size:12px;font-weight:700;overflow-wrap:anywhere;text-decoration:none}
+.reel-extra-link:hover{border-color:var(--accent);background:var(--panel3)}
+.reel-open-details{display:flex;align-items:center;gap:8px;margin-top:18px;padding:9px 12px;border:1px solid var(--line);border-radius:11px;background:transparent;color:var(--ink);font:inherit;font-size:12px;font-weight:750;cursor:pointer}
+.reel-open-details:hover{border-color:var(--accent);color:var(--accent)}
+.reel-actions{display:flex;flex-direction:column;align-items:center;gap:14px}
+.reel-action{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;width:66px;min-height:64px;padding:6px 3px;border:1px solid transparent;border-radius:17px;background:transparent;color:var(--muted);font:inherit;font-size:10px;font-weight:700;text-align:center;cursor:pointer;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+.reel-action:hover{transform:translateY(-2px);background:var(--panel);color:var(--ink)}
+.reel-action[aria-pressed=true]{border-color:color-mix(in srgb,var(--accent) 40%,var(--line));background:color-mix(in srgb,var(--accent) 12%,var(--panel));color:var(--accent)}
+.reel-action-icon{display:grid;place-items:center;width:48px;height:48px;border:1px solid var(--line);border-radius:50%;background:var(--panel2);color:var(--ink);font-size:24px;line-height:1;box-shadow:0 5px 16px #0002}
+.reel-action[data-reaction=like][aria-pressed=true] .reel-action-icon{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));background:color-mix(in srgb,var(--accent) 18%,var(--panel2));color:var(--accent)}
+.reel-action-icon svg{display:block;width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.reel-action-count{font-size:11px}
+.reel-action[data-reel-comments]{gap:3px}
+body.reels-view #res:not(:has(.reel-feed)){height:100%;display:grid;place-items:center;padding:20px}
+@media(max-width:1100px){body.reels-view .reel-slide{grid-template-columns:minmax(220px,380px) 64px minmax(0,1fr);gap:18px;padding-inline:20px}.reel-details{padding:18px}.reel-action{width:58px}}
+@media(max-width:760px){
+ body.reels-view .app-shell{display:block;height:calc(100dvh - 66px)}
+ body.reels-view .sidebar{position:fixed;z-index:40;top:66px;left:0;bottom:0;width:min(295px,84vw);height:auto;padding:18px 14px;background:var(--bg);box-shadow:var(--shadow);transform:translateX(-105%);transition:transform .2s}
+ body.reels-view .sidebar.open{transform:translateX(0)}
+ body.reels-view .sidebar .side-label,body.reels-view .sidebar .creator-tools,body.reels-view .sidebar .topic-nav,body.reels-view .sidebar .sidebar-note{display:initial}
+ body.reels-view .sidebar .creator-tools{display:grid}
+ body.reels-view .sidebar .nav-link{justify-content:flex-start;padding:11px 12px}
+ body.reels-view .sidebar .nav-link>span{display:initial}
+ body.reels-view .main{height:calc(100dvh - 66px);padding:0}
+ body.reels-view .reel-slide{grid-template-columns:minmax(0,1fr) 58px;grid-template-rows:minmax(0,1fr) auto;gap:10px 8px;height:calc(100dvh - 66px);min-height:0;padding:10px 10px 12px}
+ .reel-frame{grid-column:1;grid-row:1;width:auto;height:min(100%,calc(100dvh - 252px));max-width:100%;border-radius:17px}
+ .reel-details{grid-column:1;grid-row:2;max-height:21dvh;padding:12px 14px;border-radius:15px}
+ .reel-details h2{margin-bottom:9px;font-size:19px}
+ .reel-eyebrow{margin-bottom:6px;font-size:9px}
+ .reel-creator{min-height:28px;margin-bottom:8px;font-size:11px}
+ .reel-creator .creator-controls{gap:4px}
+ .reel-description{font-size:12px;line-height:1.5}
+ .reel-open-details{margin-top:10px;padding:7px 9px;font-size:11px}
+ .reel-actions{grid-column:2;grid-row:1;align-self:center;gap:8px;padding-bottom:0}
+ .reel-action{width:54px;min-height:55px;font-size:9px}
+ .reel-action-icon{width:43px;height:43px;font-size:22px}
+ .reel-play-toggle{left:11px;bottom:12px;width:48px;height:48px}
+}
+@media(max-width:420px){body.reels-view .reel-slide{grid-template-columns:minmax(0,1fr) 50px;gap:7px 4px;padding-inline:7px}.reel-action{width:48px}.reel-action-icon{width:39px;height:39px}.reel-details{padding:10px 11px}.reel-details h2{font-size:17px}.reel-menu-toggle{width:33px;height:33px}}
+@media(prefers-reduced-motion:reduce){.reel-action,.reel-play-toggle{transition:none}}
+</style>
+<style>
+/* Visual polish for the existing sidebar only. */
+@media(min-width:761px){
+  body:not(.reels-view) #sidebar.sidebar{
+    padding:20px 12px 26px 16px;
+    background:color-mix(in srgb,var(--panel) 24%,var(--bg));
+    scrollbar-width:thin;
+    scrollbar-color:var(--panel3) transparent;
+  }
+  body:not(.reels-view) #sidebar .side-label{
+    margin:20px 0 9px;
+    padding:0 13px;
+    color:color-mix(in srgb,var(--muted) 68%,var(--ink));
+    font-size:10px;
+    letter-spacing:.14em;
+  }
+  body:not(.reels-view) #sidebar .nav-list{gap:6px}
+  body:not(.reels-view) #sidebar .nav-link{
+    min-height:46px;
+    gap:14px;
+    padding:10px 13px;
+    border-radius:12px;
+    transition:background .16s ease,color .16s ease,transform .16s ease,box-shadow .16s ease;
+  }
+  body:not(.reels-view) #sidebar .nav-link svg{
+    width:21px;
+    height:21px;
+    transition:transform .16s ease;
+  }
+  body:not(.reels-view) #sidebar .nav-link:hover{
+    background:color-mix(in srgb,var(--panel3) 72%,transparent);
+    color:var(--ink);
+    transform:translateX(2px);
+  }
+  body:not(.reels-view) #sidebar .nav-link:hover svg{transform:scale(1.06)}
+  body:not(.reels-view) #sidebar .nav-link.active{
+    background:linear-gradient(100deg,color-mix(in srgb,var(--accent) 13%,var(--panel3)),var(--panel3));
+    box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 20%,var(--line));
+  }
+  body:not(.reels-view) #sidebar .category-nav{
+    margin-top:17px;
+    padding:15px 0 14px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  body:not(.reels-view) #sidebar .creator-tools{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+  }
+  body:not(.reels-view) #sidebar .sidebar-note{
+    margin:24px 4px 0;
+    border-left:2px solid color-mix(in srgb,var(--accent) 58%,var(--line));
+    background:linear-gradient(115deg,color-mix(in srgb,var(--accent) 7%,var(--panel)),var(--panel));
+  }
+  body.explore-page #catalog-section .section-head{margin-top:34px;margin-bottom:19px}
+  body.explore-page #catalog-section #view-title{font-size:clamp(30px,3.2vw,38px);line-height:1.08;letter-spacing:-.045em}
+  body.explore-page #catalog-section #view-note{max-width:600px;margin-top:8px;line-height:1.6}
+}
+#section-eyebrow,#home-shorts .eyebrow{font-size:12px;letter-spacing:.14em}:root[data-theme=light] #sidebar .nav-link:not(.active),:root[data-theme=light] #sidebar .topic-link{color:color-mix(in srgb,var(--muted) 88%,var(--ink))}:root[data-theme=light] #sidebar > .side-label{color:color-mix(in srgb,var(--muted) 42%,var(--ink))}:root[data-theme=dark] #sidebar > .side-label{color:#e8e9ed}:root[data-theme=dark] #sidebar .nav-link:not(.active),:root[data-theme=dark] #sidebar .topic-link{color:#e8e9ed}:root[data-theme=dark] #sidebar .nav-count{color:#c4c7cd}.reels-symbol{display:block;width:22px;height:22px;flex:none}.shorts-feature-mark .reels-symbol{width:25px;height:25px}
+#home-shorts .section-head h2{font-size:clamp(25px,3.1vw,34px);letter-spacing:-.04em}
+.search-form:focus-within{box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}
+.sticker-main{background:linear-gradient(145deg,#bba2ff,#f0c98c);color:#261b36}
+.sticker-small{background:#e0d2ff;color:#271d3b}
+.sticker-dot{background:#ffd58d}
+@media(prefers-reduced-motion:reduce){#sidebar .nav-link,#sidebar .nav-link svg{transition:none!important}}
+</style>
+
+<style>
+.avatar-button img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+body.following-view .hero,body.following-view .shorts-feature,body.following-view #categories,body.following-view #recent,body.following-view #home-shorts,body.following-view .filters{display:none!important}
+body.following-view .creator-card{overflow:visible;position:relative}.creator-card-banner{border-radius:16px 16px 0 0}.creator-card-body{border-radius:0 0 16px 16px}.creator-card.bell-open{z-index:20}
+.catalog-head-actions{display:flex;align-items:center;gap:12px}.creator-discover-button{display:none;align-items:center;gap:8px;padding:9px 13px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--ink);font:inherit;font-size:12px;font-weight:750;cursor:pointer;white-space:nowrap}.creator-discover-button:hover,.creator-discover-button:focus-visible{border-color:var(--accent);background:var(--panel3);outline:none}.creator-discover-button svg{width:16px;height:16px;color:var(--accent)}body.following-view #find-creators{display:inline-flex}
+.creator-link{display:inline-flex;align-items:center;gap:8px;min-width:0;padding:0;border:0;background:transparent;color:var(--ink);text-align:left;cursor:pointer}
+.creator-link:hover .creator-name{color:var(--accent)}
+.creator-link .creator-dot{flex:none}
+.creator-card-identity{width:100%}
+.creator-card-identity .creator-dot{width:48px;height:48px;border-radius:50%;font-size:12px}
+.creator-card{overflow:hidden;border:1px solid var(--line);border-radius:17px;background:var(--panel);box-shadow:var(--shadow)}
+.creator-card-banner{height:85px;display:flex;align-items:flex-start;padding:14px;background:linear-gradient(120deg,#37274f,#66437c 46%,#bb7559);color:#fff;font-size:9px;font-weight:850;letter-spacing:.14em}
+.creator-card-body{position:relative;padding:0 15px 15px}
+.creator-card-identity{margin-top:-22px;position:relative;z-index:1}
+.creator-card-identity .creator-dot{width:52px;height:52px;border:3px solid var(--panel);background:var(--panel3);font-size:13px}
+.creator-card-stats{margin:10px 0 4px;color:var(--muted);font-size:12px}
+.creator-card-topics{margin:0;overflow:hidden;color:var(--muted);font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.creator-card-controls{display:flex;justify-content:flex-end;margin-top:12px}
+.creator-card-controls .creator-actions{margin-left:0}
+.creator-card-controls .creator-action{min-height:34px;padding:7px 12px;font-size:11px}
+.creator-dialog[data-channel-open="true"],.creator-dialog[data-profile-editor="true"]{box-sizing:border-box;position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;overflow:auto;border:0;border-radius:0}
+.creator-dialog[data-channel-open="true"] .dialog-inner{box-sizing:border-box;min-height:100%;padding:clamp(18px,3vw,42px)}
+.creator-editor-card,.creator-panel-card{max-width:620px;margin:24px auto 44px;padding:clamp(22px,3.5vw,38px);border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow)}
+.creator-panel-card{max-width:540px}
+.creator-dialog #creator-dialog-title{margin:10px 0 16px;font-size:clamp(26px,3.5vw,38px)}
+.creator-dialog .profile-photo-preview{width:96px;height:96px;font-size:26px}
+.channel-content{min-height:250px}
+@media(max-width:650px){.creator-editor-card,.creator-panel-card{margin:12px auto 26px;padding:18px 14px;border-radius:16px}.creator-dialog .profile-photo-preview{width:76px;height:76px}}
+.channel-profile{padding-bottom:4px}
+.channel-banner{height:clamp(115px,19vw,190px);display:flex;align-items:flex-end;padding:19px;border-radius:14px;background:radial-gradient(circle at 78% 10%,#f5c37c66 0 5%,transparent 5.5%),radial-gradient(circle at 83% 20%,#ffffff18 0 18%,transparent 18.5%),linear-gradient(112deg,#30264a,#755078 48%,#bd7458);color:#fff;font-size:10px;font-weight:850;letter-spacing:.16em;text-transform:uppercase}
+.channel-identity-row{display:flex;align-items:center;gap:16px;padding:18px 3px 0}
+.channel-avatar{width:88px;height:88px;display:grid;place-items:center;flex:none;margin-top:-2px;border:4px solid var(--panel);border-radius:50%;background:linear-gradient(145deg,var(--accent),var(--panel3));color:var(--accentInk);font-size:23px;font-weight:850}
+.channel-title{min-width:0}
+.channel-title h2{margin:0;font-size:clamp(24px,3.4vw,36px);letter-spacing:-.04em}
+.channel-title p{margin:6px 0 0;color:var(--muted);font-size:13px}
+.channel-follow-controls{margin-left:auto}
+.channel-description{margin:15px 3px;color:var(--muted);font-size:13px}
+.channel-tabs{display:flex;gap:7px;overflow:auto;margin:12px 0 17px;padding:0 2px 10px;border-bottom:1px solid var(--line)}
+.channel-tab{padding:9px 15px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:inherit;font-size:12px;font-weight:750;white-space:nowrap;cursor:pointer}
+.channel-tab:hover,.channel-tab.active{background:var(--panel3);color:var(--ink)}
+.channel-results{grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));gap:14px}
+.channel-empty,.channel-loading{padding:30px 14px;text-align:center;color:var(--muted)}
+.profile-field{display:grid;gap:7px;margin-top:20px;color:var(--muted);font-size:12px;font-weight:700}
+.profile-field input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:var(--panel2);color:var(--ink);font:inherit;font-weight:500}
+.profile-photo-row{display:flex;align-items:center;gap:15px;margin-top:19px}
+.profile-photo-preview{width:74px;height:74px;display:grid;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:50%;background:var(--panel3);color:var(--accent);font-size:20px;font-weight:850}
+.profile-photo-preview img{width:100%;height:100%;object-fit:cover}
+.profile-photo-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.profile-photo-button,.profile-save-button{padding:8px 11px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);font:inherit;font-size:11px;font-weight:750;cursor:pointer}
+.profile-save-button{border-color:var(--accent);background:var(--accent);color:var(--accentInk)}
+.profile-local-note{margin:15px 0 0;color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:650px){.channel-identity-row{align-items:flex-start;gap:10px;flex-wrap:wrap}.channel-avatar{width:68px;height:68px;font-size:18px}.channel-follow-controls{margin-left:0;width:100%}.creator-card-banner{height:67px}}
+.detail-author{display:flex;align-items:center;gap:10px;margin:16px 0}.detail-author .creator-dot{width:34px;height:34px;border-radius:50%;font-size:11px}.detail-author .creator-name{font-size:13px;font-weight:700}
+#detail-dialog .dialog-content h2{margin:8px 0 0}
+#detail-dialog .detail-author{min-height:48px;margin:14px 0 10px;gap:12px}
+#detail-dialog .detail-author .creator-dot{width:44px;height:44px;font-size:13px}
+#detail-dialog .detail-author .creator-name{max-width:min(48vw,360px);font-size:16px;font-weight:800}
+#detail-dialog .detail-author .creator-actions{margin-left:auto;gap:8px}
+#detail-dialog .detail-author .creator-action.follow-action{min-height:40px;padding:8px 18px;border:0;border-radius:999px;background:var(--accent);color:var(--accentInk);font-size:12px;font-weight:800}
+#detail-dialog .detail-author .creator-action.follow-action:hover{filter:brightness(1.08);transform:translateY(-1px)}
+#detail-dialog .detail-author .creator-action.bell-action{width:38px;height:38px;border-radius:50%;background:var(--panel2);color:var(--ink)}
+#detail-dialog .player-action-row{margin:0 0 16px;padding:0 0 15px;border-bottom:1px solid var(--line)}
+#detail-dialog .player-action{min-height:40px}
+@media(max-width:520px){#detail-dialog .detail-author{gap:8px;margin:12px 0 9px}#detail-dialog .detail-author .creator-dot{width:38px;height:38px}#detail-dialog .detail-author .creator-name{max-width:42vw;font-size:14px}#detail-dialog .detail-author .creator-action.follow-action{min-height:36px;padding:7px 12px;font-size:11px}#detail-dialog .detail-author .creator-action.bell-action{width:35px;height:35px}}.menu-toggle{display:grid}
+.topbar{grid-template-columns:42px 172px minmax(260px,680px) 1fr}
+.app-shell{grid-template-columns:minmax(0,1fr)}
+.sidebar{position:fixed;z-index:40;top:74px;left:0;bottom:0;width:min(295px,84vw);height:calc(100dvh - 74px);padding:20px 14px 24px 22px;border-right:1px solid var(--line);background:var(--bg);box-shadow:var(--shadow);transform:translateX(-105%);transition:transform .2s}
+.sidebar.open{transform:translateX(0)}
+.nav-overlay.visible{display:block;position:fixed;inset:74px 0 0;z-index:35;border:0;background:#0008}
+.nav-overlay[hidden]{display:none!important}
+.dialog-menu-toggle{width:38px;height:38px;display:grid;place-items:center;flex:none;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--ink);cursor:pointer;transition:background .16s,border-color .16s}
+.dialog-menu-toggle:hover,.dialog-menu-toggle[aria-expanded=true]{border-color:var(--accent);background:var(--panel3);color:var(--accent)}
+.dialog-menu-toggle svg{width:20px;height:20px}
+#detail-dialog .dialog-top-leading,#creator-dialog .dialog-top-leading{gap:10px}
+#detail-dialog .sidebar,#creator-dialog .sidebar{position:fixed;z-index:42;top:0;left:0;bottom:0;height:100dvh;padding-top:20px}
+#detail-dialog .nav-overlay.visible,#creator-dialog .nav-overlay.visible{inset:0}
+@media(max-width:1120px) and (min-width:761px){.topbar{grid-template-columns:38px 145px minmax(170px,1fr) auto;padding:0 15px;gap:12px}.sidebar{padding-left:14px}}
+@media(max-width:760px){.sidebar{top:66px;bottom:0;height:auto;padding:18px 14px;width:min(295px,84vw)}.nav-overlay.visible{inset:66px 0 0}#detail-dialog .sidebar,#creator-dialog .sidebar{top:0;height:100dvh}}body.reels-view #sidebar.open .side-label,body.reels-view #sidebar.open .creator-tools,body.reels-view #sidebar.open .topic-nav,body.reels-view #sidebar.open .sidebar-note{display:initial}
+body.reels-view #sidebar.open .creator-tools{display:grid}
+body.reels-view #sidebar.open .nav-list{gap:4px}
+body.reels-view #sidebar.open .nav-link{min-height:46px;justify-content:flex-start;padding:10px 13px}
+body.reels-view #sidebar.open .nav-link>span{display:initial}.reel-account-link{display:grid;place-items:center;flex:none;width:44px;height:44px;margin-top:2px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--panel2);color:var(--accent);cursor:pointer;transition:transform .18s ease,border-color .18s ease}
+.reel-account-link:hover{transform:scale(1.04);border-color:var(--accent)}
+.reel-account-link .creator-dot{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:color-mix(in srgb,var(--accent) 16%,var(--panel2));color:var(--accent);font-size:11px;font-weight:850}
+.reel-account-link .creator-name{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:761px){body.reels-view .reel-slide>.reel-frame{grid-column:1;grid-row:1}body.reels-view .reel-slide>.reel-actions{grid-column:2;grid-row:1}body.reels-view .reel-slide>.reel-details{grid-column:3;grid-row:1}}
+</style>
+<style>
+.search-wrap{position:relative;display:flex;align-items:center;gap:12px;min-width:0}
+.search-form{flex:1;min-width:0}
+.suggestions{right:58px}
+.voice-search{display:grid;place-items:center;width:46px;height:46px;flex:none;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--panel2);color:var(--ink);cursor:pointer;transition:background .18s,border-color .18s,color .18s,box-shadow .18s,transform .18s}
+.voice-search svg{width:21px;height:21px}
+.voice-search:hover{border-color:var(--accent);background:var(--panel3);transform:translateY(-1px)}
+.voice-search[aria-pressed=true]{border-color:var(--accent);background:var(--accent);color:var(--accentInk);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 18%,transparent)}
+.voice-search:disabled{opacity:.55;cursor:not-allowed;transform:none}
+@media(max-width:760px){.search-wrap{gap:6px}.voice-search{width:35px;height:35px}.voice-search svg{width:18px;height:18px}.suggestions{top:47px;right:41px}}
+@media(max-width:500px){.search-wrap{gap:4px}.voice-search{width:32px;height:32px}.suggestions{right:36px}}
+</style><style>
+.notification-control{position:relative;display:inline-flex;flex:none}
+.notification-toggle svg{width:21px;height:21px}
+.notification-toggle:hover{color:var(--ink)}
+.notification-popover{position:absolute;z-index:80;top:calc(100% + 10px);right:0;width:min(310px,calc(100vw - 24px));padding:15px;border:1px solid var(--line);border-radius:16px;background:var(--panel);box-shadow:var(--shadow);color:var(--ink)}
+.notification-popover[hidden]{display:none}
+.notification-popover-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
+.notification-popover-head strong{font-size:15px}
+.notification-close{display:grid;place-items:center;width:30px;height:30px;border:0;border-radius:9px;background:transparent;color:var(--muted);font-size:20px;cursor:pointer}
+.notification-close:hover{background:var(--panel2);color:var(--ink)}
+.notification-popover p{margin:6px 0;color:var(--ink);font-size:13px}
+.notification-popover .notification-note{color:var(--muted);font-size:11px;line-height:1.5}
+.notification-following{width:100%;margin-top:8px;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);font:inherit;font-size:12px;font-weight:750;text-align:left;cursor:pointer}
+.notification-following:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:760px){.notification-toggle{width:34px;height:34px}.notification-toggle svg{width:19px;height:19px}.notification-popover{right:-4px}}
+</style>
+<style>
+.hero{background:radial-gradient(ellipse at 82% 46%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 34%),linear-gradient(115deg,var(--heroA),var(--heroB))}
+.hero:before,.hero:after{border-color:color-mix(in srgb,var(--accent) 15%,transparent)}
+.hero-art{height:205px}
+.hero-scene{position:absolute;inset:0}
+.hero-card{position:absolute;top:50%;right:8%;width:184px;height:174px;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent) 38%,var(--line));border-radius:30px;background:radial-gradient(circle at 52% 47%,color-mix(in srgb,var(--accent) 25%,transparent),transparent 49%),linear-gradient(150deg,color-mix(in srgb,var(--accent) 23%,var(--panel2)),var(--panel));box-shadow:0 22px 45px #0004;transform:translateY(-50%) rotate(4deg)}
+.hero-card-top{position:absolute;top:14px;left:15px;display:flex;gap:5px}
+.hero-card-top i{width:5px;height:5px;border-radius:50%;background:color-mix(in srgb,var(--accent) 72%,var(--ink))}
+.hero-card-top i:last-child{background:var(--lime)}
+.hero-bloom{position:absolute;top:31px;left:50%;width:86px;height:86px;object-fit:contain;filter:drop-shadow(0 9px 12px #17102050);transform:translateX(-50%)}
+.hero-card-footer{position:absolute;right:17px;bottom:17px;left:17px;display:grid;gap:6px}
+.hero-card-footer i{height:5px;border-radius:99px;background:color-mix(in srgb,var(--ink) 68%,transparent)}
+.hero-card-footer i:last-child{width:58%;background:color-mix(in srgb,var(--muted) 55%,transparent)}
+.hero-play{position:absolute;right:14px;bottom:35px;display:grid;width:39px;height:39px;place-items:center;border:3px solid var(--panel);border-radius:50%;background:var(--accent);color:var(--accentInk);box-shadow:0 7px 18px #0004}
+.hero-play svg{width:15px;height:15px;margin-left:2px}
+.hero-spark{position:absolute;z-index:1;width:14px;height:14px;border-radius:5px;background:var(--lime);box-shadow:0 5px 14px #0003;transform:rotate(25deg)}
+.hero-spark-one{top:23px;right:13%}
+.hero-spark-two{bottom:23px;left:12%;width:10px;height:10px;background:var(--accent);transform:rotate(45deg)}
+.hero-cta{transition:transform .18s,box-shadow .18s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 28%,transparent)}
+@media(max-width:760px){.hero-art{right:8px;bottom:6px;width:160px;height:140px;opacity:.52}.hero-card{right:0;width:142px;height:134px;border-radius:24px}.hero-bloom{top:25px;width:66px;height:66px}.hero-play{right:10px;bottom:28px;width:33px;height:33px}.hero-card-footer{right:13px;bottom:13px;left:13px;gap:5px}.hero-card-footer i{height:4px}.hero-spark-one{right:4%}}
+@media(max-width:500px){.hero-art{right:6px;bottom:-2px;width:132px;height:116px;opacity:.34}.hero-card{width:116px;height:108px;border-radius:20px}.hero-bloom{top:20px;width:54px;height:54px}.hero-card-top{top:10px;left:11px;gap:4px}.hero-card-top i{width:4px;height:4px}.hero-play{right:7px;bottom:21px;width:29px;height:29px}.hero-card-footer{right:10px;bottom:10px;left:10px;gap:4px}.hero-card-footer i{height:3px}}
+</style>
+<style>
+body.trending-view .main{padding-top:34px}
+body.trending-view .main>:not(#trending-page){display:none!important}
+.trending-page{max-width:1320px;margin:0 auto}
+.trend-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin:0 0 25px}
+.trend-heading-copy{max-width:720px}
+.trend-eyebrow{display:flex;align-items:center;gap:8px;margin:0 0 12px;color:var(--accent);font-size:10px;font-weight:850;letter-spacing:.16em;text-transform:uppercase}
+.trend-eyebrow svg{width:15px;height:15px}
+.trend-heading h1{margin:0;font-size:clamp(38px,5vw,62px);line-height:.98;letter-spacing:-.065em}
+.trend-heading p:not(.trend-eyebrow){max-width:620px;margin:13px 0 0;color:var(--muted);font-size:14px;line-height:1.65}
+.trend-signal{display:flex;align-items:center;gap:9px;flex:none;padding:10px 13px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--muted);font-size:11px;font-weight:700}
+.trend-signal-dot{width:8px;height:8px;border-radius:50%;background:#d89174;box-shadow:0 0 0 4px color-mix(in srgb,#d89174 17%,transparent)}
+.trend-spotlight{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);min-height:310px;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:linear-gradient(115deg,color-mix(in srgb,var(--panel2) 88%,#754b55),var(--panel));box-shadow:var(--shadow)}
+.trend-spotlight-art{position:relative;min-height:310px;overflow:hidden;background:var(--panel2)}
+.trend-spotlight-art:before,.trend-spotlight-art:after{position:absolute;content:"";pointer-events:none}
+.trend-spotlight-art:before{inset:0;background:linear-gradient(90deg,transparent 62%,var(--panel) 100%);z-index:1}
+.trend-spotlight-art:after{width:300px;height:300px;right:7%;top:3%;border:1px solid #ffffff40;border-radius:50%;box-shadow:0 0 0 24px #ffffff08,0 0 0 49px #ffffff06}
+.trend-spotlight-cover{position:absolute;inset:0;height:100%;aspect-ratio:auto;border-radius:0;display:grid;place-items:center}
+.trend-spotlight-media{position:absolute;inset:0;height:100%}
+.trend-spotlight-cover .cover-word{position:absolute;left:8%;bottom:9%;font-size:clamp(36px,5vw,68px);opacity:.82}
+.trend-spotlight-cover .cover-type{top:20px;left:20px}
+.trend-spotlight-glyph{position:relative;z-index:1;width:108px;height:108px;display:grid;place-items:center;border:1px solid #ffffff70;border-radius:34px;background:#ffffff18;color:#fff;box-shadow:0 22px 65px #0003;-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);transform:rotate(-8deg)}
+.trend-spotlight-glyph svg{width:40px;height:40px}
+.trend-spotlight-copy{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:34px clamp(24px,4vw,50px) 34px 15px}
+.trend-spotlight-label{display:inline-flex;align-items:center;gap:7px;margin:0 0 15px;color:var(--lime);font-size:10px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+.trend-spotlight-label svg{width:15px;height:15px}
+.trend-spotlight-copy h2{max-width:520px;margin:0;font-size:clamp(26px,3.5vw,43px);line-height:1.06;letter-spacing:-.05em}
+.trend-spotlight-author{margin:12px 0 0;color:var(--muted);font-size:13px}
+.trend-spotlight-meta{display:flex;align-items:center;gap:8px;margin:20px 0;color:color-mix(in srgb,var(--ink) 76%,var(--muted));font-size:12px}
+.trend-spotlight-meta span+span:before{content:"·";margin-right:8px;color:var(--muted)}
+.trend-watch-button{display:inline-flex;align-items:center;gap:10px;padding:11px 15px;border:0;border-radius:12px;background:var(--accent);color:var(--accentInk);font-size:12px;font-weight:800;cursor:pointer;transition:transform .16s,box-shadow .16s}
+.trend-watch-button:hover{transform:translateY(-2px);box-shadow:0 10px 25px color-mix(in srgb,var(--accent) 22%,transparent)}
+.trend-watch-button svg{width:16px;height:16px}
+.trend-shelf{margin-top:43px}
+.trend-section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:16px}
+.trend-section-title{display:flex;align-items:center;gap:11px}
+.trend-section-icon{width:38px;height:38px;display:grid;place-items:center;flex:none;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--accent)}
+.trend-section-icon svg{width:20px;height:20px}
+.trend-section-heading h2{margin:0;font-size:clamp(23px,3vw,30px);line-height:1.1;letter-spacing:-.04em}
+.trend-section-heading p{margin:5px 0 0;color:var(--muted);font-size:12px}
+.trend-section-count{padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:10px;font-weight:750;white-space:nowrap}
+.trend-reels-track{display:flex;gap:15px;overflow-x:auto;padding:2px 2px 16px;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scrollbar-width:thin;scrollbar-color:var(--panel3) transparent}
+.trend-reel-card{position:relative;flex:0 0 clamp(145px,17vw,205px);scroll-snap-align:start}
+.trend-rank{position:absolute;z-index:3;top:10px;left:10px;min-width:29px;height:27px;display:grid;place-items:center;padding:0 7px;border:1px solid #ffffff50;border-radius:9px;background:#141519a8;color:#fff;font-size:11px;font-weight:850;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.trend-reel-card .cover{aspect-ratio:9/16}
+.trend-video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px 17px}
+.trending-video-card{position:relative}
+.trending-video-card .cover-type{right:10px;left:auto}
+.trending-video-card .trend-rank{top:9px;left:9px}
+.trend-state{grid-column:1/-1;display:flex;align-items:center;gap:14px;min-height:112px;padding:20px;border:1px dashed var(--line);border-radius:17px;background:color-mix(in srgb,var(--panel) 78%,transparent);color:var(--muted)}
+.trend-spotlight>.trend-state{align-self:stretch}
+.trend-reels-track>.trend-state{flex:1 0 100%}
+.trend-state-icon{width:40px;height:40px;display:grid;place-items:center;flex:none;border:1px solid var(--line);border-radius:13px;background:var(--panel2);color:var(--accent);font-size:18px}
+.trend-state strong{display:block;color:var(--ink);font-size:13px}
+.trend-state p{margin:3px 0 0;font-size:12px}
+.trend-state .trend-watch-button{margin-left:auto;white-space:nowrap}
+.trend-footnote{display:flex;align-items:center;gap:8px;margin:29px 0 0;color:var(--muted);font-size:10px}
+.trend-footnote svg{width:14px;height:14px;color:var(--accent)}
+@media(max-width:900px){.trend-spotlight{grid-template-columns:minmax(0,1fr) minmax(250px,.9fr);min-height:280px}.trend-spotlight-art{min-height:280px}.trend-video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){body.trending-view .main{padding:24px 18px 46px}.trend-heading{align-items:flex-start;flex-direction:column;gap:16px;margin-bottom:20px}.trend-signal{font-size:10px}.trend-spotlight{grid-template-columns:minmax(0,1fr);min-height:0}.trend-spotlight-art{min-height:clamp(190px,54vw,300px)}.trend-spotlight-art:before{background:linear-gradient(0deg,var(--panel) 0%,transparent 52%)}.trend-spotlight-art:after{width:230px;height:230px;right:7%;top:-20%}.trend-spotlight-copy{padding:0 22px 24px;margin-top:-18px}.trend-spotlight-copy h2{font-size:clamp(28px,7vw,38px)}.trend-spotlight-meta{margin:14px 0}.trend-shelf{margin-top:33px}.trend-reels-track{gap:12px;margin-right:-18px;padding-right:18px;scrollbar-width:none}.trend-reels-track::-webkit-scrollbar{display:none}.trend-reel-card{flex-basis:clamp(145px,42vw,190px)}.trend-video-grid{gap:20px 12px}}
+@media(max-width:480px){.trend-heading h1{font-size:42px}.trend-heading p:not(.trend-eyebrow){font-size:12px}.trend-signal{padding:8px 11px}.trend-section-icon{width:33px;height:33px}.trend-section-heading{align-items:center}.trend-section-heading p{max-width:230px;font-size:11px}.trend-section-count{font-size:9px}.trend-video-grid{grid-template-columns:1fr;gap:22px}.trend-video-grid .cover{aspect-ratio:16/10}.trend-footnote{align-items:flex-start;line-height:1.5}}
+@media(prefers-reduced-motion:reduce){.trend-watch-button{transition:none}}
+</style><link rel="stylesheet" href="/tab-designs.css?v=20261020v20"></head>
+<body>
+<header class="topbar">
+<button id="menu-toggle" class="icon-button menu-toggle" type="button" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<a class="brand" href="#" aria-label="Watchbloom home"><span class="brand-mark"><img src="/watchbloom-mark.svg" alt="" aria-hidden="true"></span><span class="brand-text"><span class="brand-watch">Watch</span><span class="brand-bloom">bloom</span></span></a>
+<div class="search-wrap"><form id="search-form" class="search-form" role="search" autocomplete="off"><svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.6 4.6"/></svg><input id="q" type="search" placeholder="Search videos, topics, creators…" aria-label="Search the Watchbloom catalog" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions"><button id="clear-search" class="clear-search" type="button" aria-label="Clear search" hidden>×</button><button class="search-submit" type="submit" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.6 4.6"/></svg></button></form><button id="voice-search" class="voice-search" type="button" aria-label="Voice search" title="Voice search" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5M9 21.5h6"/></svg></button><ul id="suggestions" class="suggestions" role="listbox" hidden></ul></div>
+<div class="header-actions"><label class="language-picker"><span class="sr-only">Display language</span><select id="language-select" class="language-select" aria-label="Display language / भाषा"></select></label><button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to light theme" title="Switch to light theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg></button><button id="header-create-btn" class="icon-button header-create-btn" type="button" data-action="create" aria-label="Create" title="Create"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 10 5-3.5v11L16 14v3a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3.5Z"/><path d="M9 9v6M6 12h6"/></svg></button><div class="notification-control"><button id="notification-toggle" class="icon-button notification-toggle" type="button" aria-label="Notifications" title="Notifications" aria-haspopup="dialog" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></button><div id="notification-popover" class="notification-popover" role="dialog" aria-labelledby="notification-title" hidden><div class="notification-popover-head"><strong id="notification-title" data-i18n="notifications">Notifications</strong><button class="notification-close" type="button" data-notification-close aria-label="Close notifications">×</button></div><p data-i18n="noNotifications">You are all caught up.</p><p class="notification-note" data-i18n="notificationNote">This local demo does not send push alerts yet.</p><button id="notifications-following" class="notification-following" type="button" data-i18n="manageFollowing">Manage followed creators</button></div></div><div class="account-control"><button id="account-menu-toggle" class="avatar avatar-button" type="button" aria-label="Open Watchbloom account menu" aria-haspopup="true" aria-expanded="false">WB</button><div id="account-menu" class="account-menu" hidden><div class="account-summary"><span class="account-mark"><img src="/watchbloom-mark.svg" alt=""></span><span><strong id="account-display-name" class="brand-text"><span class="brand-watch">Watch</span><span class="brand-bloom">bloom</span></strong><small data-i18n="guestMode">Guest mode · this browser</small></span></div><button class="account-menu-row account-my-channel-row" type="button" data-account-action="my-channel"><span class="account-row-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor"/></svg></span><span><strong data-i18n="yourChannel">Your channel</strong><small data-i18n="yourChannelHint">View videos, shorts &amp; playlists</small></span><span class="account-chevron">›</span></button><button class="account-menu-row account-studio-row" type="button" data-account-action="studio"><span class="account-row-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><polygon points="10,7 15,10 10,13" fill="currentColor"/></svg></span><span><strong data-i18n="creatorStudio">Creator Studio</strong><small data-i18n="creatorStudioHint">Analytics, earnings &amp; content</small></span><span class="account-chevron">›</span></button>
+<button class="account-menu-row" type="button" data-account-action="my-videos"><span class="account-row-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/><line x1="7" y1="21" x2="17" y2="21"/></svg></span><span><strong data-i18n="yourVideos">Your videos</strong><small data-i18n="yourVideosHint">Videos, reels &amp; live streams</small></span><span class="account-chevron">›</span></button><button class="account-menu-row" type="button" data-account-action="account"><span class="account-row-icon">◎</span><span><strong data-i18n="accountMenu">Watchbloom account</strong><small data-i18n="accountMenuHint">Sign in or create an account</small></span><span class="account-chevron">›</span></button><div class="account-menu-divider"></div><button class="account-menu-row" type="button" data-account-action="saved"><span class="account-row-icon">▣</span><span data-i18n="savedVideos">Saved videos</span></button><button class="account-menu-row" type="button" data-account-action="following"><span class="account-row-icon">♧</span><span data-i18n="following">Following</span></button><button class="account-menu-row" type="button" data-account-action="liked"><span class="account-row-icon">👍</span><span data-i18n="likedVideos">Liked videos</span></button><div class="account-menu-divider"></div><button class="account-menu-row" type="button" data-account-action="theme"><span class="account-row-icon">◐</span><span data-i18n="appearance">Appearance</span><span id="menu-theme" class="account-value">Dark</span><span class="account-chevron">›</span></button><button class="account-menu-row" type="button" data-account-action="language"><span class="account-row-icon">文</span><span data-i18n="displayLanguage">Display language</span><span id="menu-language" class="account-value">English</span><span class="account-chevron">›</span></button><button class="account-menu-row" type="button" data-account-action="settings"><span class="account-row-icon">⚙</span><span data-i18n="settings">Settings</span></button><div class="account-menu-divider"></div><button class="account-menu-row" type="button" data-account-action="help"><span class="account-row-icon">?</span><span data-i18n="helpFeedback">Help &amp; feedback</span></button></div></div></div>
+</header>
+<button id="nav-overlay" class="nav-overlay" type="button" aria-label="Close navigation" hidden></button>
+<div class="app-shell">
+<aside id="sidebar" class="sidebar" aria-label="Main navigation"><p class="side-label" data-i18n="yourSpace">Your space</p><nav class="nav-list">
+<button id="home-nav-link" class="nav-link active" type="button" data-view="home"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10Z" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="home">Home</span></button>
+<button id="explore-nav-link" class="nav-link" type="button" data-view="explore"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.2 5.4-5.4 2.2 2.2-5.4 5.4-2.2Z"/></svg><span data-i18n="explore">Explore</span></button>
+<button class="nav-link" type="button" data-view="videos"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/></svg><span data-i18n="videos">Videos</span></button>
+<button class="nav-link" type="button" data-view="playlists"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 8h6m-6 4h6m-6 4h3m5-2 3 2-3 2v-4Z"/></svg><span data-i18n="playlists">Playlists</span></button>
+<button class="nav-link" type="button" data-view="history"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/><path d="M4 5.5 2.5 4M20 5.5 21.5 4"/></svg><span data-i18n="history">History</span></button>
+<button class="nav-link" type="button" data-view="following"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-4A4.5 4.5 0 0 0 3 18.5V20"/><circle cx="9.5" cy="7" r="4"/><path d="M16 11a4 4 0 1 0 0-8m5 17v-1.5a4.5 4.5 0 0 0-3.5-4.4"/></svg><span data-i18n="following">Following</span><span id="following-count" class="nav-count">0</span></button>
+<button class="nav-link" type="button" data-view="liked"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v11m0-10 5-7a2.2 2.2 0 0 1 2.1 2.8L13.5 10H19a2 2 0 0 1 1.9 2.6l-1.4 6a2 2 0 0 1-1.9 1.5H7"/><path d="M4 10h3v11H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2Z"/></svg><span data-i18n="likedVideos">Liked videos</span><span id="liked-count" class="nav-count">0</span></button>
+<button class="nav-link" type="button" data-view="saved"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V21l-6-3.7L6 21V4.5Z"/></svg><span data-i18n="saved">Saved</span><span id="saved-count" class="nav-count">0</span></button><button id="settings-nav-link" class="nav-link" type="button" data-view="settings"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span data-i18n="settings">Settings &amp; Support</span></button>
+</nav>
+<p class="side-label" data-i18n="discover">Discover</p><nav class="nav-list category-nav" aria-label="Discover categories">
+<button class="nav-link" type="button" data-view="trending"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4.4 0 7-3.1 7-7 0-2.8-1.4-5.2-4.5-8-.1 2.4-1 3.8-2.3 4.6C12 8 10.1 4.7 6.8 2 7.2 6.5 5 8.9 5 13.2 5 18.3 7.8 22 12 22Z"/><path d="M12 22c-1.9-1.1-2.7-2.7-2.4-4.5.2-1.2 1-2.2 2.1-3.1.3 1.7 1.1 2.4 2.2 3.1.5 1.6-.2 3.4-1.9 4.5Z"/></svg><span data-i18n="trending">Trending</span></button>
+<button class="nav-link nav-link-reels" type="button" data-view="reels"><span class="reels-icon-wrapper"><svg class="nav-icon reels-symbol" viewBox="0 0 256 256" fill="none" aria-hidden="true"><defs><linearGradient id="reelcraft-grad" x1="15%" y1="15%" x2="85%" y2="85%"><stop offset="0%" stop-color="#FF8A00"/><stop offset="52%" stop-color="#FF0055"/><stop offset="100%" stop-color="#9900FF"/></linearGradient><linearGradient id="reelcraft-surface-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8A00" stop-opacity="0.18"/><stop offset="100%" stop-color="#9900FF" stop-opacity="0.06"/></linearGradient><linearGradient id="reelcraft-border-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8A00" stop-opacity="0.45"/><stop offset="100%" stop-color="#9900FF" stop-opacity="0.15"/></linearGradient><radialGradient id="reelcraft-ambient" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF0055" stop-opacity="0.55"/><stop offset="100%" stop-color="#9900FF" stop-opacity="0"/></radialGradient></defs><path d="M 128 16 C 188 16, 214 16, 227 29 C 240 42, 240 68, 240 128 C 240 188, 240 214, 227 227 C 214 240, 188 240, 128 240 C 68 240, 42 240, 29 227 C 16 214, 16 188, 16 128 C 16 68, 16 42, 29 29 C 42 16, 68 16, 128 16 Z" fill="#0D0B14" stroke="url(#reelcraft-border-grad)" stroke-width="2.5"/><circle cx="128" cy="128" r="88" fill="url(#reelcraft-ambient)" opacity="0.35"/><g transform="translate(128, 128)"><path d="M -68 -48 C -36 -74, 36 -74, 68 -48" fill="none" stroke="url(#reelcraft-grad)" stroke-width="2.475" stroke-linecap="round" stroke-dasharray="10 12" opacity="0.45"/><path d="M -56 76 C -20 92, 20 92, 56 76" fill="none" stroke="url(#reelcraft-grad)" stroke-width="2.475" stroke-linecap="round" opacity="0.35"/><g class="reel-clapper-hinge" transform="rotate(-8, -54, -34)"><rect x="-64" y="-58" width="128" height="26" rx="13" fill="url(#reelcraft-grad)"/><path d="M -34 -58 L -18 -32 M 6 -58 L 22 -32 M 42 -58 L 54 -38" stroke="#090D16" stroke-width="4.5" stroke-linecap="butt" opacity="0.8"/></g><rect x="-64" y="-22" width="128" height="88" rx="26" fill="url(#reelcraft-surface-grad)" stroke="url(#reelcraft-grad)" stroke-width="4.5"/><g transform="translate(2, 18) scale(1)"><path d="M -18 -18 C -18 -25, -9 -29, -2 -25 L 26 -7 C 33 -3, 33 5, 26 9 L -2 27 C -9 31, -18 27, -18 20 Z" fill="url(#reelcraft-grad)"/><path d="M -18 2 L 10 19 L -2 27 C -9 31, -18 27, -18 20 Z" fill="rgba(0,0,0,0.22)"/></g></g></svg></span><span class="reels-title-text" data-i18n="shorts">Reels</span></button>
+<button class="nav-link" type="button" data-view="courses"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m2.5 8 9.5-5 9.5 5-9.5 5-9.5-5Z"/><path d="M6 10v5.5c3.7 3 8.3 3 12 0V10M21.5 8v7"/></svg><span data-i18n="courses">Courses</span></button>
+<button class="nav-link nav-link-cinema" type="button" data-view="cinema"><span class="cinema-icon-wrapper"><svg class="nav-icon cinema-nav-symbol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect class="nav-clapper-body" x="3" y="9" width="18" height="11" rx="2"/><path d="M7 14.5h10M7 17.5h5" stroke-linecap="round"/><polygon points="15.5,16 18,17.5 15.5,19" fill="currentColor"/><g class="nav-clapper-arm"><rect x="3" y="4" width="18" height="5" rx="1.5"/><path d="M6.5 4.5l2.5 4m3-4l2.5 4m3-4l2.5 4" stroke-width="1.4"/></g></svg></span><span data-i18n="cinema">Cinema &amp; Series</span></button>
+<button class="nav-link" type="button" data-view="music"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span data-i18n="musicBeats">Music &amp; Beats</span></button>
+<button class="nav-link" type="button" data-view="gamers"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6.5 8h11a4 4 0 0 1 3.8 5.2l-1 3.2a2.7 2.7 0 0 1-4.4 1.2l-2.1-1.8h-3.6l-2.1 1.8a2.7 2.7 0 0 1-4.4-1.2l-1-3.2A4 4 0 0 1 6.5 8Z"/><path d="M7 11v4m-2-2h4m7-.8h.01M18 14h.01"/></svg><span data-i18n="gamersHub">Gamers Hub</span></button>
+<button class="nav-link" type="button" data-view="headlines"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h4m2 0h4m-10 4h4m2 0h4"/></svg><span data-i18n="headlines">Headlines</span></button>
+</nav>
+<p class="side-label" data-i18n="creatorTools">Creator tools</p><nav class="nav-list creator-tools">
+<button class="nav-link creator-tool" type="button" data-action="create"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="create">Create</span></button>
+<button class="nav-link creator-tool" type="button" data-action="my-channel"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor"/></svg><span data-i18n="yourChannel">Your channel</span></button>
+<button class="nav-link creator-tool studio-tool" type="button" data-action="studio"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><polygon points="10,7 15,10 10,13" fill="currentColor"/></svg><span data-i18n="creatorStudio">Creator Studio</span></button>
+<button class="nav-link creator-tool" type="button" data-action="my-videos"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/><line x1="7" y1="21" x2="17" y2="21"/></svg><span data-i18n="yourVideos">Your videos</span></button>
+<button class="nav-link creator-tool" type="button" data-action="account"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span data-i18n="account">Account</span></button>
+<button class="nav-link creator-tool live-tool" type="button" data-action="live"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="2.5"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4m8.4-8.4a6 6 0 0 1 0 8.4M4.9 4.9a10 10 0 0 0 0 14.2m14.2-14.2a10 10 0 0 1 0 14.2"/></svg><span data-i18n="goLive">Go live</span><span class="golive-badge-live" style="margin-left:auto; padding:2px 7px; font-size:9.5px;">LIVE</span></button></nav>
+<div class="sidebar-note"><strong data-i18n="keepDiscovering">Keep discovering.</strong><span data-i18n="saveForLater">Save videos for later and follow whatever catches your eye.</span><div class="sidebar-made-in" title="Made in Bharat (IND)"><svg class="bharat-flag" viewBox="0 0 36 24" width="16" height="11" aria-hidden="true"><rect width="36" height="8" fill="#FF9933"/><rect y="8" width="36" height="8" fill="#FFFFFF"/><rect y="16" width="36" height="8" fill="#138808"/><circle cx="18" cy="12" r="3.2" fill="none" stroke="#000080" stroke-width="0.75"/><circle cx="18" cy="12" r="0.75" fill="#000080"/><path d="M18 8.8v6.4M14.8 12h6.4M15.7 9.7l4.6 4.6M20.3 9.7l-4.6 4.6M16.8 9.1l2.4 5.8M19.2 9.1l-2.4 5.8M15.1 10.8l5.8 2.4M15.1 13.2l5.8-2.4" stroke="#000080" stroke-width="0.45"/></svg><span>Made in Bharat (IND)</span></div></div>
+</aside>
+<main class="main">
+<section id="trending-page" class="trending-page" aria-labelledby="trending-page-title" hidden>
+<header class="trend-heading"><div class="trend-heading-copy"><p class="trend-eyebrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22c4.4 0 7-3.1 7-7 0-2.8-1.4-5.2-4.5-8-.1 2.4-1 3.8-2.3 4.6C12 8 10.1 4.7 6.8 2 7.2 6.5 5 8.9 5 13.2 5 18.3 7.8 22 12 22Z"/></svg><span data-i18n="trendingPageEyebrow">The Watchbloom charts</span></p><h1 id="trending-page-title" data-i18n="trendingPageTitle">The internet is watching.</h1><p data-i18n="trendingPageNote">A hand-picked-feeling pulse of the videos and Reels people are pressing play on.</p></div><div class="trend-signal"><span class="trend-signal-dot" aria-hidden="true"></span><span data-i18n="trendingPageSignal">Popular across Watchbloom</span></div></header>
+<div id="trending-spotlight" class="trend-spotlight" aria-live="polite"><div class="trend-state"><span class="trend-state-icon" aria-hidden="true">↗</span><div><strong data-i18n="trendingLoadingTitle">Finding the pulse</strong><p data-i18n="trendingLoadingText">Gathering the most-played videos.</p></div></div></div>
+<section class="trend-shelf" aria-labelledby="trending-reels-title"><div class="trend-section-heading"><div class="trend-section-title"><span class="trend-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="4"/><path d="M5.5 8h13M9 3l3 5m2-5 3 5m-8 5 5 3-5 3v-6Z"/></svg></span><div><h2 id="trending-reels-title" data-i18n="trendingReelsTitle">Reels catching fire</h2><p data-i18n="trendingReelsNote">Quick watches with a lot of replay energy.</p></div></div><span id="trending-reels-count" class="trend-section-count"></span></div><div id="trending-reels" class="trend-reels-track" aria-live="polite"><div class="trend-state"><span class="trend-state-icon" aria-hidden="true">↗</span><div><strong data-i18n="trendingLoadingTitle">Finding the pulse</strong><p data-i18n="trendingLoadingText">Gathering the most-played videos.</p></div></div></div></section>
+<section class="trend-shelf" aria-labelledby="trending-videos-title"><div class="trend-section-heading"><div class="trend-section-title"><span class="trend-section-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/></svg></span><div><h2 id="trending-videos-title" data-i18n="trendingVideosTitle">Videos on the rise</h2><p data-i18n="trendingVideosNote">The most-played videos, in order.</p></div></div><span id="trending-videos-count" class="trend-section-count"></span></div><div id="trending-videos" class="trend-video-grid" aria-live="polite"></div></section>
+<p class="trend-footnote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg><span data-i18n="trendingRankingNote">Ranked by plays from the Watchbloom catalog.</span></p>
+</section>
+
+<!-- 2. GAMERS HUB PAGE (Inspired by YouTube Gaming with Game Shelves) -->
+<section id="gamers-page" class="discover-hub-page gamers-page" aria-labelledby="gamers-page-title" hidden>
+  <header class="hub-header gamers-header">
+    <div class="hub-avatar-badge gaming-avatar">
+      <svg class="game-controller-svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15 7.5V2H9v5.5l3 3 3-3zM7.5 9H2v6h5.5l3-3-3-3zM9 16.5V22h6v-5.5l-3-3-3 3zM16.5 15H22V9h-5.5l-3 3 3 3z"/></svg>
+      <span>🎮</span>
+    </div>
+    <div class="hub-header-meta">
+      <div class="hub-title-row">
+        <h1 id="gamers-page-title">Gaming</h1>
+        <span class="hub-live-badge"><span class="pulse-dot green-pulse"></span> 4 STREAMS ACTIVE</span>
+      </div>
+      <p class="hub-subtitle">Live gameplays, campaign speedruns, GTA 6 secrets, and tiny game mechanics.</p>
+    </div>
+  </header>
+
+  <!-- Topic Pills -->
+  <div class="hub-topic-bar" role="tablist">
+    <button class="hub-pill active" type="button" data-game-tag="all">All Games</button>
+    <button class="hub-pill" type="button" data-game-tag="action">Action &amp; Shooters</button>
+    <button class="hub-pill" type="button" data-game-tag="rpg">Campaigns &amp; Mods</button>
+    <button class="hub-pill" type="button" data-game-tag="tiny">Tiny Games &amp; Code</button>
+    <button class="hub-pill" type="button" data-game-tag="openworld">Open Worlds</button>
+  </div>
+
+  <!-- Featured Shelf (Ref Image 1) -->
+  <div class="hub-shelf">
+    <div class="hub-shelf-head">
+      <h2>Featured</h2>
+    </div>
+    <div id="gamers-featured-grid" class="hub-grid four-col-grid" aria-live="polite">
+      <!-- Injected gaming cards -->
+    </div>
+  </div>
+
+  <!-- Recommended Shelf (Ref Image 1) -->
+  <div class="hub-shelf">
+    <div class="hub-shelf-head">
+      <h2>Recommended</h2>
+      <p class="hub-shelf-subtitle">Based on your Subscriptions and History</p>
+    </div>
+    <div id="gamers-recommended-grid" class="hub-grid four-col-grid" aria-live="polite">
+      <!-- Injected gaming cards -->
+    </div>
+  </div>
+
+  <!-- Game Spotlight Shelf 1: Fortnite Style (Ref Image 3 & 4) -->
+  <div class="hub-shelf game-shelf-container">
+    <div class="game-brand-bar">
+      <div class="game-brand-identity">
+        <div class="game-brand-thumb fortnite-thumb">🕹️</div>
+        <div>
+          <h3>Python Tiny Games &amp; Arcade Mechanics</h3>
+          <p class="game-brand-sub">More from this game engine</p>
+        </div>
+      </div>
+      <button class="hub-view-all" type="button" data-view="videos">View all &rsaquo;</button>
+    </div>
+    <div id="gamers-shelf-1" class="hub-carousel-track" aria-live="polite">
+      <!-- Horizontal carousel cards -->
+    </div>
+  </div>
+
+  <!-- Game Spotlight Shelf 2: GTA VI / Campaign Style (Ref Image 3 & 4) -->
+  <div class="hub-shelf game-shelf-container">
+    <div class="game-brand-bar">
+      <div class="game-brand-identity">
+        <div class="game-brand-thumb gta-thumb">⚔️</div>
+        <div>
+          <h3>Grand Campaigns &amp; High Fantasy Edits</h3>
+          <p class="game-brand-sub">More from this universe</p>
+        </div>
+      </div>
+      <button class="hub-view-all" type="button" data-view="videos">View all &rsaquo;</button>
+    </div>
+    <div id="gamers-shelf-2" class="hub-carousel-track" aria-live="polite">
+      <!-- Horizontal carousel cards -->
+    </div>
+  </div>
+</section>
+
+<!-- 3. HEADLINES / NEWS PAGE (Inspired by YouTube News, Ref Image 2) -->
+<section id="headlines-page" class="discover-hub-page headlines-page" aria-labelledby="headlines-page-title" hidden>
+  <header class="hub-header news-header">
+    <div class="news-header-top">
+      <h1 id="headlines-page-title">News</h1>
+      <span class="live-wire-pill"><span class="pulse-dot rose-pulse"></span> LIVE WIRE · 24/7 BULLETINS</span>
+    </div>
+  </header>
+
+  <!-- News Sub-navigation Topic Pills (Ref Image 2) -->
+  <div class="hub-topic-bar" role="tablist">
+    <button class="hub-pill active" type="button" data-news-tab="top">Top stories</button>
+    <button class="hub-pill" type="button" data-news-tab="sport">Sport</button>
+    <button class="hub-pill" type="button" data-news-tab="entertainment">Entertainment</button>
+    <button class="hub-pill" type="button" data-news-tab="business">Business</button>
+    <button class="hub-pill" type="button" data-news-tab="world">World</button>
+    <button class="hub-pill" type="button" data-news-tab="national">National</button>
+  </div>
+
+  <!-- Breaking News Marquee & Spotlight Header (Ref Image 2) -->
+  <div class="breaking-news-box">
+    <div class="breaking-ribbon"><span>BREAKING</span></div>
+    <div id="headlines-spotlight-title" class="breaking-headline">
+      Investigative Dispatches: Kolkata Incident Report &amp; Tech Intelligence Developments
+    </div>
+  </div>
+
+  <!-- Top Stories Shelf (Ref Image 2) -->
+  <div class="hub-shelf">
+    <div id="headlines-top-stories" class="hub-grid three-col-grid" aria-live="polite">
+      <!-- Top news story cards with channel badge, views, and timestamp -->
+    </div>
+  </div>
+
+  <!-- Latest News Posts Shelf (Ref Image 2) -->
+  <div class="hub-shelf">
+    <div class="hub-shelf-head">
+      <h2>Latest news posts</h2>
+    </div>
+    <div id="headlines-latest-posts" class="hub-grid two-col-grid" aria-live="polite">
+      <!-- Injected editorial news cards -->
+    </div>
+  </div>
+</section>
+
+<!-- 4. MUSIC & BEATS PAGE (Neon Sound Stage & Lo-Fi Lounge) -->
+<section id="music-page" class="discover-hub-page music-page" aria-labelledby="music-page-title" hidden>
+  <header class="hub-header music-header">
+    <div class="hub-avatar-badge music-avatar">
+      <div class="equalizer-bars"><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="music-icon-glyph">🎵</span>
+    </div>
+    <div class="hub-header-meta">
+      <div class="hub-title-row">
+        <h1 id="music-page-title">Music &amp; Beats</h1>
+        <span class="audio-spec-badge">🎧 Lossless 24-bit Master</span>
+      </div>
+      <p class="hub-subtitle">Original soundtracks, lo-fi study loops, soundscapes, and spatial audio.</p>
+    </div>
+  </header>
+
+  <!-- Music Topic Pills -->
+  <div class="hub-topic-bar" role="tablist" aria-label="Music categories">
+    <button class="hub-pill active" type="button" data-music-tag="all">All Tracks</button>
+    <button class="hub-pill" type="button" data-music-tag="lofi">Lo-Fi &amp; Focus</button>
+    <button class="hub-pill" type="button" data-music-tag="synth">Electronic Synth</button>
+    <button class="hub-pill" type="button" data-music-tag="scores">Soundtracks &amp; Scores</button>
+    <button class="hub-pill" type="button" data-music-tag="chill">Acoustic &amp; Chill</button>
+  </div>
+
+  <!-- Featured Soundscape -->
+  <div class="hub-shelf">
+    <div class="hub-shelf-head">
+      <h2>Featured Soundscape &amp; Mixtapes</h2>
+    </div>
+    <div id="music-featured-shelf" class="hub-grid three-col-grid" aria-live="polite">
+      <!-- Injected music cards -->
+    </div>
+  </div>
+
+  <!-- Ambient Study Loops Track -->
+  <div class="hub-shelf game-shelf-container">
+    <div class="game-brand-bar">
+      <div class="game-brand-identity">
+        <div class="game-brand-thumb music-thumb">📻</div>
+        <div>
+          <h3>Deep Focus &amp; Lo-Fi Beats</h3>
+          <p class="game-brand-sub">Curated soundscapes for coding, reading, and relaxation</p>
+        </div>
+      </div>
+      <button class="hub-view-all" type="button" data-view="videos">Listen all &rsaquo;</button>
+    </div>
+    <div id="music-lofi-track" class="hub-carousel-track" aria-live="polite">
+      <!-- Carousel cards -->
+    </div>
+  </div>
+</section>
+
+<!-- 5. COURSES & ACADEMY PAGE (Interactive Masterclass Hub) -->
+<section id="courses-page" class="discover-hub-page courses-page" aria-labelledby="courses-page-title" hidden>
+  <header class="hub-header courses-header">
+    <div class="hub-avatar-badge courses-avatar">
+      <span>🎓</span>
+    </div>
+    <div class="hub-header-meta">
+      <div class="hub-title-row">
+        <h1 id="courses-page-title">Courses &amp; Academy</h1>
+        <span class="academy-cert-badge">✨ Open Project Curriculum</span>
+      </div>
+      <p class="hub-subtitle">Step-by-step master tracks, practical web design foundations, and coding labs.</p>
+    </div>
+  </header>
+
+  <!-- Track selector pills -->
+  <div class="hub-topic-bar" role="tablist" aria-label="Course tracks">
+    <button class="hub-pill active" type="button" data-courses-track="all">All Tracks</button>
+    <button class="hub-pill" type="button" data-courses-track="web">Web Engineering</button>
+    <button class="hub-pill" type="button" data-courses-track="python">Python Mastery</button>
+    <button class="hub-pill" type="button" data-courses-track="data">Data Stories</button>
+    <button class="hub-pill" type="button" data-courses-track="uiux">UI/UX Foundations</button>
+  </div>
+
+  <!-- Masterclass Tracks Shelf -->
+  <div class="hub-shelf">
+    <div class="hub-shelf-head">
+      <h2>Structured Courses &amp; Series</h2>
+      <p class="hub-shelf-subtitle">Multi-part courses with step-by-step video tracks</p>
+    </div>
+    <div id="courses-grid" class="hub-grid three-col-grid" aria-live="polite">
+      <!-- Injected course cards -->
+    </div>
+  </div>
+</section>
+
+<!-- 6. CINEMA & SERIES HUB (Theatrical IMAX Screen & Filmstrip Showcase) -->
+<section id="cinema-page" class="discover-hub-page cinema-page" aria-labelledby="cinema-page-title" hidden>
+  <header class="hub-header cinema-header">
+    <div class="hub-avatar-badge cinema-avatar" title="Watchbloom Cinema &amp; Series">
+      <svg class="cinema-vector-art" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="cinVectGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.25"/>
+            <stop offset="60%" stop-color="#d97706" stop-opacity="0.06"/>
+            <stop offset="100%" stop-color="#0b0c10" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="goldRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fef08a"/>
+            <stop offset="40%" stop-color="#fbbf24"/>
+            <stop offset="75%" stop-color="#d97706"/>
+            <stop offset="100%" stop-color="#78350f"/>
+          </linearGradient>
+          <linearGradient id="slateGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#24252d"/>
+            <stop offset="100%" stop-color="#0e0f14"/>
+          </linearGradient>
+          <linearGradient id="stripeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#fbbf24"/>
+            <stop offset="100%" stop-color="#f59e0b"/>
+          </linearGradient>
+          <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="80%">
+            <stop offset="0%" stop-color="#fef08a" stop-opacity="0.75"/>
+            <stop offset="35%" stop-color="#fbbf24" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Base stage background with gold rim -->
+        <circle cx="50" cy="50" r="47" fill="#0f1015"/>
+        <circle cx="50" cy="50" r="47" fill="url(#cinVectGlow)"/>
+        <circle cx="50" cy="50" r="46" stroke="url(#goldRimGrad)" stroke-width="1.8"/>
+        <circle cx="50" cy="50" r="43" stroke="rgba(251, 191, 36, 0.25)" stroke-width="1" stroke-dasharray="2 3"/>
+
+        <!-- 1. Spinning 35mm Film Reel (Background Layer) -->
+        <g class="vector-film-reel">
+          <circle cx="50" cy="45" r="30" fill="#14151b" stroke="url(#goldRimGrad)" stroke-width="2.2"/>
+          <circle cx="50" cy="45" r="25" stroke="rgba(251, 191, 36, 0.4)" stroke-width="1" stroke-dasharray="3 2"/>
+          <!-- 5 Spoke Cutouts -->
+          <circle cx="50" cy="30" r="4.2" fill="#0b0c10" stroke="#d97706" stroke-width="1.2"/>
+          <circle cx="64" cy="40" r="4.2" fill="#0b0c10" stroke="#d97706" stroke-width="1.2"/>
+          <circle cx="59" cy="57" r="4.2" fill="#0b0c10" stroke="#d97706" stroke-width="1.2"/>
+          <circle cx="41" cy="57" r="4.2" fill="#0b0c10" stroke="#d97706" stroke-width="1.2"/>
+          <circle cx="36" cy="40" r="4.2" fill="#0b0c10" stroke="#d97706" stroke-width="1.2"/>
+          <!-- Center Spindle -->
+          <circle cx="50" cy="45" r="7.5" fill="url(#goldRimGrad)"/>
+          <circle cx="50" cy="45" r="3" fill="#0b0c10"/>
+        </g>
+
+        <!-- 2. Ambient Projector Cone of Light -->
+        <path class="vector-projector-beam" d="M50 45 L86 20 L88 64 Z" fill="url(#beamGrad)" opacity="0.45"/>
+
+        <!-- 3. Director's Clapperboard Slate (Hero Foreground) -->
+        <g class="vector-clapper-body">
+          <rect x="23" y="44" width="54" height="38" rx="5" fill="url(#slateGrad)" stroke="url(#goldRimGrad)" stroke-width="1.8"/>
+          <!-- Chalk grid lines -->
+          <line x1="28" y1="56" x2="72" y2="56" stroke="rgba(255, 255, 255, 0.28)" stroke-width="1.2"/>
+          <line x1="49" y1="56" x2="49" y2="76" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/>
+          <line x1="28" y1="66" x2="72" y2="66" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1"/>
+          <!-- Production Slate Labels -->
+          <text x="31" y="52" fill="#fbbf24" font-size="4.8" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, sans-serif" letter-spacing="1">CINEMA</text>
+          <text x="31" y="63" fill="#a1a1aa" font-size="4" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, sans-serif">SCENE</text>
+          <text x="53" y="63" fill="#a1a1aa" font-size="4" font-weight="800" font-family="-apple-system, BlinkMacSystemFont, sans-serif">TAKE</text>
+          <text x="34" y="73.5" fill="#ffffff" font-size="6.5" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, sans-serif">01</text>
+          <text x="56" y="73.5" fill="#ffffff" font-size="6.5" font-weight="900" font-family="-apple-system, BlinkMacSystemFont, sans-serif">04</text>
+          <!-- Corner Star -->
+          <path d="M68 73.5 l.8 1.6 1.8.3-1.3 1.3.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.3 1.8-.3z" fill="#f59e0b"/>
+        </g>
+
+        <!-- 4. Clapperboard Animated Snapping Top Arm -->
+        <g class="vector-clapper-stick">
+          <rect x="21" y="34" width="57" height="10" rx="2.5" fill="#18181b" stroke="#f59e0b" stroke-width="1.4"/>
+          <!-- Diagonal Gold Chevrons -->
+          <polygon points="28,34 33,34 27,44 22,44" fill="url(#stripeGrad)"/>
+          <polygon points="39,34 44,34 38,44 33,44" fill="url(#stripeGrad)"/>
+          <polygon points="50,34 55,34 49,44 44,44" fill="url(#stripeGrad)"/>
+          <polygon points="61,34 66,34 60,44 55,44" fill="url(#stripeGrad)"/>
+          <polygon points="71,34 76,34 70,44 65,44" fill="url(#stripeGrad)"/>
+          <!-- Hinge Pin -->
+          <circle cx="25" cy="39" r="2.2" fill="#fef08a" stroke="#78350f" stroke-width="1"/>
+        </g>
+
+        <!-- 5. 35mm Filmstrip Ribbon (Bottom Curve) -->
+        <g class="vector-film-ribbon">
+          <path d="M15 72 Q24 88 42 85" stroke="#1c1d24" stroke-width="6" stroke-linecap="round" fill="none"/>
+          <path d="M15 72 Q24 88 42 85" stroke="url(#goldRimGrad)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <rect x="18" y="74" width="1.8" height="2" rx="0.5" fill="#fbbf24" transform="rotate(25 18 74)"/>
+          <rect x="24" y="78" width="1.8" height="2" rx="0.5" fill="#fbbf24" transform="rotate(10 24 78)"/>
+          <rect x="30" y="81" width="1.8" height="2" rx="0.5" fill="#fbbf24" transform="rotate(-5 30 81)"/>
+          <rect x="36" y="81" width="1.8" height="2" rx="0.5" fill="#fbbf24" transform="rotate(-15 36 81)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hub-header-meta">
+      <div class="hub-title-row">
+        <h1 id="cinema-page-title">Cinema &amp; Series</h1>
+        <span class="cinema-live-badge"><span class="pulse-dot gold-pulse"></span> NOW SCREENING · DOLBY VISION</span>
+        <div class="cinema-header-controls">
+          <button id="cinema-lights-toggle" class="cinema-lights-btn" type="button" aria-pressed="false" title="Dim ambient theater lights for immersive cinema mode">
+            <span class="lights-icon">💡</span>
+            <span class="lights-label">Dim Lights</span>
+          </button>
+          <div class="cinema-vip-pill" title="Watchbloom 4K IMAX Theater Access">
+            <span>👑 VIP SCREENING</span>
+          </div>
+        </div>
+      </div>
+      <p class="hub-subtitle">Curated blockbuster trailers, high-fantasy epics, director's cuts, and cinematic short films.</p>
+    </div>
+  </header>
+
+  <!-- Cinema Sub-Navigation Topic Pills -->
+  <div class="hub-topic-bar cinema-topic-bar" role="tablist" aria-label="Cinema categories">
+    <button class="hub-pill active" type="button" data-cinema-tag="all">🎬 All Premieres</button>
+    <button class="hub-pill" type="button" data-cinema-tag="fantasy">⚔️ Action &amp; High Fantasy</button>
+    <button class="hub-pill" type="button" data-cinema-tag="visuals">🎆 Cinematic Edits &amp; VFX</button>
+    <button class="hub-pill" type="button" data-cinema-tag="scifi">🌌 Sci-Fi &amp; Cyberpunk</button>
+    <button class="hub-pill" type="button" data-cinema-tag="shorts">🎥 Short Films &amp; Indies</button>
+    <button class="hub-pill" type="button" data-cinema-tag="behind">🎼 Director's Cut &amp; Scores</button>
+  </div>
+
+  <!-- Featured Spotlight Mega Theater Screen -->
+  <div class="cinema-theater-container">
+    <div class="cinema-film-strip-top" aria-hidden="true"></div>
+    <div id="cinema-featured-spotlight" class="cinema-spotlight-wrapper" aria-live="polite">
+      <!-- Injected spotlight card via renderCinemaHub() -->
+    </div>
+    <div class="cinema-film-strip-bottom" aria-hidden="true"></div>
+  </div>
+
+  <!-- Shelf 1: Now Screening Blockbusters -->
+  <div class="hub-shelf cinema-shelf">
+    <div class="hub-shelf-head">
+      <div class="shelf-title-with-icon">
+        <span class="shelf-film-icon" aria-hidden="true">🎟️</span>
+        <h2>Now Screening &amp; Blockbuster Premieres</h2>
+      </div>
+      <p class="hub-shelf-subtitle">Hand-picked feature presentations in Ultra HD with Dolby Atmos</p>
+    </div>
+    <div id="cinema-premieres-grid" class="hub-grid four-col-grid cinema-cards-grid" aria-live="polite">
+      <!-- Injected cards -->
+    </div>
+  </div>
+
+  <!-- Shelf 2: Epic Sagas & Cinematic Series (Horizontal Carousel) -->
+  <div class="hub-shelf game-shelf-container cinema-shelf-container">
+    <div class="game-brand-bar cinema-brand-bar">
+      <div class="game-brand-identity">
+        <div class="game-brand-thumb cinema-brand-thumb" aria-hidden="true">🐉</div>
+        <div>
+          <h3>High Fantasy &amp; Cinematic Universe Edits</h3>
+          <p class="game-brand-sub">Game of Thrones, House of the Dragon, and Mythic Sagas</p>
+        </div>
+      </div>
+      <button class="hub-view-all cinema-view-all" type="button" data-view="videos">View All Films &rsaquo;</button>
+    </div>
+    <div class="cinema-carousel-wrapper">
+      <button class="cinema-carousel-nav cinema-carousel-prev" type="button" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div id="cinema-edits-track" class="hub-carousel-track cinema-carousel-track" aria-live="polite">
+        <!-- Carousel cards -->
+      </div>
+      <button class="cinema-carousel-nav cinema-carousel-next" type="button" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Shelf 3: Director's Cut & Studio Productions -->
+  <div class="hub-shelf cinema-shelf">
+    <div class="hub-shelf-head">
+      <div class="shelf-title-with-icon">
+        <span class="shelf-film-icon" aria-hidden="true">📽️</span>
+        <h2>Director's Cut &amp; Visual Mastery</h2>
+      </div>
+      <p class="hub-shelf-subtitle">Crafted soundscapes, title sequences, and cinematic editing breakdowns</p>
+    </div>
+    <div id="cinema-studios-grid" class="hub-grid four-col-grid cinema-cards-grid" aria-live="polite">
+      <!-- Injected cards -->
+    </div>
+  </div>
+
+  <!-- Shelf 4: Original Motion Picture Soundtracks & Scores (Interactive Vinyl Player) -->
+  <div class="hub-shelf cinema-shelf cinema-soundtracks-shelf">
+    <div class="hub-shelf-head">
+      <div class="shelf-title-with-icon">
+        <span class="shelf-film-icon" aria-hidden="true">🎼</span>
+        <h2>Original Motion Picture Soundtracks &amp; Scores</h2>
+      </div>
+      <p class="hub-shelf-subtitle">Mastered in 24-bit 96kHz Spatial Audio · Interactive thematic soundscapes</p>
+    </div>
+    <div id="cinema-soundtracks-grid" class="cinema-soundtracks-grid" aria-live="polite">
+      <!-- Injected soundtracks with spinning vinyl preview -->
+    </div>
+  </div>
+
+  <!-- Shelf 5: Red Carpet & Upcoming Festival Premieres -->
+  <div class="hub-shelf cinema-shelf cinema-upcoming-shelf">
+    <div class="hub-shelf-head">
+      <div class="shelf-title-with-icon">
+        <span class="shelf-film-icon" aria-hidden="true">🌟</span>
+        <h2>Upcoming Festival Premieres &amp; Red Carpet Drops</h2>
+      </div>
+      <p class="hub-shelf-subtitle">Live real-time countdown to global digital premieres · Instant reminder alerts</p>
+    </div>
+    <div id="cinema-upcoming-grid" class="cinema-upcoming-grid" aria-live="polite">
+      <!-- Injected upcoming cards with live countdown timers -->
+    </div>
+  </div>
+</section>
+
+<!-- 7. SETTINGS, MAIL & REPORTING HUB PAGE -->
+<section id="settings-page" class="discover-hub-page settings-page" aria-labelledby="settings-page-title" hidden>
+  <header class="hub-header settings-header">
+    <div class="hub-avatar-badge settings-avatar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;color:#c3a8ff;">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </div>
+    <div class="hub-header-meta">
+      <div class="hub-title-row">
+        <h1 id="settings-page-title">Settings &amp; Support Hub</h1>
+        <span class="cinema-live-badge"><span class="pulse-dot indigo-pulse"></span> PREFERENCES &amp; TRUST CENTER</span>
+        <div class="cinema-vip-pill" title="Encrypted &amp; Cached">
+          <span>⚡ REDIS CACHED</span>
+        </div>
+      </div>
+      <p class="hub-subtitle">Manage profile privacy, video playback defaults, notification subscriptions, submit abuse reports, or contact support.</p>
+    </div>
+  </header>
+
+  <!-- Sub-Navigation Topic Pills -->
+  <div class="hub-topic-bar settings-topic-bar" role="tablist" aria-label="Settings categories">
+    <button class="hub-pill active" type="button" data-settings-tab="privacy">🔒 Privacy &amp; Profile</button>
+    <button class="hub-pill" type="button" data-settings-tab="playback">▶️ Playback Preferences</button>
+    <button class="hub-pill" type="button" data-settings-tab="notifications">🔔 Notifications</button>
+    <button class="hub-pill" type="button" data-settings-tab="support">✉️ Contact &amp; Support</button>
+    <button class="hub-pill" type="button" data-settings-tab="reporting">🛡️ Abuse Reporting</button>
+    <button class="hub-pill" type="button" data-settings-tab="activity">📋 Inquiries &amp; Alerts</button>
+  </div>
+
+  <div class="settings-container">
+    <!-- Tab 1: Privacy & Profile -->
+    <div id="settings-panel-privacy" class="settings-panel active" role="tabpanel">
+      <div class="settings-card">
+        <div class="settings-card-head">
+          <div class="settings-card-title">
+            <div class="settings-card-icon">🔒</div>
+            <div>
+              <h3>Profile Privacy Controls</h3>
+              <p>Control who can view your channel, activity, and search discovery</p>
+            </div>
+          </div>
+        </div>
+        <form id="settings-privacy-form" class="settings-form-grid">
+          <div class="settings-field-row">
+            <label for="settings-profile-visibility">Channel &amp; Profile Visibility</label>
+            <select id="settings-profile-visibility" class="settings-select">
+              <option value="public">Public — Anyone on Watchbloom can discover your channel</option>
+              <option value="unlisted">Unlisted — Only people with direct link can view</option>
+              <option value="private">Private — Hidden from all public channels &amp; searches</option>
+            </select>
+            <span class="settings-field-hint">Changes apply immediately across search indexing &amp; feed discovery.</span>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Show Channel Subscriptions &amp; Follows</strong>
+              <span>Display the list of creators you follow on your public channel page</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-show-subscriptions" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Public Liked Videos List</strong>
+              <span>Allow other viewers to explore videos you have given a thumbs up to</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-show-liked">
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Search Engine Indexing</strong>
+              <span>Allow search engines to index your creator profile and public playlists</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-search-indexing" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-actions">
+            <button type="submit" class="settings-submit-btn">
+              <span>Save Privacy Settings</span>
+            </button>
+          </div>
+          <div id="settings-privacy-feedback" class="settings-feedback-banner"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tab 2: Playback Preferences -->
+    <div id="settings-panel-playback" class="settings-panel" role="tabpanel">
+      <div class="settings-card">
+        <div class="settings-card-head">
+          <div class="settings-card-title">
+            <div class="settings-card-icon">▶️</div>
+            <div>
+              <h3>Playback &amp; Streaming Quality</h3>
+              <p>Configure default stream bandwidth, ambient mode, and playback engine</p>
+            </div>
+          </div>
+        </div>
+        <form id="settings-playback-form" class="settings-form-grid">
+          <div class="settings-field-row">
+            <label for="settings-default-quality">Default Streaming Quality</label>
+            <select id="settings-default-quality" class="settings-select">
+              <option value="auto">Auto (Adaptive Bitrate HLS - AV1 / H.264)</option>
+              <option value="1080p">1080p Full HD (High Bitrate)</option>
+              <option value="720p">720p HD (Balanced)</option>
+              <option value="480p">480p SD (Data Saver)</option>
+              <option value="360p">360p Low Bandwidth</option>
+            </select>
+            <span class="settings-field-hint">Adaptive bitrate automatically selects optimal CDN based on edge latency.</span>
+          </div>
+
+          <div class="settings-field-row">
+            <label for="settings-playback-rate">Default Playback Speed</label>
+            <select id="settings-playback-rate" class="settings-select">
+              <option value="0.75">0.75x (Slower)</option>
+              <option value="1.0" selected>1.0x (Normal)</option>
+              <option value="1.25">1.25x (Brisk)</option>
+              <option value="1.5">1.5x (Fast)</option>
+              <option value="2.0">2.0x (Ultra Fast)</option>
+            </select>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Ambient Cinema Glow</strong>
+              <span>Project subtle ambient lighting colors around the video player</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-ambient-mode" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Autoplay Next Up</strong>
+              <span>Automatically cue and play the next recommended video when playback finishes</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-autoplay-next" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Subtitles &amp; Captions by Default</strong>
+              <span>Automatically turn on closed captions (CC) whenever available in player</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-captions">
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-actions">
+            <button type="submit" class="settings-submit-btn">
+              <span>Save Playback Preferences</span>
+            </button>
+          </div>
+          <div id="settings-playback-feedback" class="settings-feedback-banner"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tab 3: Notification Alerts -->
+    <div id="settings-panel-notifications" class="settings-panel" role="tabpanel">
+      <div class="settings-card">
+        <div class="settings-card-head">
+          <div class="settings-card-title">
+            <div class="settings-card-icon">🔔</div>
+            <div>
+              <h3>Notification Alert Subscriptions</h3>
+              <p>Choose when and how Watchbloom alerts you about creators and security</p>
+            </div>
+          </div>
+        </div>
+        <form id="settings-notifications-form" class="settings-form-grid">
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Email Notifications</strong>
+              <span>Receive periodic digest summaries of activity on your videos and playlists</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-email-notifications" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>New Subscriber &amp; Follower Alerts</strong>
+              <span>Get notified immediately when someone subscribes or follows your channel</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-sub-alerts" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Personalized Recommendations Digest</strong>
+              <span>Weekly curated round-up of trending short films, reels, and original releases</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-rec-digests" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-toggle-row">
+            <div class="settings-toggle-info">
+              <strong>Critical Security &amp; Login Alerts</strong>
+              <span>Immediate alerts when new sessions, API keys, or password changes occur</span>
+            </div>
+            <label class="settings-switch">
+              <input type="checkbox" id="settings-sec-alerts" checked>
+              <span class="settings-slider"></span>
+            </label>
+          </div>
+
+          <div class="settings-actions">
+            <button type="submit" class="settings-submit-btn">
+              <span>Save Notification Preferences</span>
+            </button>
+          </div>
+          <div id="settings-notifications-feedback" class="settings-feedback-banner"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tab 4: Contact & Support Mail -->
+    <div id="settings-panel-support" class="settings-panel" role="tabpanel">
+      <div class="settings-card">
+        <div class="settings-card-head">
+          <div class="settings-card-title">
+            <div class="settings-card-icon">✉️</div>
+            <div>
+              <h3>Contact Helpdesk &amp; Support</h3>
+              <p>Submit inquiries to the engineering &amp; community support team via Celery background tasks</p>
+            </div>
+          </div>
+        </div>
+        <form id="settings-support-form" class="settings-form-grid">
+          <div class="settings-field-row">
+            <label for="support-contact-email">Your Contact Email *</label>
+            <input type="email" id="support-contact-email" class="settings-input" placeholder="creator@example.com" required>
+            <span class="settings-field-hint">A confirmation receipt and resolution updates will be dispatched here.</span>
+          </div>
+
+          <div class="settings-field-row">
+            <label for="support-contact-category">Inquiry Category *</label>
+            <select id="support-contact-category" class="settings-select" required>
+              <option value="technical">Technical Issue / Bug Report</option>
+              <option value="streaming">Video Playback / CDN Streaming Quality</option>
+              <option value="account">Account Access / Privacy / Data</option>
+              <option value="creator">Creator Studio / Transcoding / Publishing</option>
+              <option value="general">General Feedback / Feature Request</option>
+            </select>
+          </div>
+
+          <div class="settings-field-row">
+            <label for="support-contact-subject">Subject *</label>
+            <input type="text" id="support-contact-subject" class="settings-input" placeholder="Brief summary of inquiry" required maxlength="200">
+          </div>
+
+          <div class="settings-field-row">
+            <label for="support-contact-message">Detailed Message *</label>
+            <textarea id="support-contact-message" class="settings-textarea" placeholder="Please describe what occurred or what assistance you need..." required maxlength="4000"></textarea>
+          </div>
+
+          <div class="settings-actions">
+            <button type="submit" class="settings-submit-btn">
+              <span>Send Support Inquiry</span>
+            </button>
+          </div>
+          <div id="settings-support-feedback" class="settings-feedback-banner"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tab 5: Abuse & Safety Reporting -->
+    <div id="settings-panel-reporting" class="settings-panel" role="tabpanel">
+      <div class="settings-card">
+        <div class="settings-card-head">
+          <div class="settings-card-title">
+            <div class="settings-card-icon">🛡️</div>
+            <div>
+              <h3>Trust &amp; Safety Report Center</h3>
+              <p>Submit reports regarding abusive content, copyright violations, or guideline breaches</p>
+            </div>
+          </div>
+        </div>
+        <form id="settings-report-form" class="settings-form-grid">
+          <div class="settings-field-row">
+            <label for="report-target-type">Target Content Type *</label>
+            <select id="report-target-type" class="settings-select" required>
+              <option value="video">Video / Short Film</option>
+              <option value="comment">User Comment</option>
+              <option value="channel">Creator Channel</option>
+              <option value="playlist">Playlist</option>
+            </select>
+          </div>
+
+          <div class="settings-field-row">
+            <label for="report-target-id">Target ID or Resource Identifier *</label>
+            <input type="text" id="report-target-id" class="settings-input" placeholder="e.g., v1, c_123, or channel handle" required>
+            <span class="settings-field-hint">The identifier of the video, comment, or playlist being reported.</span>
+          </div>
+
+          <div class="settings-field-row">
+            <label for="report-reason-code">Violation Reason *</label>
+            <select id="report-reason-code" class="settings-select" required>
+              <option value="spam">Spam, Phishing, or Misleading Metadata</option>
+              <option value="copyright">Copyright Infringement / Intellectual Property</option>
+              <option value="violence">Violent or Dangerous Content</option>
+              <option value="harassment">Harassment, Hate Speech, or Cyberbullying</option>
+              <option value="other">Other Community Guideline Breach</option>
+            </select>
+          </div>
+
+          <div class="settings-field-row">
+            <label for="report-description">Detailed Description</label>
+            <textarea id="report-description" class="settings-textarea" placeholder="Provide context, timestamps, or reasons to help trust & safety review team..." maxlength="2000"></textarea>
+          </div>
+
+          <div class="settings-actions">
+            <button type="submit" class="settings-submit-btn" style="background:#ef4444; color:#fff;">
+              <span>Submit Abuse Report</span>
+            </button>
+          </div>
+          <div id="settings-report-feedback" class="settings-feedback-banner"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tab 6: Activity & Notification Logs -->
+    <div id="settings-panel-activity" class="settings-panel" role="tabpanel">
+      <div class="settings-card">
+        <div class="settings-card-head">
+          <div class="settings-card-title">
+            <div class="settings-card-icon">📋</div>
+            <div>
+              <h3>Recent Alerts &amp; Inquiries</h3>
+              <p>Real-time log of system alerts, support tickets, and moderation updates</p>
+            </div>
+          </div>
+          <button id="refresh-activity-btn" type="button" class="settings-submit-btn" style="background:var(--panel2); color:var(--ink); border:1px solid var(--line);">
+            <span>Refresh</span>
+          </button>
+        </div>
+        <div id="settings-activity-feed" class="settings-activity-feed">
+          <!-- Populated by loadSettingsActivity() -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- UNIQUE HERO WINDOWS FOR EVERY TAB -->
+<!-- 1. HOME HERO -->
+<section id="hero-home" class="view-hero view-hero-home" aria-labelledby="home-hero-title">
+  <!-- Dynamic Atmospheric Glow Orbs -->
+  <div class="home-aurora-glow" aria-hidden="true"></div>
+  <div class="home-aurora-glow-secondary" aria-hidden="true"></div>
+
+  <div class="view-hero-content">
+    <div class="view-hero-badge">
+      <span class="live-dot-pulse"></span>
+      <span data-i18n="homeBadge">Live Stream &amp; Fresh Drops</span>
+      <span class="badge-spark">✨ 4K HDR</span>
+    </div>
+    <h1 id="home-hero-title" class="view-hero-heading">Welcome to <span class="brand-text"><span class="brand-watch">Watch</span><span class="brand-bloom">bloom</span></span></h1>
+    <p class="view-hero-desc">Your personalized universe of original short-films, creator series, daily drops, and trending reels.</p>
+    
+    <div class="view-hero-actions">
+      <button id="home-refresh-cta" class="hero-action-btn primary-btn" type="button" aria-label="Refresh Videos">
+        <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-1.19"/></svg>
+        <span>Refresh New Videos</span>
+      </button>
+      <button class="hero-action-btn secondary-btn" type="button" data-view="explore">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.2 5.4-5.4 2.2 2.2-5.4 5.4-2.2Z"/></svg>
+        <span>Explore All</span>
+      </button>
+    </div>
+
+    <!-- Quick Channel Jump Strip -->
+    <div class="home-channel-strip">
+      <span class="channel-strip-label">Explore Fast:</span>
+      <button type="button" class="home-channel-pill" data-view="trending"><span class="pill-emoji">🔥</span> Trending</button>
+      <button type="button" class="home-channel-pill" data-view="reels"><span class="pill-emoji">⚡</span> Reels</button>
+      <button type="button" class="home-channel-pill" data-view="cinema"><span class="pill-emoji">🎬</span> Cinema</button>
+      <button type="button" class="home-channel-pill" data-view="music"><span class="pill-emoji">🎵</span> Beats</button>
+    </div>
+  </div>
+
+  <div class="view-hero-visual home-visual">
+    <!-- Orbital decorative rotating rings -->
+    <div class="home-orbit-ring ring-outer" aria-hidden="true"></div>
+    <div class="home-orbit-ring ring-inner" aria-hidden="true"></div>
+
+    <!-- 3D Cinematic Spotlight Card -->
+    <div class="home-spotlight-card">
+      <div class="spotlight-screen">
+        <div class="spotlight-top">
+          <span class="spotlight-live-tag"><span class="live-dot"></span> LIVE NOW</span>
+          <span class="spotlight-res-tag">4K ULTRA HD</span>
+        </div>
+        
+        <div class="spotlight-center">
+          <div class="spotlight-play-btn" aria-label="Play spotlight video">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <!-- Animated sound waves -->
+          <div class="spotlight-eq" aria-hidden="true">
+            <span class="eq-bar bar-1"></span>
+            <span class="eq-bar bar-2"></span>
+            <span class="eq-bar bar-3"></span>
+            <span class="eq-bar bar-4"></span>
+          </div>
+        </div>
+
+        <div class="spotlight-meta">
+          <div class="spotlight-title">Cinematic Odyssey: Neon Horizons</div>
+          <div class="spotlight-sub">Watchbloom Studio · 142k views</div>
+          <div class="spotlight-timeline">
+            <div class="spotlight-progress" style="width: 68%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating 3D Satellite Chips -->
+    <div class="home-satellite-chip chip-top">
+      <span class="chip-icon">⚡</span>
+      <div>
+        <strong>Fast Play 60 FPS</strong>
+        <small>Zero Buffering Stream</small>
+      </div>
+    </div>
+
+    <div class="home-satellite-chip chip-bottom">
+      <span class="chip-icon">👑</span>
+      <div>
+        <strong>Creator Master</strong>
+        <small>Lossless Audio Master</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 2. EXPLORE HERO -->
+<section id="hero-explore" class="view-hero view-hero-explore" aria-labelledby="explore-hero-title">
+  <div class="view-hero-content">
+    <div class="view-hero-badge"><span class="pulse-dot indigo-pulse"></span> <span>Deep Discovery Matrix</span></div>
+    <h1 id="explore-hero-title" class="view-hero-heading">Discover New Horizons</h1>
+    <p class="view-hero-desc">Journey across 12 creative genres — uncover hidden gems from technology to music, cooking, and cinematic art.</p>
+    <div class="explore-quick-tags">
+      <button type="button" class="explore-tag-chip" data-category="technology">💻 Tech</button>
+      <button type="button" class="explore-tag-chip" data-category="gaming">🎮 Gaming</button>
+      <button type="button" class="explore-tag-chip" data-category="music">🎵 Music</button>
+      <button type="button" class="explore-tag-chip" data-category="cooking">🍳 Cooking</button>
+      <button type="button" class="explore-tag-chip" data-category="travel">✈️ Travel</button>
+      <button type="button" class="explore-tag-chip" data-category="creative">🎨 Creative</button>
+      <button type="button" class="explore-tag-chip" data-category="learning">📚 Learning</button>
+    </div>
+  </div>
+  <div class="view-hero-visual explore-visual">
+    <div class="radar-ring ring-3"></div>
+    <div class="radar-ring ring-2"></div>
+    <div class="radar-ring ring-1"></div>
+    <div class="radar-center-compass">🧭</div>
+  </div>
+</section>
+
+<!-- 3. VIDEOS HERO -->
+<section id="hero-videos" class="view-hero view-hero-videos" aria-labelledby="videos-hero-title">
+  <div class="view-hero-content">
+    <div class="view-hero-badge"><span class="pulse-dot cyan-pulse"></span> <span>Cinema &amp; Video Hall</span></div>
+    <h1 id="videos-hero-title" class="view-hero-heading">Original Cinema &amp; Short Films</h1>
+    <p class="view-hero-desc">Immerse yourself in standalone productions, episodic videos, high-fidelity sound, and director cut edits.</p>
+    <div class="cinema-specs-row">
+      <div class="spec-pill"><span class="spec-icon">🎞️</span> Cinema Theater</div>
+      <div class="spec-pill"><span class="spec-icon">🔊</span> High Fidelity Audio</div>
+      <div class="spec-pill"><span class="spec-icon">💬</span> WebVTT Subtitles</div>
+    </div>
+  </div>
+  <div class="view-hero-visual videos-visual">
+    <div class="clapper-board">
+      <div class="clapper-top">/// WATCHBLOOM SCENE 01 ///</div>
+      <div class="clapper-body">▶ CINEMA HALL</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. PLAYLISTS HERO -->
+<section id="hero-playlists" class="view-hero view-hero-playlists" aria-labelledby="playlists-hero-title">
+  <div class="view-hero-content">
+    <div class="view-hero-badge"><span class="pulse-dot teal-pulse"></span> <span>Curated Series &amp; Mixtapes</span></div>
+    <h1 id="playlists-hero-title" class="view-hero-heading">Binge-Worthy Playlists</h1>
+    <p class="view-hero-desc">Hand-sequenced episodes, guided study tracks, and uninterrupted creator sets designed to watch in order.</p>
+    <div class="view-hero-actions">
+      <button class="hero-action-btn teal-btn" type="button" data-action="create">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+        <span>Create New Playlist</span>
+      </button>
+    </div>
+  </div>
+  <div class="view-hero-visual playlists-visual">
+    <div class="playlist-stack stack-3"></div>
+    <div class="playlist-stack stack-2"></div>
+    <div class="playlist-stack stack-1">
+      <span class="stack-icon">📑</span>
+      <strong>Multi-Track Album</strong>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SAVED HERO -->
+<section id="hero-saved" class="view-hero view-hero-saved" aria-labelledby="saved-hero-title">
+  <div class="view-hero-content">
+    <div class="view-hero-badge"><span class="pulse-dot rose-pulse"></span> <span>Your Space · Vault</span></div>
+    <h1 id="saved-hero-title" class="view-hero-heading">Saved Videos &amp; Bookmarks</h1>
+    <p class="view-hero-desc">Your private personal library. All bookmarked videos, guides, and reels kept safe on this device.</p>
+    <div class="saved-stats-bar">
+      <span class="saved-counter-pill">🔖 <strong id="hero-saved-count">0</strong> items stored in this browser</span>
+    </div>
+  </div>
+  <div class="view-hero-visual saved-visual">
+    <div class="vault-crest">
+      <span class="vault-icon">★</span>
+      <span>PRIVATE VAULT</span>
+    </div>
+  </div>
+</section>
+
+<!-- 6. HISTORY HERO -->
+<section id="hero-history" class="view-hero view-hero-history" aria-labelledby="history-hero-title">
+  <div class="view-hero-content">
+    <div class="view-hero-badge"><span class="pulse-dot slate-pulse"></span> <span>Your Space · Timeline</span></div>
+    <h1 id="history-hero-title" class="view-hero-heading">Watch History &amp; Activity</h1>
+    <p class="view-hero-desc">Revisit every video and playlist you have recently watched on this browser. Private to your local session.</p>
+    <div class="view-hero-actions">
+      <button id="clear-history-btn" class="hero-action-btn outline-btn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        <span>Clear Watch History</span>
+      </button>
+    </div>
+  </div>
+  <div class="view-hero-visual history-visual">
+    <div class="timeline-dial">
+      <span class="dial-time">◷ HISTORY</span>
+      <small>Local Storage Log</small>
+    </div>
+  </div>
+</section>
+
+<!-- 7. FOLLOWING HERO -->
+<section id="hero-following" class="view-hero view-hero-following" aria-labelledby="following-hero-title">
+  <div class="view-hero-content">
+    <div class="view-hero-badge"><span class="pulse-dot amber-pulse"></span> <span>Your Space · Community</span></div>
+    <h1 id="following-hero-title" class="view-hero-heading">Creators You Follow</h1>
+    <p class="view-hero-desc">Stay connected with the independent directors, thinkers, and makers in your personal circle.</p>
+    <div class="saved-stats-bar">
+      <span class="following-counter-pill">⭐ <strong id="hero-following-count">0</strong> Creators Followed</span>
+    </div>
+  </div>
+  <div class="view-hero-visual following-visual">
+    <div class="vip-badge">
+      <span>👑</span>
+      <small>CREATOR PASS</small>
+    </div>
+  </div>
+</section>
+
+<!-- 8. LIKED VIDEOS HERO -->
+<section id="hero-liked" class="view-hero view-hero-liked" aria-labelledby="liked-hero-title">
+  <div class="view-hero-content">
+    <div class="view-hero-badge"><span class="pulse-dot ruby-pulse"></span> <span data-i18n="likedBadge">Your Space · Favorites</span></div>
+    <h1 id="liked-hero-title" class="view-hero-heading" data-i18n="likedVideosTitle">Liked Videos</h1>
+    <p class="view-hero-desc" data-i18n="likedVideosNote">All the videos, films, and reels you gave a thumbs-up to across Watchbloom.</p>
+    <div class="saved-stats-bar">
+      <span class="liked-counter-pill">👍 <strong id="hero-liked-count">0</strong> <span data-i18n="likedCountSuffix">videos liked</span></span>
+    </div>
+  </div>
+  <div class="view-hero-visual liked-visual">
+    <div class="heart-crest">
+      <span class="heart-icon">💖</span>
+      <small>TOP PICKS</small>
+    </div>
+  </div>
+</section>
+<section class="shorts-feature" aria-label="Reels"><span class="shorts-feature-mark" aria-hidden="true"><svg class="reels-symbol" viewBox="0 0 256 256" fill="none" aria-hidden="true"><defs><linearGradient id="reelcraft-feat-grad" x1="15%" y1="15%" x2="85%" y2="85%"><stop offset="0%" stop-color="#FF8A00"/><stop offset="52%" stop-color="#FF0055"/><stop offset="100%" stop-color="#9900FF"/></linearGradient><linearGradient id="reelcraft-feat-surface" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8A00" stop-opacity="0.18"/><stop offset="100%" stop-color="#9900FF" stop-opacity="0.06"/></linearGradient><linearGradient id="reelcraft-feat-border" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF8A00" stop-opacity="0.45"/><stop offset="100%" stop-color="#9900FF" stop-opacity="0.15"/></linearGradient><radialGradient id="reelcraft-feat-ambient" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#FF0055" stop-opacity="0.55"/><stop offset="100%" stop-color="#9900FF" stop-opacity="0"/></radialGradient></defs><path d="M 128 16 C 188 16, 214 16, 227 29 C 240 42, 240 68, 240 128 C 240 188, 240 214, 227 227 C 214 240, 188 240, 128 240 C 68 240, 42 240, 29 227 C 16 214, 16 188, 16 128 C 16 68, 16 42, 29 29 C 42 16, 68 16, 128 16 Z" fill="#0D0B14" stroke="url(#reelcraft-feat-border)" stroke-width="2.5"/><circle cx="128" cy="128" r="88" fill="url(#reelcraft-feat-ambient)" opacity="0.35"/><g transform="translate(128, 128)"><path d="M -68 -48 C -36 -74, 36 -74, 68 -48" fill="none" stroke="url(#reelcraft-feat-grad)" stroke-width="2.475" stroke-linecap="round" stroke-dasharray="10 12" opacity="0.45"/><path d="M -56 76 C -20 92, 20 92, 56 76" fill="none" stroke="url(#reelcraft-feat-grad)" stroke-width="2.475" stroke-linecap="round" opacity="0.35"/><g class="reel-clapper-hinge" transform="rotate(-8, -54, -34)"><rect x="-64" y="-58" width="128" height="26" rx="13" fill="url(#reelcraft-feat-grad)"/><path d="M -34 -58 L -18 -32 M 6 -58 L 22 -32 M 42 -58 L 54 -38" stroke="#090D16" stroke-width="4.5" stroke-linecap="butt" opacity="0.8"/></g><rect x="-64" y="-22" width="128" height="88" rx="26" fill="url(#reelcraft-feat-surface)" stroke="url(#reelcraft-feat-grad)" stroke-width="4.5"/><g transform="translate(2, 18) scale(1)"><path d="M -18 -18 C -18 -25, -9 -29, -2 -25 L 26 -7 C 33 -3, 33 5, 26 9 L -2 27 C -9 31, -18 27, -18 20 Z" fill="url(#reelcraft-feat-grad)"/><path d="M -18 2 L 10 19 L -2 27 C -9 31, -18 27, -18 20 Z" fill="rgba(0,0,0,0.22)"/></g></g></svg></span><div class="shorts-feature-copy"><strong data-i18n="shorts">Reels</strong><p data-i18n="view_shorts_note">Quick, vertical videos from the Watchbloom collection.</p></div><button id="shorts-feature-button" type="button"><span data-i18n="watchShorts">Watch Reels</span><span aria-hidden="true">›</span></button></section><div id="categories" class="topic-strip category-strip" role="group" aria-label="Browse categories"><button class="topic-chip category-chip active" data-category="all" type="button" aria-pressed="true">All</button><button class="topic-chip category-chip" data-category="technology" type="button" aria-pressed="false">Technology</button><button class="topic-chip category-chip" data-category="gaming" type="button" aria-pressed="false">Gaming</button><button class="topic-chip category-chip" data-category="music" type="button" aria-pressed="false">Music</button><button class="topic-chip category-chip" data-category="news" type="button" aria-pressed="false">News</button><button class="topic-chip category-chip" data-category="sports" type="button" aria-pressed="false">Sports</button><button class="topic-chip category-chip" data-category="cooking" type="button" aria-pressed="false">Cooking</button><button class="topic-chip category-chip" data-category="travel" type="button" aria-pressed="false">Travel</button><button class="topic-chip category-chip" data-category="entertainment" type="button" aria-pressed="false">Entertainment</button><button class="topic-chip category-chip" data-category="lifestyle" type="button" aria-pressed="false">Lifestyle</button><button class="topic-chip category-chip" data-category="creative" type="button" aria-pressed="false">Creative</button><button class="topic-chip category-chip" data-category="learning" type="button" aria-pressed="false">Learning</button></div>
+<div id="recent" class="recent" aria-label="Recent searches"></div>
+<section id="catalog-section" aria-labelledby="view-title"><div class="section-head"><div><p id="section-eyebrow" class="eyebrow" data-i18n="collection">The collection</p><h2 id="view-title">Explore videos</h2><p id="view-note" class="section-subtitle">Fresh finds across every topic.</p></div><div class="catalog-head-actions"><span id="catalog-size" class="catalog-size"></span><button id="find-creators" class="creator-discover-button" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20v-1.4A4.6 4.6 0 0 1 7.1 14h3.8a4.6 4.6 0 0 1 4.6 4.6V20M17 8h5m-2.5-2.5v5"/></svg><span data-i18n="discoverCreators">Find creators</span></button></div></div>
+<div class="toolbar"><div class="view-tabs" role="group" aria-label="Choose content type"><button class="view-tab active" type="button" data-view="home" data-i18n="home">Home</button><button class="view-tab" type="button" data-view="explore" data-i18n="explore">Explore</button><button class="view-tab" type="button" data-view="reels" data-i18n="shorts">Reels</button><button class="view-tab" type="button" data-view="videos" data-i18n="videos">Videos</button><button class="view-tab" type="button" data-view="playlists" data-i18n="playlists">Playlists</button><button class="view-tab" type="button" data-view="following" data-i18n="following">Following</button><button class="view-tab" type="button" data-view="liked" data-i18n="likedVideos">Liked</button><button class="view-tab" type="button" data-view="saved" data-i18n="saved">Saved</button></div><div class="filters" aria-label="Sort and filter results"><label><span class="sr-only" data-i18n="sortResults">Sort results</span><select id="sort"><option value="relevance" data-i18n="featured">Featured</option><option value="popularity" data-i18n="mostViewed">Most viewed</option><option value="newest" data-i18n="newest">Newest</option></select></label><label><span class="sr-only" data-i18n="filterDuration">Filter by duration</span><select id="duration"><option value="all" data-i18n="anyLength">Any length</option><option value="under3" data-i18n="under3">Under 3 min</option><option value="3to20" data-i18n="3to20">3–20 min</option><option value="over20" data-i18n="over20">Over 20 min</option></select></label><label><span class="sr-only" data-i18n="filterDate">Filter by upload date</span><select id="uploaded"><option value="any" data-i18n="anyTime">Any time</option><option value="today" data-i18n="today">Today</option><option value="week" data-i18n="thisWeek">This week</option><option value="month" data-i18n="thisMonth">This month</option><option value="year" data-i18n="thisYear">This year</option></select></label></div></div>
+<p id="count" class="section-subtitle" aria-live="polite"></p><div id="res" class="results-grid" aria-live="polite"></div><button id="more" class="load-more" type="button" hidden>Show more</button></section>
+<section id="home-shorts" class="home-shorts" aria-labelledby="home-shorts-title" hidden><div class="section-head home-shorts-head"><div><p class="eyebrow" data-i18n="shortsShelfEyebrow">A quick watch</p><h2 id="home-shorts-title" data-i18n="shortsShelfTitle">Reels</h2><p class="section-subtitle" data-i18n="shortsShelfNote">Choose a Reel to open its player.</p></div><button id="home-shorts-see-all" class="shelf-see-all" type="button"><span data-i18n="shortsSeeAll">See all</span><span aria-hidden="true">›</span></button></div><div id="home-shorts-track" class="shorts-shelf-track" aria-live="polite"></div></section>
+<footer class="footer"><span><strong class="brand-text"><span class="brand-watch">Watch</span><span class="brand-bloom">bloom</span></strong> · <span data-i18n="footerTagline">your place to find something worth watching</span></span><span data-i18n="footerNote">Original catalog · no scraped videos</span></footer>
+<details class="about"><summary data-i18n="aboutSearch">About Watchbloom</summary><p data-i18n="aboutText">Watchbloom has its own catalog and SQLite full-text search. Search, categories, and ranking are built for this app. It does not fetch YouTube data or reuse YouTube branding.</p></details>
+</main></div>
+<dialog id="detail-dialog" class="detail-dialog" aria-labelledby="dialog-title"><div id="dialog-content" class="dialog-inner"></div></dialog>
+<dialog id="creator-dialog" class="detail-dialog creator-dialog" aria-labelledby="creator-dialog-title"><div id="creator-dialog-content" class="dialog-inner"></div></dialog>
+<dialog id="language-modal" class="detail-dialog language-modal" aria-labelledby="language-modal-title"></dialog>
+<div id="follow-toast" class="follow-toast" role="status" aria-live="polite" hidden></div>
+<script src="/indian-languages.js" defer></script>
+<script src="/hls.min.js" defer></script>
+<script src="/watchbloom.js?v=20261022v3" defer></script>
+</body>
+</html>

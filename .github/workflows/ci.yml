@@ -1,0 +1,136 @@
+name: Watchbloom Platform CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ── 1. STATIC ANALYSIS & AUTOMATED TEST SUITE ──
+  test:
+    name: Test & Type Safety Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    services:
+      redis:
+        image: redis:7.2-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Set up Node.js for Pyright and JS syntax validation
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyright pytest
+
+      - name: Validate JavaScript Syntax
+        run: |
+          node -c static/watchbloom.js
+          node -c static/indian-languages.js
+
+      - name: Run Pyright Type Checker
+        run: |
+          npx pyright
+
+      - name: Run Complete Automated Test Suite (113 Tests)
+        env:
+          REDIS_URL: redis://localhost:6379/0
+          TESTING: "True"
+        run: |
+          python -m unittest discover -s . -p "test_*.py"
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
+
+      - name: Lint Watchbloom Helm Chart
+        run: |
+          helm lint helm/watchbloom
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      - name: Validate Multi-Region Terraform Configurations
+        run: |
+          cd terraform
+          terraform init -backend=false
+          terraform validate
+
+  # ── 2. DOCKER CONTAINER IMAGE BUILD & VERIFICATION ──
+  docker-build:
+    name: Docker Build & Layer Verification
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build API Container Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.api
+          push: false
+          tags: watchbloom/api:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build Nginx Gateway Container Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile.nginx
+          push: false
+          tags: watchbloom/nginx:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ── 3. DEPLOYMENT STAGE (CANARY & ROLLING DEPLOYMENT PREVIEW) ──
+  deploy-preview:
+    name: Canary & Rolling Deployment Staging
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: [test, docker-build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate Kubernetes Manifests with Kustomize
+        run: |
+          kubectl kustomize k8s/

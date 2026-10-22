@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 112" role="img" aria-labelledby="title desc">
+  <title id="title">Watchbloom</title>
+  <desc id="desc">A four-petal lavender bloom frames a play symbol beside the Watchbloom name.</desc>
+  <g transform="translate(56 56) scale(.9)">
+    <path d="M0-41c12 0 20 10 16 21C13-11 5-3 0 2c-5-5-13-13-16-22-4-11 4-21 16-21Z" fill="#C3A8FF"/>
+    <path d="M0-41c12 0 20 10 16 21C13-11 5-3 0 2c-5-5-13-13-16-22-4-11 4-21 16-21Z" fill="#D9A85F" transform="rotate(90)"/>
+    <path d="M0-41c12 0 20 10 16 21C13-11 5-3 0 2c-5-5-13-13-16-22-4-11 4-21 16-21Z" fill="#8A6ACF" transform="rotate(180)"/>
+    <path d="M0-41c12 0 20 10 16 21C13-11 5-3 0 2c-5-5-13-13-16-22-4-11 4-21 16-21Z" fill="#D9CBFF" transform="rotate(270)"/>
+    <circle r="13" fill="#39285E"/>
+    <path d="M-4-7 8 0-4 7Z" fill="#E7C98F"/>
+  </g>
+  <text x="112" y="63" fill="#39285E" font-family="Inter, Avenir Next, Segoe UI, sans-serif" font-size="46" font-weight="750" letter-spacing="-2">Watchbloom</text>
+  <text x="116" y="87" fill="#8A6ACF" font-family="Inter, Avenir Next, Segoe UI, sans-serif" font-size="10" font-weight="700" letter-spacing="2.8">FIND YOUR NEXT LITTLE WONDER</text>
+</svg>

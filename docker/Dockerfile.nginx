@@ -1,0 +1,24 @@
+# ==============================================================================
+# Dockerfile for Watchbloom Edge Nginx Reverse Proxy & Load Balancer
+# Handles SSL/TLS, static asset caching, rate-limiting, and API load balancing
+# ==============================================================================
+
+FROM nginx:1.27-alpine
+
+# Remove default configuration
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy custom Nginx configuration
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY docker/nginx/watchbloom.conf /etc/nginx/conf.d/watchbloom.conf
+
+# Copy static frontend assets for direct high-speed serving
+COPY static /var/www/watchbloom/static
+
+EXPOSE 80 443 50050
+
+HEALTHCHECK --interval=15s --timeout=5s --start-period=5s --retries=3 \
+    CMD nginx -t && wget -q -O - http://127.0.0.1/healthz || exit 1
+
+CMD ["nginx", "-g", "daemon off;"]
+

@@ -1,0 +1,169 @@
+# ==============================================================================
+# Watchbloom Docker Swarm Production Stack Specification
+# Deploy: docker stack deploy -c docker-stack.yml watchbloom
+# ==============================================================================
+
+version: '3.8'
+
+services:
+  # ── 1. GLOBAL EDGE REVERSE PROXY & LOAD BALANCER ──
+  nginx:
+    image: search-backend-nginx:latest
+    ports:
+      - target: 80
+        published: 80
+        mode: host
+      - target: 443
+        published: 443
+        mode: host
+    networks:
+      - watchbloom_overlay
+    deploy:
+      mode: global # Runs on every swarm ingress node
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+        reservations:
+          cpus: '0.5'
+          memory: 256M
+
+  # ── 2. SCALABLE API CLUSTER ──
+  api:
+    image: watchbloom/api:latest
+    command: ["/entrypoint.sh", "gunicorn", "--config", "python:gunicorn_conf", "app:app"]
+    networks:
+      - watchbloom_overlay
+    environment:
+      - FLASK_ENV=production
+      - PORT=5000
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - DATABASE_URL=postgresql://watchbloom_user:${POSTGRES_PASSWORD:-watchbloom_secure_password_replace_in_prod}@pgbouncer_write:6432/watchbloom
+      - DATABASE_READ_URLS=postgresql://watchbloom_user:${POSTGRES_PASSWORD:-watchbloom_secure_password_replace_in_prod}@pgbouncer_read:6433/watchbloom
+      - CDN_BASE_URL=${CDN_BASE_URL:-https://media.watchbloom.com}
+    deploy:
+      replicas: 4
+      endpoint_mode: vip
+      update_config:
+        parallelism: 2
+        delay: 15s
+        order: start-first
+        failure_action: rollback
+      rollback_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1536M
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+
+  # ── 3. SCALABLE CELERY TRANSCODING WORKER POOL ──
+  celery_worker:
+    image: watchbloom/worker:latest
+    command: ["/entrypoint.sh", "celery", "-A", "core.tasks.celery_app", "worker", "--loglevel=info", "-Q", "celery,transcode_video,buffer_flush", "-c", "4"]
+    networks:
+      - watchbloom_overlay
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/2
+      - REDIS_URL=redis://redis:6379/0
+      - DATABASE_URL=postgresql://watchbloom_user:${POSTGRES_PASSWORD:-watchbloom_secure_password_replace_in_prod}@pgbouncer_write:6432/watchbloom
+    deploy:
+      replicas: 6
+      update_config:
+        parallelism: 2
+        delay: 15s
+      restart_policy:
+        condition: on-failure
+        max_attempts: 3
+      resources:
+        limits:
+          cpus: '3.0'
+          memory: 4096M
+        reservations:
+          cpus: '0.5'
+          memory: 1024M
+
+  # ── 4. CELERY BEAT (SINGLETON SCHEDULER) ──
+  celery_beat:
+    image: watchbloom/beat:latest
+    command: ["celery", "-A", "core.tasks.celery_app", "beat", "--loglevel=info", "-s", "/tmp/celerybeat-schedule"]
+    networks:
+      - watchbloom_overlay
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - REDIS_URL=redis://redis:6379/0
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+
+  # ── 5. REDIS IN-MEMORY BROKER & CACHE ──
+  redis:
+    image: redis:7.2-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "2048mb", "--maxmemory-policy", "allkeys-lru"]
+    networks:
+      - watchbloom_overlay
+    volumes:
+      - redis_data:/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2048M
+
+  # ── 6. PGBOUNCER WRITE POOL ──
+  pgbouncer_write:
+    image: edoburu/pgbouncer:latest
+    command: ["/entrypoint.sh", "/usr/bin/pgbouncer", "/etc/pgbouncer/pgbouncer-write.ini"]
+    networks:
+      - watchbloom_overlay
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+
+  # ── 7. PGBOUNCER READ POOL ──
+  pgbouncer_read:
+    image: edoburu/pgbouncer:latest
+    command: ["/entrypoint.sh", "/usr/bin/pgbouncer", "/etc/pgbouncer/pgbouncer-read.ini"]
+    networks:
+      - watchbloom_overlay
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  watchbloom_overlay:
+    driver: overlay
+    attachable: true
+

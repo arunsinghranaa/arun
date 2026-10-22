@@ -1,0 +1,43 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: watchbloom-celery-worker-scaler
+  namespace: watchbloom
+  labels:
+    app.kubernetes.io/name: watchbloom
+    app.kubernetes.io/component: worker-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: watchbloom-celery-worker
+  minReplicaCount: 2
+  maxReplicaCount: 24
+  cooldownPeriod: 300
+  pollingInterval: 15
+  triggers:
+    # ── 1. TRANSCODING QUEUE DEPTH ──
+    # Trigger 1 worker for every 2 queued transcode jobs
+    - type: redis
+      metadata:
+        address: watchbloom-redis.watchbloom.svc.cluster.local:6379
+        listName: transcode_video
+        listLength: "2"
+        enableTLS: "false"
+
+    # ── 2. ENGAGEMENT BUFFER FLUSH QUEUE ──
+    - type: redis
+      metadata:
+        address: watchbloom-redis.watchbloom.svc.cluster.local:6379
+        listName: buffer_flush
+        listLength: "10"
+        enableTLS: "false"
+
+    # ── 3. DEFAULT CELERY QUEUE ──
+    - type: redis
+      metadata:
+        address: watchbloom-redis.watchbloom.svc.cluster.local:6379
+        listName: celery
+        listLength: "15"
+        enableTLS: "false"
+

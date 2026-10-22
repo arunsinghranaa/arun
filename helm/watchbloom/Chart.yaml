@@ -1,0 +1,17 @@
+apiVersion: v2
+name: watchbloom
+description: Production-Grade YouTube-Scale Cloud-Native Video Streaming Architecture for Watchbloom
+type: application
+version: 2.4.0
+appVersion: "2026.10"
+keywords:
+  - video-streaming
+  - hls
+  - celery
+  - pgbouncer
+  - redis
+  - kubernetes
+maintainers:
+  - name: Watchbloom SRE & Systems Architecture Team
+    email: sre@watchbloom.internal
+

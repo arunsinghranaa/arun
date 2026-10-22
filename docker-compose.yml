@@ -1,0 +1,334 @@
+# ==============================================================================
+# Master Docker Compose Orchestration for Watchbloom Video Streaming Platform
+# Supports horizontal scaling: `docker compose up --scale api=4 --scale celery_worker=6`
+# ==============================================================================
+
+networks:
+  watchbloom_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+services:
+  # ── 1. EDGE REVERSE PROXY & LOAD BALANCER (NGINX) ──
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nginx
+    container_name: watchbloom_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+      - "50050:50050"
+    volumes:
+      - media_data:/var/www/watchbloom/static/videos:ro
+      - hls_data:/var/www/watchbloom/static/videos/hls:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - watchbloom_net
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 1024M
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    restart: unless-stopped
+
+  # ── 2. STATELESS FLASK API APPLICATION TIER (SCALABLE) ──
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    image: watchbloom/api:latest
+    environment:
+      - FLASK_ENV=${FLASK_ENV:-production}
+      - SECRET_KEY=${SECRET_KEY:-watchbloom-production-secret-key-change-me}
+      - JWT_SECRET=${JWT_SECRET:-watchbloom-production-secret-key-change-me}
+      - JWT_EXPIRATION_SECONDS=${JWT_EXPIRATION_SECONDS:-86400}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-*}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/1}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND:-redis://redis:6379/2}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://watchbloom_user:watchbloom_secure_password_replace_in_prod@pgbouncer_write:6432/watchbloom}
+      - DATABASE_READ_URLS=${DATABASE_READ_URLS:-postgresql://watchbloom_user:watchbloom_secure_password_replace_in_prod@pgbouncer_read:6433/watchbloom}
+      - R2_ACCOUNT_ID=${R2_ACCOUNT_ID}
+      - R2_ACCESS_KEY_ID=${R2_ACCESS_KEY_ID}
+      - R2_SECRET_ACCESS_KEY=${R2_SECRET_ACCESS_KEY}
+      - R2_BUCKET_NAME=${R2_BUCKET_NAME:-watchbloom-media}
+      - CDN_BASE_URL=${CDN_BASE_URL}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - ENABLE_BROTLI=1
+      - ENABLE_MSGPACK=1
+    volumes:
+      - media_data:/app/static/videos
+      - hls_data:/app/static/videos/hls
+    depends_on:
+      pgbouncer_write:
+        condition: service_healthy
+      pgbouncer_read:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - watchbloom_net
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    restart: unless-stopped
+
+  # ── 3. ASYNCHRONOUS TRANSCODING WORKER POOL (SCALABLE) ──
+  celery_worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.worker
+    image: watchbloom/worker:latest
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/1}
+      - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND:-redis://redis:6379/2}
+      - R2_ACCOUNT_ID=${R2_ACCOUNT_ID}
+      - R2_ACCESS_KEY_ID=${R2_ACCESS_KEY_ID}
+      - R2_SECRET_ACCESS_KEY=${R2_SECRET_ACCESS_KEY}
+      - R2_BUCKET_NAME=${R2_BUCKET_NAME:-watchbloom-media}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://watchbloom_user:watchbloom_secure_password_replace_in_prod@pgbouncer_write:6432/watchbloom}
+    volumes:
+      - media_data:/app/static/videos
+      - hls_data:/app/static/videos/hls
+      - transcode_tmp:/tmp/watchbloom_transcode
+    depends_on:
+      redis:
+        condition: service_healthy
+      pgbouncer_write:
+        condition: service_healthy
+    networks:
+      - watchbloom_net
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4096M
+        reservations:
+          cpus: '1.0'
+          memory: 1024M
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    restart: unless-stopped
+
+  # ── 4. CELERY BEAT PERIODIC SCHEDULER ──
+  celery_beat:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.beat
+    image: watchbloom/beat:latest
+    container_name: watchbloom_celery_beat
+    command: celery -A core.tasks.celery_app beat --loglevel=info -s /tmp/celerybeat-schedule
+    environment:
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/1}
+      - REDIS_URL=${REDIS_URL:-redis://redis:6379/0}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://watchbloom_user:watchbloom_secure_password_replace_in_prod@pgbouncer_write:6432/watchbloom}
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - watchbloom_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    restart: unless-stopped
+
+  # ── 5. REDIS DISTRIBUTED CACHE & MESSAGE BROKER ──
+  redis:
+    image: redis:7.2-alpine
+    container_name: watchbloom_redis
+    ports:
+      - "6379:6379"
+    command: [
+      "redis-server",
+      "--maxmemory", "1536mb",
+      "--maxmemory-policy", "volatile-lru",
+      "--save", "60", "1000",
+      "--appendonly", "yes",
+      "--tcp-backlog", "511",
+      "--timeout", "0"
+    ]
+    volumes:
+      - redis_data:/data
+    networks:
+      - watchbloom_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    restart: unless-stopped
+
+  # ── 6. PGBOUNCER CONNECTION POOLER (PRIMARY WRITES) ──
+  pgbouncer_write:
+    image: edoburu/pgbouncer:latest
+    container_name: watchbloom_pgbouncer_write
+    ports:
+      - "6432:6432"
+    volumes:
+      - ./docker/pgbouncer/pgbouncer-write.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./docker/pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt:ro
+    depends_on:
+      postgres_primary:
+        condition: service_healthy
+    networks:
+      - watchbloom_net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "6432", "-U", "watchbloom_user"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+    restart: unless-stopped
+
+  # ── 7. PGBOUNCER CONNECTION POOLER (READ REPLICAS) ──
+  pgbouncer_read:
+    image: edoburu/pgbouncer:latest
+    container_name: watchbloom_pgbouncer_read
+    ports:
+      - "6433:6433"
+    volumes:
+      - ./docker/pgbouncer/pgbouncer-read.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./docker/pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt:ro
+    depends_on:
+      postgres_replica:
+        condition: service_healthy
+    networks:
+      - watchbloom_net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-p", "6433", "-U", "watchbloom_user"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+    restart: unless-stopped
+
+  # ── 8. POSTGRESQL PRIMARY (WRITES & WAL SOURCE) ──
+  postgres_primary:
+    image: postgres:16-alpine
+    container_name: watchbloom_pg_primary
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-watchbloom}
+      - POSTGRES_USER=${POSTGRES_USER:-watchbloom_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-watchbloom_secure_password_replace_in_prod}
+      - POSTGRES_REPLICATION_USER=${POSTGRES_REPLICATION_USER:-replicator}
+      - POSTGRES_REPLICATION_PASSWORD=${POSTGRES_REPLICATION_PASSWORD:-replicator_password_replace_in_prod}
+    volumes:
+      - pg_primary_data:/var/lib/postgresql/data
+      - ./docker/postgres/init-primary.sh:/docker-entrypoint-initdb.d/init-primary.sh:ro
+    networks:
+      - watchbloom_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-watchbloom_user} -d ${POSTGRES_DB:-watchbloom}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    restart: unless-stopped
+
+  # ── 9. POSTGRESQL READ REPLICA (READ QUERIES) ──
+  postgres_replica:
+    image: postgres:16-alpine
+    container_name: watchbloom_pg_replica
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-watchbloom}
+      - POSTGRES_USER=${POSTGRES_USER:-watchbloom_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-watchbloom_secure_password_replace_in_prod}
+      - POSTGRES_PRIMARY_HOST=postgres_primary
+      - POSTGRES_PRIMARY_PORT=5432
+      - POSTGRES_REPLICATION_USER=${POSTGRES_REPLICATION_USER:-replicator}
+      - POSTGRES_REPLICATION_PASSWORD=${POSTGRES_REPLICATION_PASSWORD:-replicator_password_replace_in_prod}
+    volumes:
+      - pg_replica_data:/var/lib/postgresql/data
+      - ./docker/postgres/init-replica.sh:/init-replica.sh:ro
+    entrypoint: ["/bin/sh", "/init-replica.sh", "docker-entrypoint.sh"]
+    command: ["postgres"]
+    depends_on:
+      postgres_primary:
+        condition: service_healthy
+    networks:
+      - watchbloom_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-watchbloom_user} -d ${POSTGRES_DB:-watchbloom}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    restart: unless-stopped
+
+# ── PERSISTENT VOLUMES ──
+volumes:
+  pg_primary_data:
+    driver: local
+  pg_replica_data:
+    driver: local
+  redis_data:
+    driver: local
+  media_data:
+    driver: local
+  hls_data:
+    driver: local
+  transcode_tmp:
+    driver: local
+  nginx_logs:
+    driver: local

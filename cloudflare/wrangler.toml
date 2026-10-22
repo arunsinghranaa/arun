@@ -1,0 +1,16 @@
+name = "watchbloom-edge-auth"
+main = "worker-edge-auth.js"
+compatibility_date = "2026-10-01"
+
+routes = [
+  { pattern = "watchbloom.com/api/media/*", zone_name = "watchbloom.com" },
+  { pattern = "watchbloom.com/api/v1/hls/*", zone_name = "watchbloom.com" },
+  { pattern = "media.watchbloom.com/*", zone_name = "watchbloom.com" }
+]
+
+[vars]
+ENVIRONMENT = "production"
+
+# In production, MEDIA_SIGNING_SECRET is stored encrypted via:
+# wrangler secret put MEDIA_SIGNING_SECRET
+

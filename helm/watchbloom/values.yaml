@@ -1,0 +1,125 @@
+# Default values for Watchbloom YouTube-scale Kubernetes cluster
+global:
+  environment: production
+  domain: watchbloom.com
+  region: us-east-1
+
+replicaCount:
+  api: 6
+  worker: 4
+  beat: 1
+
+image:
+  repository: ghcr.io/watchbloom/watchbloom-api
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+workerImage:
+  repository: ghcr.io/watchbloom/watchbloom-worker
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+serviceAccount:
+  create: true
+  name: watchbloom-sa
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::123456789012:role/watchbloom-production-role"
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+  readOnlyRootFilesystem: false
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+service:
+  type: ClusterIP
+  port: 5000
+  targetPort: 5000
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-buffering: "off"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Edge-Routing: Envoy-K8s-Mesh";
+  hosts:
+    - host: api.watchbloom.com
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: stream.watchbloom.com
+      paths:
+        - path: /api/v1/live
+          pathType: Prefix
+        - path: /api/v1/hls
+          pathType: Prefix
+  tls:
+    - secretName: watchbloom-tls-cert
+      hosts:
+        - api.watchbloom.com
+        - stream.watchbloom.com
+
+resources:
+  api:
+    limits:
+      cpu: "2000m"
+      memory: "4096Mi"
+    requests:
+      cpu: "500m"
+      memory: "1024Mi"
+  worker:
+    limits:
+      cpu: "4000m"
+      memory: "8192Mi"
+    requests:
+      cpu: "1000m"
+      memory: "2048Mi"
+
+autoscaling:
+  api:
+    enabled: true
+    minReplicas: 4
+    maxReplicas: 32
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 75
+
+keda:
+  enabled: true
+  worker:
+    minReplicaCount: 2
+    maxReplicaCount: 24
+    cooldownPeriod: 60
+    pollingInterval: 15
+    redisQueueLengthTarget: 5
+
+pgbouncer:
+  enabled: true
+  writeHost: "pgbouncer-write.production.svc.cluster.local"
+  writePort: 6432
+  readHost: "pgbouncer-read.production.svc.cluster.local"
+  readPort: 6433
+  poolMode: "transaction"
+  maxClientConn: 10000
+  defaultPoolSize: 25
+
+redis:
+  clusterMode: true
+  host: "redis-cluster.production.svc.cluster.local"
+  port: 6379
+
+serviceMonitor:
+  enabled: true
+  interval: 15s
+  scrapeTimeout: 10s
+  path: /metrics
+

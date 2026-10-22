@@ -1,0 +1,138 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pgbouncer-config
+  namespace: watchbloom
+  labels:
+    app.kubernetes.io/name: watchbloom
+    app.kubernetes.io/component: pgbouncer
+data:
+  userlist.txt: |
+    "watchbloom_user" "SCRAM-SHA-256$4096:watchbloom_secure_salt$watchbloom_secure_key"
+  pgbouncer-write.ini: |
+    [databases]
+    watchbloom = host=watchbloom-pg-primary port=5432 dbname=watchbloom auth_user=watchbloom_user
+    [pgbouncer]
+    listen_addr = 0.0.0.0
+    listen_port = 6432
+    auth_type = plain
+    auth_file = /etc/pgbouncer/userlist.txt
+    pool_mode = transaction
+    max_client_conn = 5000
+    default_pool_size = 50
+    min_pool_size = 10
+    reserve_pool_size = 10
+    max_db_connections = 100
+  pgbouncer-read.ini: |
+    [databases]
+    watchbloom = host=watchbloom-pg-replica port=5432 dbname=watchbloom auth_user=watchbloom_user
+    [pgbouncer]
+    listen_addr = 0.0.0.0
+    listen_port = 6433
+    auth_type = plain
+    auth_file = /etc/pgbouncer/userlist.txt
+    pool_mode = transaction
+    max_client_conn = 10000
+    default_pool_size = 80
+    min_pool_size = 20
+    reserve_pool_size = 20
+    max_db_connections = 150
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: watchbloom-pgbouncer-write
+  namespace: watchbloom
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6432
+      targetPort: 6432
+      name: pg-write
+  selector:
+    app.kubernetes.io/name: watchbloom
+    app.kubernetes.io/component: pgbouncer-write
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: watchbloom-pgbouncer-read
+  namespace: watchbloom
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6433
+      targetPort: 6433
+      name: pg-read
+  selector:
+    app.kubernetes.io/name: watchbloom
+    app.kubernetes.io/component: pgbouncer-read
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watchbloom-pgbouncer-write
+  namespace: watchbloom
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: watchbloom
+      app.kubernetes.io/component: pgbouncer-write
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: watchbloom
+        app.kubernetes.io/component: pgbouncer-write
+    spec:
+      containers:
+        - name: pgbouncer
+          image: edoburu/pgbouncer:latest
+          command:
+            - /entrypoint.sh
+            - /usr/bin/pgbouncer
+            - /etc/pgbouncer/pgbouncer-write.ini
+          ports:
+            - containerPort: 6432
+          volumeMounts:
+            - name: config
+              mountPath: /etc/pgbouncer
+      volumes:
+        - name: config
+          configMap:
+            name: pgbouncer-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: watchbloom-pgbouncer-read
+  namespace: watchbloom
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: watchbloom
+      app.kubernetes.io/component: pgbouncer-read
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: watchbloom
+        app.kubernetes.io/component: pgbouncer-read
+    spec:
+      containers:
+        - name: pgbouncer
+          image: edoburu/pgbouncer:latest
+          command:
+            - /entrypoint.sh
+            - /usr/bin/pgbouncer
+            - /etc/pgbouncer/pgbouncer-read.ini
+          ports:
+            - containerPort: 6433
+          volumeMounts:
+            - name: config
+              mountPath: /etc/pgbouncer
+      volumes:
+        - name: config
+          configMap:
+            name: pgbouncer-config
+

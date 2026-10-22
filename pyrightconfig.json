@@ -1,0 +1,28 @@
+{
+  "include": [
+    "services",
+    "core",
+    "proto",
+    "scripts",
+    "app.py",
+    "search_engine.py",
+    "hls_packager.py",
+    "test_search.py",
+    "test_flask_login_auth.py",
+    "test_resilience.py",
+    "test_sse_live.py",
+    "test_data_tier.py"
+  ],
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    ".venv"
+  ],
+  "extraPaths": [
+    ".",
+    "proto"
+  ],
+  "typeCheckingMode": "basic",
+  "venvPath": ".",
+  "venv": ".venv"
+}

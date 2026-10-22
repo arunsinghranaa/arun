@@ -1,0 +1,107 @@
+{
+  "description": "Cloudflare Cache Rules for Watchbloom Video Streaming Platform",
+  "rules": [
+    {
+      "description": "Rule 1: HLS Video Chunks (.ts, .m4s) - Immutable Edge Cache",
+      "expression": "(http.request.uri.path.extension in {\"ts\" \"m4s\"})",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": true,
+        "edge_ttl": {
+          "mode": "override_origin",
+          "default": 31536000
+        },
+        "browser_ttl": {
+          "mode": "override_origin",
+          "default": 31536000
+        },
+        "serve_stale": {
+          "disable_stale_while_updating": false
+        },
+        "cache_key": {
+          "cache_by_device_type": false,
+          "ignore_query_strings_order": true
+        }
+      }
+    },
+    {
+      "description": "Rule 2: HLS VOD Master & Quality Playlists (.m3u8)",
+      "expression": "(http.request.uri.path.extension eq \"m3u8\" and not http.request.uri.path contains \"live\")",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": true,
+        "edge_ttl": {
+          "mode": "override_origin",
+          "default": 86400
+        },
+        "browser_ttl": {
+          "mode": "override_origin",
+          "default": 10
+        },
+        "serve_stale": {
+          "disable_stale_while_updating": false
+        }
+      }
+    },
+    {
+      "description": "Rule 3: HLS Live Streaming Playlists (Rolling manifest)",
+      "expression": "(http.request.uri.path.extension eq \"m3u8\" and http.request.uri.path contains \"live\")",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": true,
+        "edge_ttl": {
+          "mode": "override_origin",
+          "default": 2
+        },
+        "browser_ttl": {
+          "mode": "override_origin",
+          "default": 1
+        }
+      }
+    },
+    {
+      "description": "Rule 4: Static UI Assets (CSS, JS, Fonts, Images)",
+      "expression": "(http.request.uri.path.extension in {\"css\" \"js\" \"svg\" \"woff2\" \"woff\" \"png\" \"webp\" \"jpg\" \"jpeg\" \"ico\"})",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": true,
+        "edge_ttl": {
+          "mode": "override_origin",
+          "default": 2592000
+        },
+        "browser_ttl": {
+          "mode": "override_origin",
+          "default": 2592000
+        }
+      }
+    },
+    {
+      "description": "Rule 5: Public Search & Explore Catalog API",
+      "expression": "(http.request.uri.path starts_with \"/api/v1/search\" or http.request.uri.path starts_with \"/api/v1/videos/catalog\") and not http.request.headers[\"authorization\"][0] ne \"\"",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": true,
+        "edge_ttl": {
+          "mode": "override_origin",
+          "default": 300
+        },
+        "browser_ttl": {
+          "mode": "override_origin",
+          "default": 60
+        },
+        "serve_stale": {
+          "disable_stale_while_updating": false
+        }
+      }
+    },
+    {
+      "description": "Rule 6: Video Upload & Mutating API Routes - Bypass Cache",
+      "expression": "(http.request.method in {\"POST\" \"PUT\" \"DELETE\" \"PATCH\"} or http.request.uri.path contains \"/upload\" or http.request.uri.path contains \"/reactions\" or http.request.uri.path contains \"/auth\")",
+      "action": "set_cache_settings",
+      "action_parameters": {
+        "cache": false
+      }
+    }
+  ]
+}
+

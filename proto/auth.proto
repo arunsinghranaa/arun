@@ -1,0 +1,184 @@
+syntax = "proto3";
+
+package watchbloom.auth;
+
+service AuthService {
+  rpc Authenticate(LoginRequest) returns (AuthResponse);
+  rpc VerifyToken(VerifyRequest) returns (VerifyResponse);
+  rpc RegisterUser(RegisterRequest) returns (AuthResponse);
+  rpc RevokeToken(RevokeRequest) returns (RevokeResponse);
+  rpc GetUserProfile(ProfileRequest) returns (ProfileResponse);
+
+  // Settings, Reporting, and Mail feature suite
+  rpc GetUserSettings(UserSettingsRequest) returns (UserSettingsResponse);
+  rpc UpdateUserSettings(UpdateSettingsRequest) returns (UserSettingsResponse);
+  rpc SubmitAbuseReport(AbuseReportRequest) returns (AbuseReportResponse);
+  rpc SubmitSupportMail(SupportMailRequest) returns (SupportMailResponse);
+  rpc GetNotificationLogs(NotificationLogsRequest) returns (NotificationLogsResponse);
+  rpc MarkNotificationRead(MarkNotificationRequest) returns (MarkNotificationResponse);
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+  string role = 3;
+}
+
+message RegisterRequest {
+  string username = 1;
+  string password = 2;
+  string role = 3;
+}
+
+message VerifyRequest {
+  string token = 1;
+}
+
+message RevokeRequest {
+  string token = 1;
+}
+
+message ProfileRequest {
+  string token = 1;
+}
+
+message AuthResponse {
+  bool success = 1;
+  string token = 2;
+  string token_type = 3;
+  int64 expires_in = 4;
+  User user = 5;
+  string error = 6;
+}
+
+message VerifyResponse {
+  bool valid = 1;
+  User user = 2;
+  string error = 3;
+}
+
+message RevokeResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ProfileResponse {
+  bool authenticated = 1;
+  User user = 2;
+  string error = 3;
+}
+
+message User {
+  string id = 1;
+  string username = 2;
+  string role = 3;
+  repeated string permissions = 4;
+}
+
+// ── USER SETTINGS & PLAYBACK PREFERENCES ──
+message UserSettings {
+  string user_id = 1;
+  string profile_visibility = 2;
+  bool show_subscriptions = 3;
+  bool show_liked_videos = 4;
+  bool search_indexing = 5;
+  string default_quality = 6;
+  bool autoplay = 7;
+  bool ambient_mode = 8;
+  float default_playback_rate = 9;
+  bool captions_enabled = 10;
+  string captions_language = 11;
+  bool email_notifications = 12;
+  bool subscriber_alerts = 13;
+  bool recommendation_alerts = 14;
+  bool security_alerts = 15;
+  string updated_at = 16;
+}
+
+message UserSettingsRequest {
+  string user_id = 1;
+}
+
+message UpdateSettingsRequest {
+  string user_id = 1;
+  UserSettings settings = 2;
+}
+
+message UserSettingsResponse {
+  bool success = 1;
+  UserSettings settings = 2;
+  string error = 3;
+}
+
+// ── ASYNC ABUSE & COPYRIGHT REPORTING ──
+message AbuseReportRequest {
+  string reporter_id = 1;
+  string target_type = 2; // video, comment, channel, playlist
+  string target_id = 3;
+  string reason_code = 4; // spam, harassment, copyright, inappropriate, misinformation, other
+  string description = 5;
+  string target_metadata = 6;
+}
+
+message AbuseReportResponse {
+  bool success = 1;
+  string report_id = 2;
+  string status = 3;
+  bool is_async = 4;
+  string message = 5;
+  string error = 6;
+}
+
+// ── SECURE SUPPORT MAIL & CONTACT INQUIRIES ──
+message SupportMailRequest {
+  string user_id = 1;
+  string sender_email = 2;
+  string subject = 3;
+  string category = 4;
+  string message = 5;
+}
+
+message SupportMailResponse {
+  bool success = 1;
+  string mail_id = 2;
+  string status = 3;
+  bool is_async = 4;
+  string message = 5;
+  string error = 6;
+}
+
+// ── SYSTEM NOTIFICATIONS & LOGS ──
+message NotificationItem {
+  string id = 1;
+  string user_id = 2;
+  string title = 3;
+  string message = 4;
+  string type = 5;
+  bool is_read = 6;
+  string metadata_json = 7;
+  string created_at = 8;
+}
+
+message NotificationLogsRequest {
+  string user_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  bool unread_only = 4;
+}
+
+message NotificationLogsResponse {
+  bool success = 1;
+  repeated NotificationItem notifications = 2;
+  int32 total = 3;
+  int32 unread_count = 4;
+}
+
+message MarkNotificationRequest {
+  string user_id = 1;
+  string notification_id = 2;
+}
+
+message MarkNotificationResponse {
+  bool success = 1;
+  string message = 2;
+}

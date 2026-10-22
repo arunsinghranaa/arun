@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="reelcraft-grad" x1="15%" y1="15%" x2="85%" y2="85%">
+      <stop offset="0%" stop-color="#FF8A00" />
+      <stop offset="52%" stop-color="#FF0055" />
+      <stop offset="100%" stop-color="#9900FF" />
+    </linearGradient>
+    <linearGradient id="reelcraft-surface-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A00" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#9900FF" stop-opacity="0.06" />
+    </linearGradient>
+    <linearGradient id="reelcraft-border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF8A00" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#9900FF" stop-opacity="0.15" />
+    </linearGradient>
+    <linearGradient id="reelcraft-glass-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" stop-opacity="0.92" />
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.98" />
+    </linearGradient>
+    <radialGradient id="reelcraft-ambient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF0055" stop-opacity="0.55" />
+      <stop offset="100%" stop-color="#9900FF" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <!-- Squircle / App Icon Container -->
+  <path d="M 128 16 C 188 16, 214 16, 227 29 C 240 42, 240 68, 240 128 C 240 188, 240 214, 227 227 C 214 240, 188 240, 128 240 C 68 240, 42 240, 29 227 C 16 214, 16 188, 16 128 C 16 68, 16 42, 29 29 C 42 16, 68 16, 128 16 Z" fill="#0D0B14" stroke="url(#reelcraft-border-grad)" stroke-width="2.5" />
+  <circle cx="128" cy="128" r="88" fill="url(#reelcraft-ambient)" opacity="0.35" />
+  <g transform="translate(128, 128)">
+          <!-- Ambient motion trails -->
+          <path d="M -68 -48 C -36 -74, 36 -74, 68 -48" fill="none" stroke="url(#reelcraft-grad)" stroke-width="2.475" stroke-linecap="round" stroke-dasharray="10 12" opacity="0.45" />
+                 <path d="M -56 76 C -20 92, 20 92, 56 76" fill="none" stroke="url(#reelcraft-grad)" stroke-width="2.475" stroke-linecap="round" opacity="0.35" />
+          <!-- Hinged Top Clapper Ribbon -->
+          <g transform="rotate(-8, -54, -34)">
+            <rect x="-64" y="-58" width="128" height="26" rx="13" fill="url(#reelcraft-grad)" />
+            <path d="M -34 -58 L -18 -32 M 6 -58 L 22 -32 M 42 -58 L 54 -38" stroke="#090D16" stroke-width="4.5" stroke-linecap="butt" opacity="0.8" />
+          </g>
+          <!-- Flowing Ribbon Body -->
+          <rect x="-64" y="-22" width="128" height="88" rx="26" fill="url(#reelcraft-surface-grad)" stroke="url(#reelcraft-grad)" stroke-width="4.5" />
+          <!-- Folded Ribbon Play Glyph Optically Centered -->
+          <g transform="translate(2, 18) scale(1)">
+            <path d="M -18 -18 C -18 -25, -9 -29, -2 -25 L 26 -7 C 33 -3, 33 5, 26 9 L -2 27 C -9 31, -18 27, -18 20 Z" fill="url(#reelcraft-grad)" />
+            <path d="M -18 2 L 10 19 L -2 27 C -9 31, -18 27, -18 20 Z" fill="rgba(0,0,0,0.22)" />
+          </g>
+        </g>
+</svg>

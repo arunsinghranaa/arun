@@ -1,0 +1,12 @@
+{
+  "files.associations": {
+    "*.js": "javascript",
+    "watchbloom.js": "javascript",
+    "*.json": "json"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.useEnvFile": true,
+  "python.envFile": "${workspaceFolder}/.env",
+  "python.analysis.diagnosticMode": "workspace"
+}

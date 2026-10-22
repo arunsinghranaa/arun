@@ -1,0 +1,30 @@
+# ==============================================================================
+# Dockerfile for Watchbloom Celery Beat Scheduler
+# Triggers periodic counter buffer flushes and background maintenance jobs
+# ==============================================================================
+
+FROM python:3.11-slim
+
+RUN groupadd -g 10001 watchbloom && \
+    useradd -u 10001 -g watchbloom -s /bin/bash -m watchbloom
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get purge -y gcc libpq-dev && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+COPY --chown=watchbloom:watchbloom . /app
+USER watchbloom
+
+CMD ["celery", "-A", "core.tasks.celery_app", "beat", "--loglevel=info", "-s", "/tmp/celerybeat-schedule"]
+

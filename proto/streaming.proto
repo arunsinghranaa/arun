@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package watchbloom.streaming;
+
+service StreamingService {
+  rpc GetSignedMediaUrl(SignedUrlRequest) returns (SignedUrlResponse);
+  rpc ResolveOptimalCdn(CdnRouteRequest) returns (CdnRouteResponse);
+  rpc GetMasterPlaylist(PlaylistRequest) returns (PlaylistResponse);
+}
+
+message SignedUrlRequest {
+  string path = 1;
+  int64 expires_in = 2;
+  string visitor_id = 3;
+}
+
+message SignedUrlResponse {
+  string signed_url = 1;
+  int64 expires_at = 2;
+  string signature = 3;
+}
+
+message CdnRouteRequest {
+  string media_key = 1;
+  string client_country = 2;
+  string preferred_provider = 3;
+}
+
+message CdnRouteResponse {
+  string optimal_url = 1;
+  string selected_cdn = 2;
+  repeated string fallback_cdns = 3;
+}
+
+message PlaylistRequest {
+  string item_id = 1;
+  bool enable_av1 = 2;
+}
+
+message PlaylistResponse {
+  string item_id = 1;
+  string playlist_content = 2;
+  bool has_av1 = 3;
+  bool has_h264 = 4;
+}
+

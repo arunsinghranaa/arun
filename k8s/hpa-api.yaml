@@ -1,0 +1,67 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: watchbloom-api-hpa
+  namespace: watchbloom
+  labels:
+    app.kubernetes.io/name: watchbloom
+    app.kubernetes.io/component: api-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: watchbloom-api
+  minReplicas: 4
+  maxReplicas: 40
+  metrics:
+    # ── 1. CPU UTILIZATION METRIC ──
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+
+    # ── 2. MEMORY UTILIZATION METRIC ──
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+    # ── 3. PROMETHEUS CUSTOM METRIC (HTTP REQUEST RATE) ──
+    # Managed by Prometheus Adapter (k8s-prometheus-adapter)
+    - type: Pods
+      pods:
+        metric:
+          name: http_requests_per_second
+        target:
+          type: AverageValue
+          averageValue: "250"
+
+  behavior:
+    # ── SCALE UP (FAST BURST SURGE FOR VIRAL TRAFFIC) ──
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      selectPolicy: Max
+      policies:
+        - type: Percent
+          value: 100
+          periodSeconds: 15
+        - type: Pods
+          value: 4
+          periodSeconds: 15
+
+    # ── SCALE DOWN (CONSERVATIVE COOLDOWN TO PREVENT THRASHING) ──
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      selectPolicy: Min
+      policies:
+        - type: Percent
+          value: 10
+          periodSeconds: 60
+        - type: Pods
+          value: 2
+          periodSeconds: 60
+

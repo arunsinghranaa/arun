@@ -1,0 +1,49 @@
+# ==============================================================================
+# Dockerfile for Watchbloom Distributed Celery Transcoding Worker
+# Equipped with FFmpeg for multi-variant HLS encoding and live segmentation
+# ==============================================================================
+
+FROM python:3.11-slim
+
+# Create dedicated non-root user
+RUN groupadd -g 10001 watchbloom && \
+    useradd -u 10001 -g watchbloom -s /bin/bash -m watchbloom
+
+WORKDIR /app
+
+# Install FFmpeg, libpq runtime, curl, and process management utilities
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg \
+    libpq5 \
+    curl \
+    gcc \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Remove build tools after pip compilation to reduce image surface
+RUN apt-get purge -y gcc libpq-dev && apt-get autoremove -y && rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Copy application source code
+COPY --chown=watchbloom:watchbloom . /app
+
+# Prepare writable temporary and output directories
+RUN mkdir -p /tmp/watchbloom_transcode /app/static/videos/hls && \
+    chown -R watchbloom:watchbloom /app /tmp/watchbloom_transcode
+
+COPY --chown=watchbloom:watchbloom scripts/entrypoint-worker.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+USER watchbloom
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
+    CMD celery -A core.tasks.celery_app inspect ping -d "celery@${HOSTNAME}" || exit 1
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["celery", "-A", "core.tasks.celery_app", "worker", "--loglevel=info", "--concurrency=4"]
+

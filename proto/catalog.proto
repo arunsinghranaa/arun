@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+package watchbloom.catalog;
+
+service CatalogService {
+  rpc SearchVideos(SearchRequest) returns (SearchResponse);
+  rpc GetVideo(GetVideoRequest) returns (VideoResponse);
+  rpc BrowseCatalog(BrowseRequest) returns (BrowseResponse);
+  rpc GetCategories(EmptyRequest) returns (CategoriesResponse);
+  rpc GetChannels(ChannelsRequest) returns (ChannelsResponse);
+}
+
+message EmptyRequest {}
+
+message SearchRequest {
+  string query = 1;
+  string type = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+  string sort = 5;
+  string duration = 6;
+  string uploaded = 7;
+  string category = 8;
+  string format = 9;
+}
+
+message BrowseRequest {
+  string type = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+  string sort = 4;
+  string duration = 5;
+  string uploaded = 6;
+  string category = 7;
+  string format = 8;
+}
+
+message GetVideoRequest {
+  string item_id = 1;
+}
+
+message ChannelsRequest {
+  string query = 1;
+  string sort = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+}
+
+message VideoItem {
+  string id = 1;
+  string title = 2;
+  string author = 3;
+  string description = 4;
+  string category = 5;
+  string category_label = 6;
+  string type = 7;
+  string format = 8;
+  int64 views = 9;
+  int32 mins = 10;
+  int32 duration = 11;
+  string date = 12;
+  string art = 13;
+  string media_url = 14;
+  string hls_url = 15;
+  string cdn_stream_url = 16;
+}
+
+message SearchResponse {
+  string query = 1;
+  string corrected_query = 2;
+  bool partial = 3;
+  int32 total = 4;
+  repeated VideoItem results = 5;
+  int32 limit = 6;
+  int32 offset = 7;
+  int32 page = 8;
+  int32 total_pages = 9;
+  bool has_next = 10;
+  bool has_prev = 11;
+}
+
+message BrowseResponse {
+  int32 total = 1;
+  repeated VideoItem results = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+  int32 page = 5;
+  int32 total_pages = 6;
+  bool has_next = 7;
+  bool has_prev = 8;
+}
+
+message VideoResponse {
+  bool found = 1;
+  VideoItem item = 2;
+  string error = 3;
+}
+
+message CategoryItem {
+  string id = 1;
+  string name = 2;
+}
+
+message CategoriesResponse {
+  repeated CategoryItem results = 1;
+}
+
+message ChannelItem {
+  string id = 1;
+  string name = 2;
+  int32 video_count = 3;
+  int32 playlist_count = 4;
+  int32 item_count = 5;
+  int64 views = 6;
+  repeated string categories = 7;
+  string url = 8;
+}
+
+message ChannelsResponse {
+  repeated ChannelItem results = 1;
+  int32 total = 2;
+  int32 limit = 3;
+  int32 offset = 4;
+}
+

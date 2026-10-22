@@ -1,0 +1,40 @@
+# ==============================================================================
+# Development Override for Watchbloom Multi-Container Setup
+# Mounts local source tree live for instant hot-reloading:
+# Run: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+# ==============================================================================
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    command: python app.py
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.worker
+    command: celery -A core.tasks.celery_app worker --loglevel=debug --concurrency=2
+    volumes:
+      - .:/app
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.beat
+    volumes:
+      - .:/app
+
+  nginx:
+    volumes:
+      - ./static:/var/www/watchbloom/static:ro
+      - ./docker/nginx/watchbloom.conf:/etc/nginx/conf.d/watchbloom.conf:ro
+
